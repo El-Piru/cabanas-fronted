@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/api'
+const BASE_URL = 'https://sabanas-proyecto-production.up.railway.app/api'
 
 const getToken = () => localStorage.getItem('token')
 
