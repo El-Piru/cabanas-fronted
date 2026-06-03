@@ -59,7 +59,7 @@ export default function Home() {
             <a href="https://wa.me/56978996989" target="_blank" style={{background:'#25D366',color:'#fff',padding:'10px 20px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
               💬 WhatsApp
             </a>
-            <a href="mailto:juanpedro4385@gmail.com" style={{background:'rgba(255,255,255,0.15)',color:'#fff',padding:'10px 20px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
+            <a href="mailto:juinzhy@gmail.com" style={{background:'rgba(255,255,255,0.15)',color:'#fff',padding:'10px 20px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
               ✉️ Email
             </a>
           </div>
