@@ -21,8 +21,14 @@ export default function Navbar() {
   return (
     <nav style={{background:'#1A2E1B',padding:'0 1.5rem',position:'relative'}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px'}}>
-        <Link to="/" style={{color:'#FAF7F2',fontWeight:'bold',fontSize:'1rem',textDecoration:'none',fontFamily:'Georgia,serif',flexShrink:0}}>
-          Cabañas La Higuera
+        <Link to="/" style={{display:'flex',alignItems:'center',gap:'10px',color:'#FAF7F2',fontWeight:'bold',fontSize:'1.05rem',textDecoration:'none',fontFamily:'Georgia,serif',flexShrink:0}}>
+          <img
+            src="/logo.jpg"
+            alt="Logo Cabañas La Higuera"
+            style={{height:'36px', width:'36px', borderRadius:'50%', objectFit:'cover', border:'1.5px solid rgba(250,247,242,0.6)'}}
+            onError={(e) => e.target.style.display = 'none'} // Fallback si no está el archivo físico todavía
+          />
+          <span>Cabañas La Higuera</span>
         </Link>
 
         {/* Botón hamburguesa para móvil */}
