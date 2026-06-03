@@ -12,29 +12,54 @@ export default function Reservar() {
   const [error, setError] = useState('')
   const [exito, setExito] = useState(false)
   const [cargando, setCargando] = useState(false)
+  const [fechasOcupadas, setFechasOcupadas] = useState([])
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (!token) { navigate('/login'); return }
+    
     api.getCabana(parseInt(id)).then(res => {
       if (res.ok) setCabana(res.data)
     })
+
+    api.getFechasOcupadas(parseInt(id)).then(res => {
+      if (res.ok) setFechasOcupadas(res.data)
+    })
   }, [id])
+
+  const verificarSolapamiento = (llegada, salida) => {
+    if (!llegada || !salida) return false
+    const d1 = new Date(llegada)
+    const d2 = new Date(salida)
+
+    return fechasOcupadas.some(reserva => {
+      const inicio = new Date(reserva.llegada)
+      const fin = new Date(reserva.salida)
+      return d1 < fin && d2 > inicio
+    })
+  }
 
   useEffect(() => {
     if (form.llegada && form.salida) {
       const d1 = new Date(form.llegada)
       const d2 = new Date(form.salida)
       const n = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24))
-      if (n > 0 && cabana) {
-        setNoches(n)
-        setTotal(n * cabana.precio)
-      } else {
+      
+      if (n <= 0) {
         setNoches(0)
         setTotal(0)
+        setError('La fecha de salida debe ser posterior a la de llegada')
+      } else if (verificarSolapamiento(form.llegada, form.salida)) {
+        setNoches(0)
+        setTotal(0)
+        setError('La cabaña ya está reservada en esas fechas. Por favor elige otra.')
+      } else {
+        setNoches(n)
+        setTotal(n * cabana.precio)
+        setError('')
       }
     }
-  }, [form, cabana])
+  }, [form, cabana, fechasOcupadas])
 
   const formatFecha = (fecha) => {
     if (!fecha) return ''
@@ -45,6 +70,10 @@ export default function Reservar() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (verificarSolapamiento(form.llegada, form.salida)) {
+      setError('La cabaña ya está reservada en esas fechas.')
+      return
+    }
     setCargando(true)
     setError('')
     const res = await api.crearReserva({

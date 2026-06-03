@@ -36,5 +36,8 @@ export const api = {
 
   misReservas: () => fetch(`${BASE_URL}/reservas/mis-reservas`, {
     headers: { 'Authorization': `Bearer ${getToken()}` }
-  }).then(r => r.json())
+  }).then(r => r.json()),
+
+  getFechasOcupadas: (cabanaId) => fetch(`${BASE_URL}/reservas/cabana/${cabanaId}/ocupadas`)
+    .then(r => r.json())
 }
