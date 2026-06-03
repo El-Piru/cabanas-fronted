@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '../api'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 export default function Reservar() {
   const { id } = useParams()
@@ -61,6 +63,22 @@ export default function Reservar() {
     }
   }, [form, cabana, fechasOcupadas])
 
+  const obtenerFechasExcluidas = () => {
+    const excluidas = []
+    fechasOcupadas.forEach(reserva => {
+      let actual = new Date(reserva.llegada)
+      const fin = new Date(reserva.salida)
+      actual.setHours(12, 0, 0, 0)
+      fin.setHours(12, 0, 0, 0)
+      
+      while (actual < fin) {
+        excluidas.push(new Date(actual))
+        actual.setDate(actual.getDate() + 1)
+      }
+    })
+    return excluidas
+  }
+
   const formatFecha = (fecha) => {
     if (!fecha) return ''
     return new Date(fecha + 'T12:00:00').toLocaleDateString('es-CL', {
@@ -97,36 +115,16 @@ export default function Reservar() {
       <h2 style={{color:'#1A2E1B',marginBottom:'0.5rem'}}>¡Reserva confirmada!</h2>
       <p style={{color:'#7A8E7B',marginBottom:'0.5rem'}}>Te enviaremos un correo con todos los detalles.</p>
       <p style={{color:'#7A8E7B',marginBottom:'2rem',fontSize:'0.9rem'}}>Para consultas: 📞 9 8669 8970</p>
-      
-      {/* Tarjeta de Éxito - Diseño Mejorado */}
-      <div style={{
-        background:'#fff',
-        borderRadius:'12px',
-        padding:'1.5rem',
-        marginBottom:'2rem',
-        textAlign:'left',
-        border:'1px solid #E8E4DC',
-        borderLeft:'4px solid #2C4A2E',
-        boxShadow:'0 4px 12px rgba(0,0,0,0.03)'
-      }}>
-        <p style={{margin:'0 0 10px',color:'#2C4A2E',fontSize:'1.05rem'}}><strong>Detalles de tu estadía:</strong></p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🌙 Noches:</strong> {noches}</p>
-        <div style={{
-          display:'flex',
-          justifyContent:'space-between',
-          fontWeight:'600',
-          borderTop:'1px solid #ECE8E0',
-          paddingTop:'10px',
-          marginTop:'12px'
-        }}>
+      <div style={{background:'#fff',borderRadius:'12px',padding:'1.5rem',marginBottom:'2rem',textAlign:'left',border:'1px solid #E8E4DC',borderLeft:'4px solid #2C4A2E',boxShadow:'0 4px 12px rgba(0,0,0,0.03)'}}>
+        <p style={{margin:'0 0 8px'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
+        <p style={{margin:'0 0 8px'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
+        <p style={{margin:'0 0 8px'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
+        <p style={{margin:'0 0 8px'}}><strong>🌙 Noches:</strong> {noches}</p>
+        <div style={{display:'flex',justifyContent:'space-between',fontWeight:'600',borderTop:'1px solid #ECE8E0',paddingTop:'10px',marginTop:'12px'}}>
           <span style={{color:'#1A2E1B'}}>Total</span>
           <span style={{color:'#2C4A2E',fontSize:'1.15rem'}}>${total.toLocaleString('es-CL')}</span>
         </div>
       </div>
-
       <button onClick={() => navigate('/mis-reservas')} style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'12px 24px',borderRadius:'8px',cursor:'pointer',fontSize:'1rem'}}>
         Ver mis reservas
       </button>
@@ -143,24 +141,42 @@ export default function Reservar() {
       <div style={{background:'#fff',borderRadius:'16px',padding:'2rem',boxShadow:'0 4px 20px rgba(0,0,0,0.08)'}}>
         <div style={{marginBottom:'1rem'}}>
           <label style={{display:'block',marginBottom:'6px',fontWeight:'500'}}>Fecha de llegada</label>
-          <input type="date" value={form.llegada} onChange={e => setForm({...form,llegada:e.target.value})} required min={new Date().toISOString().split('T')[0]} style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box'}} />
+          <DatePicker
+            selected={form.llegada ? new Date(form.llegada + 'T12:00:00') : null}
+            onChange={date => setForm({...form, llegada: date ? date.toISOString().split('T')[0] : '', salida: ''})}
+            selectsStart
+            startDate={form.llegada ? new Date(form.llegada + 'T12:00:00') : null}
+            endDate={form.salida ? new Date(form.salida + 'T12:00:00') : null}
+            minDate={new Date()}
+            excludeDates={obtenerFechasExcluidas()}
+            placeholderText="Selecciona fecha de llegada"
+            dateFormat="dd/MM/yyyy"
+            className="mi-datepicker"
+            required
+          />
           {form.llegada && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Entrada desde las 10:00 am</p>}
         </div>
         <div style={{marginBottom:'1.5rem'}}>
           <label style={{display:'block',marginBottom:'6px',fontWeight:'500'}}>Fecha de salida</label>
-          <input type="date" value={form.salida} onChange={e => setForm({...form,salida:e.target.value})} required min={form.llegada} style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box'}} />
+          <DatePicker
+            selected={form.salida ? new Date(form.salida + 'T12:00:00') : null}
+            onChange={date => setForm({...form, salida: date ? date.toISOString().split('T')[0] : ''})}
+            selectsEnd
+            startDate={form.llegada ? new Date(form.llegada + 'T12:00:00') : null}
+            endDate={form.salida ? new Date(form.salida + 'T12:00:00') : null}
+            minDate={form.llegada ? new Date(form.llegada + 'T12:00:00') : new Date()}
+            excludeDates={obtenerFechasExcluidas()}
+            placeholderText="Selecciona fecha de salida"
+            dateFormat="dd/MM/yyyy"
+            className="mi-datepicker"
+            required
+            disabled={!form.llegada}
+          />
           {form.salida && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Salida hasta las 7:00 pm</p>}
         </div>
 
-        {/* Resumen previo - Diseño Mejorado */}
         {noches > 0 && (
-          <div style={{
-            background:'#FAF7F2',
-            borderRadius:'10px',
-            padding:'1.25rem',
-            marginBottom:'1.5rem',
-            border:'1px solid #E8E4DC'
-          }}>
+          <div style={{background:'#FAF7F2',borderRadius:'10px',padding:'1.25rem',marginBottom:'1.5rem',border:'1px solid #E8E4DC'}}>
             <h4 style={{margin:'0 0 10px',color:'#1A2E1B',fontFamily:'Georgia,serif'}}>Resumen de tu reserva</h4>
             <p style={{margin:'0 0 6px',fontSize:'0.9rem',color:'#4A5E4C'}}>🏕️ {cabana.nombre}</p>
             <p style={{margin:'0 0 6px',fontSize:'0.9rem',color:'#4A5E4C'}}>📅 {formatFecha(form.llegada)} → {formatFecha(form.salida)}</p>
@@ -169,14 +185,7 @@ export default function Reservar() {
               <span>{noches} noches × ${cabana.precio.toLocaleString('es-CL')}</span>
               <span>${total.toLocaleString('es-CL')}</span>
             </div>
-            <div style={{
-              display:'flex',
-              justifyContent:'space-between',
-              fontWeight:'600',
-              borderTop:'1px solid #E8E4DC',
-              paddingTop:'8px',
-              marginTop:'8px'
-            }}>
+            <div style={{display:'flex',justifyContent:'space-between',fontWeight:'600',borderTop:'1px solid #E8E4DC',paddingTop:'8px',marginTop:'8px'}}>
               <span>Total</span>
               <span style={{color:'#2C4A2E'}}>${total.toLocaleString('es-CL')}</span>
             </div>
@@ -187,6 +196,22 @@ export default function Reservar() {
           {cargando ? 'Confirmando...' : 'Confirmar reserva'}
         </button>
       </div>
+      <style>{`
+        .react-datepicker-wrapper {
+          display: block !important;
+          width: 100% !important;
+        }
+        .mi-datepicker {
+          width: 100% !important;
+          padding: 10px !important;
+          border: 1.5px solid #E8E4DC !important;
+          border-radius: 8px !important;
+          box-sizing: border-box !important;
+          font-size: 1rem !important;
+          background: #fff !important;
+          outline: none !important;
+        }
+      `}</style>
     </div>
   )
 }
