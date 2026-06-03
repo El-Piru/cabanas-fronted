@@ -98,21 +98,27 @@ export default function Reservar() {
     }
     setCargando(true)
     setError('')
-    const res = await api.crearReserva({
-      cabanaId: parseInt(id),
-      llegada: form.llegada,
-      salida: form.salida
-    })
-    if (res.ok) {
-      if (res.initPoint) {
-        window.location.href = res.initPoint
+    try {
+      const res = await api.crearReserva({
+        cabanaId: parseInt(id),
+        llegada: form.llegada,
+        salida: form.salida
+      })
+      if (res.ok) {
+        if (res.initPoint) {
+          window.location.href = res.initPoint
+        } else {
+          setError(res.mensaje || 'Se creó la reserva pero no se pudo generar el enlace de pago.')
+        }
       } else {
-        setError(res.mensaje || 'Se creó la reserva pero no se pudo generar el enlace de pago.')
+        setError(res.mensaje)
       }
-    } else {
-      setError(res.mensaje)
+    } catch (err) {
+      console.error('Error al crear reserva:', err)
+      setError('Error de comunicación con el servidor. Por favor, intenta más tarde.')
+    } finally {
+      setCargando(false)
     }
-    setCargando(false)
   }
 
   if (!cabana) return <div style={{textAlign:'center',padding:'3rem'}}>Cargando...</div>
