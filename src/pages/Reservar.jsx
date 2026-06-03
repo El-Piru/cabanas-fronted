@@ -29,7 +29,6 @@ export default function Reservar() {
     })
   }, [id])
 
-  // Validaciones con zona horaria local consistente (mediodía)
   const verificarSolapamiento = (llegada, salida) => {
     if (!llegada || !salida) return false
     const d1 = new Date(llegada + 'T12:00:00')
@@ -64,7 +63,6 @@ export default function Reservar() {
     }
   }, [form, cabana, fechasOcupadas])
 
-  // Obtiene un listado de objetos Date a mediodía local para bloquear en el calendario
   const obtenerFechasExcluidas = () => {
     const excluidas = []
     fechasOcupadas.forEach(reserva => {
@@ -213,6 +211,7 @@ export default function Reservar() {
           box-sizing: border-box !important;
           font-size: 1rem !important;
           background: #fff !important;
+          color: #1A2E1B !important;
           outline: none !important;
         }
       `}</style>
