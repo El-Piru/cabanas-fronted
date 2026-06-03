@@ -4,7 +4,7 @@ import { api } from '../api'
 
 export default function Registro() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ nombre: '', email: '', password: '' })
+  const [form, setForm] = useState({ nombre: '', email: '', password: '', telefono: '' })
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
 
@@ -61,6 +61,18 @@ export default function Registro() {
               onChange={e => setForm({...form, email: e.target.value})}
               placeholder="tu@correo.cl"
               required
+              style={{width:'100%',border:'1.5px solid #E8E4DC',borderRadius:'8px',padding:'10px 12px',fontSize:'0.9rem',outline:'none',boxSizing:'border-box'}}
+            />
+          </div>
+          <div style={{marginBottom:'1rem'}}>
+            <label style={{display:'block',fontSize:'0.8rem',fontWeight:'500',color:'#4A5E4C',marginBottom:'6px',textTransform:'uppercase',letterSpacing:'.04em'}}>
+              Teléfono de contacto
+            </label>
+            <input
+              type="tel"
+              value={form.telefono}
+              onChange={e => setForm({...form, telefono: e.target.value})}
+              placeholder="Ej: +56986698970"
               style={{width:'100%',border:'1.5px solid #E8E4DC',borderRadius:'8px',padding:'10px 12px',fontSize:'0.9rem',outline:'none',boxSizing:'border-box'}}
             />
           </div>
