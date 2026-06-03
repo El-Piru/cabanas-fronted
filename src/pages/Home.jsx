@@ -15,7 +15,6 @@ export default function Home() {
 
   return (
     <div>
-      {/* HERO */}
       <div style={{background:'linear-gradient(135deg, #1A2E1B 0%, #2C4A2E 60%, #1A6B8A 100%)',padding:'5rem 2rem',textAlign:'center',color:'#fff'}}>
         <h1 style={{fontFamily:'Georgia,serif',fontSize:'3rem',marginBottom:'1rem',letterSpacing:'-0.5px'}}>
           Cabañas La Higuera Rapel
@@ -31,7 +30,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* CABANAS */}
       <div style={{maxWidth:'1100px',margin:'0 auto',padding:'3rem 2rem'}}>
         <div style={{textAlign:'center',marginBottom:'2.5rem'}}>
           <h2 style={{fontFamily:'Georgia,serif',fontSize:'2rem',color:'#1A2E1B',marginBottom:'0.5rem'}}>
@@ -43,13 +41,9 @@ export default function Home() {
         </div>
 
         {cargando ? (
-          <div style={{textAlign:'center',padding:'3rem',color:'#7A8E7B'}}>
-            Cargando cabañas...
-          </div>
+          <div style={{textAlign:'center',padding:'3rem',color:'#7A8E7B'}}>Cargando cabañas...</div>
         ) : cabanas.length === 0 ? (
-          <div style={{textAlign:'center',padding:'3rem',color:'#7A8E7B'}}>
-            No hay cabañas disponibles por el momento.
-          </div>
+          <div style={{textAlign:'center',padding:'3rem',color:'#7A8E7B'}}>No hay cabañas disponibles.</div>
         ) : (
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(300px,1fr))',gap:'1.5rem'}}>
             {cabanas.map(cabana => (
@@ -58,15 +52,14 @@ export default function Home() {
           </div>
         )}
 
-        {/* CONTACTO */}
         <div style={{marginTop:'4rem',background:'#2C4A2E',borderRadius:'16px',padding:'2.5rem',textAlign:'center',color:'#fff'}}>
           <h3 style={{fontFamily:'Georgia,serif',fontSize:'1.5rem',marginBottom:'1rem'}}>¿Tienes dudas?</h3>
           <p style={{opacity:.85,marginBottom:'1.5rem'}}>Contáctanos directamente y te ayudamos a elegir la cabaña perfecta</p>
           <div style={{display:'flex',justifyContent:'center',gap:'2rem',flexWrap:'wrap'}}>
-            <a href="https://wa.me/56986698970" target="_blank" style={{background:'#25D366',color:'#fff',padding:'10px 24px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
+            <a href="https://wa.me/569" target="_blank" style={{background:'#25D366',color:'#fff',padding:'10px 24px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
               💬 WhatsApp
             </a>
-            <a href="mailto:Bana_ju@hotmail.com" style={{background:'rgba(255,255,255,0.15)',color:'#fff',padding:'10px 24px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
+            <a href="mailto:juinzhy@gmail.com" style={{background:'rgba(255,255,255,0.15)',color:'#fff',padding:'10px 24px',borderRadius:'8px',textDecoration:'none',fontWeight:'500'}}>
               ✉️ Email
             </a>
           </div>
