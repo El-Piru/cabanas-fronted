@@ -20,7 +20,11 @@ export default function Navbar() {
         <Link to="/" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none'}}>Cabanas</Link>
         {token ? (
           <>
-            <Link to="/mis-reservas" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none'}}>Mis Reservas</Link>
+            {usuario?.rol === 'admin' ? (
+              <Link to="/admin" style={{color:'#F5C842',textDecoration:'none',fontWeight:'500'}}>Panel Admin</Link>
+            ) : (
+              <Link to="/mis-reservas" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none'}}>Mis Reservas</Link>
+            )}
             <span style={{color:'rgba(250,247,242,0.6)',fontSize:'0.85rem'}}>Hola, {usuario?.nombre}</span>
             <button onClick={cerrarSesion} style={{background:'#C8860A',color:'#fff',border:'none',padding:'6px 16px',borderRadius:'6px',cursor:'pointer'}}>
               Salir

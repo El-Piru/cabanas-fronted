@@ -1,4 +1,3 @@
-cat > ~/cabanas-frontend/src/pages/Admin.jsx << 'ENDOFFILE'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -181,4 +180,3 @@ export default function Admin() {
     </div>
   )
 }
-ENDOFFILE
