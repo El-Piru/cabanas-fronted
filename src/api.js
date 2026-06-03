@@ -56,6 +56,15 @@ export const api = {
     credentials: 'include'
   }).then(r => r.json()),
 
+  cancelarReserva: (id) => fetch(`${BASE_URL}/reservas/${id}/cancelar`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`
+    },
+    credentials: 'include'
+  }).then(r => r.json()),
+
   getFechasOcupadas: (cabanaId) => fetch(`${BASE_URL}/reservas/cabana/${cabanaId}/ocupadas`)
     .then(r => r.json())
 }

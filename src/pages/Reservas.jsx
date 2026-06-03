@@ -34,6 +34,22 @@ export default function Reservas() {
     }
   }
 
+  const handleCancelar = async (id) => {
+    if (!confirm('¿Seguro que deseas cancelar esta reserva?')) return
+    try {
+      const res = await api.cancelarReserva(id)
+      if (res.ok) {
+        alert('Reserva cancelada con éxito')
+        setReservas(prev => prev.map(r => r.id === id ? { ...r, estado: 'cancelada' } : r))
+      } else {
+        alert(res.mensaje || 'Error al cancelar la reserva')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error de conexión al intentar cancelar')
+    }
+  }
+
   const getInsigniaEstado = (estado) => {
     let background = '#FEF3C7', color = '#92400E' // Pendiente (Amarillo)
     if (estado === 'confirmada') {
@@ -82,20 +98,31 @@ export default function Reservas() {
               <div style={{borderTop:'1px solid #F0EBE2',paddingTop:'.75rem',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <div>
                   <span style={{fontSize:'0.85rem',color:'#4A5E4C'}}>
-                    {r.estado === 'confirmada' ? 'Total pagado' : 'Total a pagar'}
+                    {r.estado === 'confirmada' ? 'Total pagado' : r.estado === 'cancelada' ? 'Total tarifa' : 'Total a pagar'}
                   </span>
                   <span style={{fontWeight:'600',color:'#2C4A2E',marginLeft:'8px'}}>${r.total.toLocaleString('es-CL')}</span>
                 </div>
                 
-                {r.estado === 'pendiente' && (
-                  <button
-                    onClick={() => handlePagar(r.id)}
-                    disabled={procesandoPago === r.id}
-                    style={{background:'#C8860A',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem',fontWeight:'500'}}
-                  >
-                    {procesandoPago === r.id ? 'Cargando pago...' : 'Pagar ahora 💳'}
-                  </button>
-                )}
+                <div style={{display:'flex', gap:'8px'}}>
+                  {r.estado === 'pendiente' && (
+                    <button
+                      onClick={() => handlePagar(r.id)}
+                      disabled={procesandoPago === r.id}
+                      style={{background:'#C8860A',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem',fontWeight:'500'}}
+                    >
+                      {procesandoPago === r.id ? 'Cargando pago...' : 'Pagar ahora 💳'}
+                    </button>
+                  )}
+                  
+                  {r.estado !== 'cancelada' && (
+                    <button
+                      onClick={() => handleCancelar(r.id)}
+                      style={{background:'#FEE2E2',color:'#991B1B',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem',fontWeight:'500'}}
+                    >
+                      Cancelar
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
