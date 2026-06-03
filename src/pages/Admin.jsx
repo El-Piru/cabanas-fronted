@@ -39,12 +39,12 @@ export default function Admin() {
 
   const crearCabana = async () => {
     const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers, body: JSON.stringify(nuevaCabana) }).then(r => r.json())
-    if (res.ok) { setMsg('Cabana creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '' }) }
+    if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '' }) }
     else setMsg(res.mensaje)
   }
 
   const eliminarCabana = async (id) => {
-    if (!confirm('Eliminar esta cabana?')) return
+    if (!confirm('¿Eliminar esta cabaña?')) return
     await fetch(`${BASE_URL}/admin/cabanas/${id}`, { method: 'DELETE', headers })
     cargarDatos()
   }
@@ -52,7 +52,6 @@ export default function Admin() {
   // Stats calculadas
   const reservasConfirmadas = reservas.filter(r => r.estado === 'confirmada')
   const ingresoTotal = reservasConfirmadas.reduce((acc, r) => acc + (r.total || 0), 0)
-  const reservasPendientes = reservas.filter(r => r.estado === 'pendiente').length
   const reservasHoy = reservas.filter(r => {
     const hoy = new Date().toDateString()
     return new Date(r.createdAt).toDateString() === hoy
@@ -69,7 +68,7 @@ export default function Admin() {
   return (
     <div style={s.page}>
       <h1 style={{ fontFamily: 'Georgia,serif', color: '#1A2E1B', marginBottom: '0.5rem' }}>Panel de Administrador</h1>
-      <p style={{ color: '#7A8E7B', marginBottom: '2rem' }}>Gestiona reservas, cabanas y usuarios</p>
+      <p style={{ color: '#7A8E7B', marginBottom: '2rem' }}>Gestiona reservas, cabañas y usuarios</p>
 
       {/* DASHBOARD */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem', marginBottom: '2rem' }}>
@@ -82,7 +81,7 @@ export default function Admin() {
           <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>${ingresoTotal.toLocaleString('es-CL')}</div>
         </div>
         <div style={{ background: '#1A6B8A', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
-          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Cabanas activas</div>
+          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Cabañas activas</div>
           <div style={{ fontSize: '2rem', fontWeight: '600' }}>{cabanas.filter(c => c.disponible).length}</div>
         </div>
         <div style={{ background: '#5A3E28', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
@@ -93,16 +92,20 @@ export default function Admin() {
 
       {/* TABS */}
       <div style={s.tabs}>
-        {['reservas', 'cabanas', 'usuarios'].map(t => (
-          <button key={t} style={s.tab(tab === t)} onClick={() => setTab(t)}>
-            {t.charAt(0).toUpperCase() + t.slice(1)} ({t === 'reservas' ? reservas.length : t === 'cabanas' ? cabanas.length : usuarios.length})
+        {[
+          { key: 'reservas', label: 'Reservas', count: reservas.length },
+          { key: 'cabanas', label: 'Cabañas', count: cabanas.length },
+          { key: 'usuarios', label: 'Usuarios', count: usuarios.length }
+        ].map(t => (
+          <button key={t.key} style={s.tab(tab === t.key)} onClick={() => setTab(t.key)}>
+            {t.label} ({t.count})
           </button>
         ))}
       </div>
 
       {tab === 'reservas' && (
         <div>
-          {reservas.length === 0 && <p style={{ color: '#7A8E7B' }}>No hay reservas aun.</p>}
+          {reservas.length === 0 && <p style={{ color: '#7A8E7B' }}>No hay reservas aún.</p>}
           {reservas.map(r => (
             <div key={r.id} style={s.card}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -133,16 +136,16 @@ export default function Admin() {
       {tab === 'cabanas' && (
         <div>
           <div style={{ ...s.card, background: '#F5ECD7' }}>
-            <h3 style={{ margin: '0 0 1rem', color: '#1A2E1B' }}>Agregar nueva cabana</h3>
+            <h3 style={{ margin: '0 0 1rem', color: '#1A2E1B' }}>Agregar nueva cabaña</h3>
             {msg && <p style={{ color: '#2C4A2E', marginBottom: '1rem' }}>{msg}</p>}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <input placeholder="Nombre" value={nuevaCabana.nombre} onChange={e => setNuevaCabana({ ...nuevaCabana, nombre: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
-              <input placeholder="Descripcion" value={nuevaCabana.descripcion} onChange={e => setNuevaCabana({ ...nuevaCabana, descripcion: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
+              <input placeholder="Descripción" value={nuevaCabana.descripcion} onChange={e => setNuevaCabana({ ...nuevaCabana, descripcion: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
               <input placeholder="Precio por noche" type="number" value={nuevaCabana.precio} onChange={e => setNuevaCabana({ ...nuevaCabana, precio: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
               <input placeholder="Capacidad" type="number" value={nuevaCabana.capacidad} onChange={e => setNuevaCabana({ ...nuevaCabana, capacidad: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
             </div>
             <button onClick={crearCabana} style={{ marginTop: '1rem', background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: 'pointer' }}>
-              Agregar cabana
+              Agregar cabaña
             </button>
           </div>
           {cabanas.map(c => (
