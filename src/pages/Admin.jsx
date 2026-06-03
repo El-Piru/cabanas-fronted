@@ -49,6 +49,62 @@ export default function Admin() {
     cargarDatos()
   }
 
+  // Lógica para exportar a Excel (CSV)
+  const exportarExcel = () => {
+    // Encabezados de las columnas
+    const columnas = [
+      "ID Reserva", 
+      "Cabaña", 
+      "Cliente", 
+      "Email Cliente", 
+      "Fecha Entrada", 
+      "Fecha Salida", 
+      "Noches",
+      "Total Tarifa", 
+      "Estado", 
+      "Fecha de Compra"
+    ]
+
+    // Formatear filas de datos
+    const filas = reservas.map(r => {
+      const d1 = new Date(r.llegada)
+      const d2 = new Date(r.salida)
+      const noches = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24))
+
+      return [
+        r.id,
+        r.cabana?.nombre || 'N/A',
+        r.usuario?.nombre || 'N/A',
+        r.usuario?.email || 'N/A',
+        d1.toLocaleDateString('es-CL'),
+        d2.toLocaleDateString('es-CL'),
+        noches,
+        r.total,
+        r.estado,
+        new Date(r.createdAt).toLocaleDateString('es-CL')
+      ]
+    })
+
+    // Construcción del contenido del CSV usando punto y coma como separador estándar
+    const contenidoCsv = [columnas, ...filas]
+      .map(fila => fila.join(";"))
+      .join("\n")
+
+    // Añadir el BOM UTF-8 (\ufeff) para que Excel reconozca tildes y eñes
+    const blob = new Blob(["\ufeff" + contenidoCsv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    
+    // Crear elemento de descarga temporal
+    const link = document.createElement("a")
+    const fechaActual = new Date().toISOString().split('T')[0]
+    link.setAttribute("href", url)
+    link.setAttribute("download", `reporte_reservas_${fechaActual}.csv`)
+    document.body.appendChild(link)
+    
+    link.click() // Ejecutar descarga
+    document.body.removeChild(link)
+  }
+
   // Stats calculadas
   const reservasConfirmadas = reservas.filter(r => r.estado === 'confirmada')
   const ingresoTotal = reservasConfirmadas.reduce((acc, r) => acc + (r.total || 0), 0)
@@ -105,6 +161,26 @@ export default function Admin() {
 
       {tab === 'reservas' && (
         <div>
+          {/* Botón de Exportar a Excel */}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.25rem' }}>
+            <button 
+              onClick={exportarExcel} 
+              disabled={reservas.length === 0}
+              style={{ 
+                background: reservas.length === 0 ? '#ccc' : '#C8860A', 
+                color: '#fff', 
+                border: 'none', 
+                padding: '8px 18px', 
+                borderRadius: '8px', 
+                cursor: reservas.length === 0 ? 'not-allowed' : 'pointer', 
+                fontWeight: '500',
+                fontSize: '0.9rem'
+              }}
+            >
+              📥 Exportar a Excel (.csv)
+            </button>
+          </div>
+
           {reservas.length === 0 && <p style={{ color: '#7A8E7B' }}>No hay reservas aún.</p>}
           {reservas.map(r => (
             <div key={r.id} style={s.card}>
