@@ -8,8 +8,33 @@ export default function CabanaCard({ cabana }) {
       onMouseEnter={e => e.currentTarget.style.transform='translateY(-4px)'}
       onMouseLeave={e => e.currentTarget.style.transform='translateY(0)'}
     >
-      <div style={{height:'180px',background:'linear-gradient(135deg,#3D6B40,#6B9E55)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'4rem'}}>
-        🌲
+      <div style={{height:'180px', background:'#FAF7F2', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', position:'relative'}}>
+        {cabana.imagen ? (
+          <img
+            src={cabana.imagen}
+            alt={cabana.nombre}
+            style={{width:'100%', height:'100%', objectFit:'cover'}}
+            onError={(e) => {
+              e.target.style.display = 'none'
+              const fallback = e.target.parentElement.querySelector('.card-fallback')
+              if (fallback) fallback.style.display = 'flex'
+            }}
+          />
+        ) : null}
+        <div className="card-fallback" style={{
+          display: cabana.imagen ? 'none' : 'flex',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg,#3D6B40,#6B9E55)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '4rem'
+        }}>
+          🌲
+        </div>
       </div>
       <div style={{padding:'1.25rem'}}>
         <h3 style={{margin:'0 0 4px',color:'#1A2E1B'}}>{cabana.nombre}</h3>

@@ -9,7 +9,7 @@ export default function Admin() {
   const [reservas, setReservas] = useState([])
   const [cabanas, setCabanas] = useState([])
   const [usuarios, setUsuarios] = useState([])
-  const [nuevaCabana, setNuevaCabana] = useState({ nombre: '', descripcion: '', precio: '', capacidad: '' })
+  const [nuevaCabana, setNuevaCabana] = useState({ nombre: '', descripcion: '', precio: '', capacidad: '', imagen: '' })
   const [msg, setMsg] = useState('')
 
   const headers = { 'Content-Type': 'application/json' }
@@ -38,7 +38,7 @@ export default function Admin() {
 
   const crearCabana = async () => {
     const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers, credentials: 'include', body: JSON.stringify(nuevaCabana) }).then(r => r.json())
-    if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '' }) }
+    if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '', imagen: '' }) }
     else setMsg(res.mensaje)
   }
 
@@ -218,6 +218,7 @@ export default function Admin() {
               <input placeholder="Descripción" value={nuevaCabana.descripcion} onChange={e => setNuevaCabana({ ...nuevaCabana, descripcion: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
               <input placeholder="Precio por noche" type="number" value={nuevaCabana.precio} onChange={e => setNuevaCabana({ ...nuevaCabana, precio: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
               <input placeholder="Capacidad" type="number" value={nuevaCabana.capacidad} onChange={e => setNuevaCabana({ ...nuevaCabana, capacidad: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
+              <input placeholder="Ruta de imagen (Ej: /images/cabana1.jpg)" value={nuevaCabana.imagen} onChange={e => setNuevaCabana({ ...nuevaCabana, imagen: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px', gridColumn: 'span 2' }} />
             </div>
             <button onClick={crearCabana} style={{ marginTop: '1rem', background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: 'pointer' }}>
               Agregar cabaña
