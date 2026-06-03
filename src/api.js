@@ -1,5 +1,7 @@
 const BASE_URL = 'https://sabanas-proyecto-production.up.railway.app/api'
 
+const getToken = () => localStorage.getItem('token')
+
 export const api = {
   // Auth
   registro: (datos) => fetch(`${BASE_URL}/auth/registro`, {
@@ -25,18 +27,23 @@ export const api = {
     .then(r => r.json()),
 
   getCabana: (id) => fetch(`${BASE_URL}/cabanas/${id}`, {
+    headers: { 'Authorization': `Bearer ${getToken()}` },
     credentials: 'include'
   }).then(r => r.json()),
 
   // Reservas
   crearReserva: (datos) => fetch(`${BASE_URL}/reservas`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`
+    },
     credentials: 'include',
     body: JSON.stringify(datos)
   }).then(r => r.json()),
 
   misReservas: () => fetch(`${BASE_URL}/reservas/mis-reservas`, {
+    headers: { 'Authorization': `Bearer ${getToken()}` },
     credentials: 'include'
   }).then(r => r.json()),
 

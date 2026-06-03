@@ -13,6 +13,7 @@ export default function Navbar() {
     } catch (error) {
       console.error('Error al cerrar sesión en el servidor:', error)
     }
+    localStorage.removeItem('token')
     localStorage.removeItem('usuario')
     navigate('/login')
     setMenuAbierto(false)
@@ -26,17 +27,15 @@ export default function Navbar() {
             src="/logo.jpg"
             alt="Logo Cabañas La Higuera"
             style={{height:'36px', width:'36px', borderRadius:'50%', objectFit:'cover', border:'1.5px solid rgba(250,247,242,0.6)'}}
-            onError={(e) => e.target.style.display = 'none'} // Fallback si no está el archivo físico todavía
+            onError={(e) => e.target.style.display = 'none'}
           />
           <span>Cabañas La Higuera</span>
         </Link>
 
-        {/* Botón hamburguesa para móvil */}
         <button onClick={() => setMenuAbierto(!menuAbierto)} style={{display:'none',background:'none',border:'none',color:'#fff',fontSize:'1.5rem',cursor:'pointer',padding:'4px'}} className="hamburger">
           {menuAbierto ? '✕' : '☰'}
         </button>
 
-        {/* Menú desktop */}
         <div style={{display:'flex',gap:'1rem',alignItems:'center'}} className="nav-desktop">
           <Link to="/" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none',fontSize:'0.9rem'}}>Cabañas</Link>
           {usuario ? (
@@ -59,7 +58,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Menú móvil desplegable */}
       {menuAbierto && (
         <div style={{background:'#1A2E1B',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)'}}>
           {usuario ? (

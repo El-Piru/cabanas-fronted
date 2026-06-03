@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const BASE_URL = 'https://sabanas-proyecto-production.up.railway.app/api'
+const getToken = () => localStorage.getItem('token')
 
 export default function Admin() {
   const navigate = useNavigate()
@@ -12,7 +13,10 @@ export default function Admin() {
   const [nuevaCabana, setNuevaCabana] = useState({ nombre: '', descripcion: '', precio: '', capacidad: '', imagen: '' })
   const [msg, setMsg] = useState('')
 
-  const headers = { 'Content-Type': 'application/json' }
+  const headers = { 
+    'Authorization': `Bearer ${getToken()}`, 
+    'Content-Type': 'application/json' 
+  }
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem('usuario') || 'null')
@@ -48,28 +52,12 @@ export default function Admin() {
     cargarDatos()
   }
 
-  // Lógica para exportar a Excel (CSV)
   const exportarExcel = () => {
-    // Encabezados de las columnas
-    const columnas = [
-      "ID Reserva", 
-      "Cabaña", 
-      "Cliente", 
-      "Email Cliente", 
-      "Fecha Entrada", 
-      "Fecha Salida", 
-      "Noches",
-      "Total Tarifa", 
-      "Estado", 
-      "Fecha de Compra"
-    ]
-
-    // Formatear filas de datos
+    const columnas = ["ID Reserva", "Cabaña", "Cliente", "Email Cliente", "Fecha Entrada", "Fecha Salida", "Noches", "Total Tarifa", "Estado", "Fecha de Compra"]
     const filas = reservas.map(r => {
       const d1 = new Date(r.llegada)
       const d2 = new Date(r.salida)
       const noches = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24))
-
       return [
         r.id,
         r.cabana?.nombre || 'N/A',
@@ -84,27 +72,18 @@ export default function Admin() {
       ]
     })
 
-    // Construcción del contenido del CSV usando punto y coma como separador estándar
-    const contenidoCsv = [columnas, ...filas]
-      .map(fila => fila.join(";"))
-      .join("\n")
-
-    // Añadir el BOM UTF-8 (\ufeff) para que Excel reconozca tildes y eñes
+    const contenidoCsv = [columnas, ...filas].map(fila => fila.join(";")).join("\n")
     const blob = new Blob(["\ufeff" + contenidoCsv], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
-    
-    // Crear elemento de descarga temporal
     const link = document.createElement("a")
     const fechaActual = new Date().toISOString().split('T')[0]
     link.setAttribute("href", url)
     link.setAttribute("download", `reporte_reservas_${fechaActual}.csv`)
     document.body.appendChild(link)
-    
-    link.click() // Ejecutar descarga
+    link.click()
     document.body.removeChild(link)
   }
 
-  // Stats calculadas
   const reservasConfirmadas = reservas.filter(r => r.estado === 'confirmada')
   const ingresoTotal = reservasConfirmadas.reduce((acc, r) => acc + (r.total || 0), 0)
   const reservasHoy = reservas.filter(r => {
@@ -125,7 +104,6 @@ export default function Admin() {
       <h1 style={{ fontFamily: 'Georgia,serif', color: '#1A2E1B', marginBottom: '0.5rem' }}>Panel de Administrador</h1>
       <p style={{ color: '#7A8E7B', marginBottom: '2rem' }}>Gestiona reservas, cabañas y usuarios</p>
 
-      {/* DASHBOARD */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem', marginBottom: '2rem' }}>
         <div style={{ background: '#2C4A2E', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
           <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Total reservas</div>
@@ -145,7 +123,6 @@ export default function Admin() {
         </div>
       </div>
 
-      {/* TABS */}
       <div style={s.tabs}>
         {[
           { key: 'reservas', label: 'Reservas', count: reservas.length },
@@ -160,21 +137,11 @@ export default function Admin() {
 
       {tab === 'reservas' && (
         <div>
-          {/* Botón de Exportar a Excel */}
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.25rem' }}>
             <button 
               onClick={exportarExcel} 
               disabled={reservas.length === 0}
-              style={{ 
-                background: reservas.length === 0 ? '#ccc' : '#C8860A', 
-                color: '#fff', 
-                border: 'none', 
-                padding: '8px 18px', 
-                borderRadius: '8px', 
-                cursor: reservas.length === 0 ? 'not-allowed' : 'pointer', 
-                fontWeight: '500',
-                fontSize: '0.9rem'
-              }}
+              style={{ background: reservas.length === 0 ? '#ccc' : '#C8860A', color: '#fff', border: 'none', padding: '8px 18px', borderRadius: '8px', cursor: reservas.length === 0 ? 'not-allowed' : 'pointer', fontWeight: '500', fontSize: '0.9rem' }}
             >
               📥 Exportar a Excel (.csv)
             </button>
