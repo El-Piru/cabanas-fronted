@@ -1,3 +1,4 @@
+cat > ~/cabanas-frontend/src/pages/Admin.jsx << 'ENDOFFILE'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -49,34 +50,74 @@ export default function Admin() {
     cargarDatos()
   }
 
-  const s = { page: { maxWidth: '1100px', margin: '2rem auto', padding: '0 1rem' }, tabs: { display: 'flex', gap: '8px', marginBottom: '2rem' }, tab: (active) => ({ background: active ? '#2C4A2E' : '#fff', color: active ? '#fff' : '#2C4A2E', border: '1.5px solid #2C4A2E', padding: '8px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '500' }), card: { background: '#fff', borderRadius: '12px', padding: '1.5rem', border: '1px solid #ECE8E0', marginBottom: '1rem' }, badge: (estado) => ({ background: estado === 'confirmada' ? '#D1FAE5' : estado === 'cancelada' ? '#FEE2E2' : '#FEF3C7', color: estado === 'confirmada' ? '#065F46' : estado === 'cancelada' ? '#991B1B' : '#92400E', padding: '3px 10px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: '500' }) }
+  // Stats calculadas
+  const reservasConfirmadas = reservas.filter(r => r.estado === 'confirmada')
+  const ingresoTotal = reservasConfirmadas.reduce((acc, r) => acc + (r.total || 0), 0)
+  const reservasPendientes = reservas.filter(r => r.estado === 'pendiente').length
+  const reservasHoy = reservas.filter(r => {
+    const hoy = new Date().toDateString()
+    return new Date(r.createdAt).toDateString() === hoy
+  }).length
+
+  const s = {
+    page: { maxWidth: '1100px', margin: '2rem auto', padding: '0 1rem' },
+    tabs: { display: 'flex', gap: '8px', marginBottom: '2rem' },
+    tab: (active) => ({ background: active ? '#2C4A2E' : '#fff', color: active ? '#fff' : '#2C4A2E', border: '1.5px solid #2C4A2E', padding: '8px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '500' }),
+    card: { background: '#fff', borderRadius: '12px', padding: '1.5rem', border: '1px solid #ECE8E0', marginBottom: '1rem' },
+    badge: (estado) => ({ background: estado === 'confirmada' ? '#D1FAE5' : estado === 'cancelada' ? '#FEE2E2' : '#FEF3C7', color: estado === 'confirmada' ? '#065F46' : estado === 'cancelada' ? '#991B1B' : '#92400E', padding: '3px 10px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: '500' })
+  }
 
   return (
     <div style={s.page}>
       <h1 style={{ fontFamily: 'Georgia,serif', color: '#1A2E1B', marginBottom: '0.5rem' }}>Panel de Administrador</h1>
       <p style={{ color: '#7A8E7B', marginBottom: '2rem' }}>Gestiona reservas, cabanas y usuarios</p>
 
+      {/* DASHBOARD */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem', marginBottom: '2rem' }}>
+        <div style={{ background: '#2C4A2E', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
+          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Total reservas</div>
+          <div style={{ fontSize: '2rem', fontWeight: '600' }}>{reservas.length}</div>
+        </div>
+        <div style={{ background: '#C8860A', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
+          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Ingresos totales</div>
+          <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>${ingresoTotal.toLocaleString('es-CL')}</div>
+        </div>
+        <div style={{ background: '#1A6B8A', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
+          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Cabanas activas</div>
+          <div style={{ fontSize: '2rem', fontWeight: '600' }}>{cabanas.filter(c => c.disponible).length}</div>
+        </div>
+        <div style={{ background: '#5A3E28', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
+          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Reservas hoy</div>
+          <div style={{ fontSize: '2rem', fontWeight: '600' }}>{reservasHoy}</div>
+        </div>
+      </div>
+
+      {/* TABS */}
       <div style={s.tabs}>
         {['reservas', 'cabanas', 'usuarios'].map(t => (
           <button key={t} style={s.tab(tab === t)} onClick={() => setTab(t)}>
-            {t.charAt(0).toUpperCase() + t.slice(1)} {tab === t && `(${t === 'reservas' ? reservas.length : t === 'cabanas' ? cabanas.length : usuarios.length})`}
+            {t.charAt(0).toUpperCase() + t.slice(1)} ({t === 'reservas' ? reservas.length : t === 'cabanas' ? cabanas.length : usuarios.length})
           </button>
         ))}
       </div>
 
       {tab === 'reservas' && (
         <div>
+          {reservas.length === 0 && <p style={{ color: '#7A8E7B' }}>No hay reservas aun.</p>}
           {reservas.map(r => (
             <div key={r.id} style={s.card}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
                   <strong>{r.cabana?.nombre}</strong> — {r.usuario?.nombre} ({r.usuario?.email})
                   <div style={{ fontSize: '0.85rem', color: '#7A8E7B', marginTop: '4px' }}>
-                    {new Date(r.llegada).toLocaleDateString('es-CL')} → {new Date(r.salida).toLocaleDateString('es-CL')}
+                    Llegada: {new Date(r.llegada).toLocaleDateString('es-CL')} → Salida: {new Date(r.salida).toLocaleDateString('es-CL')}
                   </div>
-                  <div style={{ marginTop: '6px' }}>
+                  <div style={{ fontSize: '0.8rem', color: '#7A8E7B' }}>
+                    Reservado el: {new Date(r.createdAt).toLocaleDateString('es-CL')}
+                  </div>
+                  <div style={{ marginTop: '6px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <span style={s.badge(r.estado)}>{r.estado}</span>
-                    <span style={{ marginLeft: '1rem', fontWeight: '500', color: '#2C4A2E' }}>${r.total?.toLocaleString('es-CL')}</span>
+                    <span style={{ fontWeight: '500', color: '#2C4A2E' }}>${r.total?.toLocaleString('es-CL')}</span>
                   </div>
                 </div>
                 {r.estado !== 'cancelada' && (
@@ -87,7 +128,6 @@ export default function Admin() {
               </div>
             </div>
           ))}
-          {reservas.length === 0 && <p style={{ color: '#7A8E7B' }}>No hay reservas aun.</p>}
         </div>
       )}
 
@@ -112,6 +152,7 @@ export default function Admin() {
                 <div>
                   <strong>{c.nombre}</strong> — ${c.precio?.toLocaleString('es-CL')}/noche — {c.capacidad} personas
                   <div style={{ fontSize: '0.85rem', color: '#7A8E7B' }}>{c.descripcion}</div>
+                  <span style={s.badge(c.disponible ? 'confirmada' : 'cancelada')}>{c.disponible ? 'Disponible' : 'No disponible'}</span>
                 </div>
                 <button onClick={() => eliminarCabana(c.id)} style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer' }}>
                   Eliminar
@@ -140,3 +181,4 @@ export default function Admin() {
     </div>
   )
 }
+ENDOFFILE
