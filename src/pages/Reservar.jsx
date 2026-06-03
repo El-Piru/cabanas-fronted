@@ -97,13 +97,36 @@ export default function Reservar() {
       <h2 style={{color:'#1A2E1B',marginBottom:'0.5rem'}}>¡Reserva confirmada!</h2>
       <p style={{color:'#7A8E7B',marginBottom:'0.5rem'}}>Te enviaremos un correo con todos los detalles.</p>
       <p style={{color:'#7A8E7B',marginBottom:'2rem',fontSize:'0.9rem'}}>Para consultas: 📞 9 8669 8970</p>
-      <div style={{background:'#F5ECD7',borderRadius:'12px',padding:'1.5rem',marginBottom:'2rem',textAlign:'left'}}>
-        <p style={{margin:'0 0 8px'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
-        <p style={{margin:'0 0 8px'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
-        <p style={{margin:'0 0 8px'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
-        <p style={{margin:'0 0 8px'}}><strong>🌙 Noches:</strong> {noches}</p>
-        <p style={{margin:'0'}}><strong>💰 Total:</strong> ${total.toLocaleString('es-CL')}</p>
+      
+      {/* Tarjeta de Éxito - Diseño Mejorado */}
+      <div style={{
+        background:'#fff',
+        borderRadius:'12px',
+        padding:'1.5rem',
+        marginBottom:'2rem',
+        textAlign:'left',
+        border:'1px solid #E8E4DC',
+        borderLeft:'4px solid #2C4A2E',
+        boxShadow:'0 4px 12px rgba(0,0,0,0.03)'
+      }}>
+        <p style={{margin:'0 0 10px',color:'#2C4A2E',fontSize:'1.05rem'}}><strong>Detalles de tu estadía:</strong></p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🌙 Noches:</strong> {noches}</p>
+        <div style={{
+          display:'flex',
+          justifyContent:'space-between',
+          fontWeight:'600',
+          borderTop:'1px solid #ECE8E0',
+          paddingTop:'10px',
+          marginTop:'12px'
+        }}>
+          <span style={{color:'#1A2E1B'}}>Total</span>
+          <span style={{color:'#2C4A2E',fontSize:'1.15rem'}}>${total.toLocaleString('es-CL')}</span>
+        </div>
       </div>
+
       <button onClick={() => navigate('/mis-reservas')} style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'12px 24px',borderRadius:'8px',cursor:'pointer',fontSize:'1rem'}}>
         Ver mis reservas
       </button>
@@ -129,17 +152,31 @@ export default function Reservar() {
           {form.salida && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Salida hasta las 7:00 pm</p>}
         </div>
 
+        {/* Resumen previo - Diseño Mejorado */}
         {noches > 0 && (
-          <div style={{background:'#F5ECD7',borderRadius:'10px',padding:'1rem',marginBottom:'1.5rem'}}>
-            <h4 style={{margin:'0 0 10px',color:'#1A2E1B'}}>Resumen de tu reserva</h4>
-            <p style={{margin:'0 0 6px',fontSize:'0.9rem'}}>🏕️ {cabana.nombre}</p>
-            <p style={{margin:'0 0 6px',fontSize:'0.9rem'}}>📅 {formatFecha(form.llegada)} → {formatFecha(form.salida)}</p>
-            <p style={{margin:'0 0 6px',fontSize:'0.9rem'}}>🌙 {noches} {noches === 1 ? 'noche' : 'noches'}</p>
-            <div style={{display:'flex',justifyContent:'space-between',fontSize:'0.9rem',marginBottom:'6px'}}>
+          <div style={{
+            background:'#FAF7F2',
+            borderRadius:'10px',
+            padding:'1.25rem',
+            marginBottom:'1.5rem',
+            border:'1px solid #E8E4DC'
+          }}>
+            <h4 style={{margin:'0 0 10px',color:'#1A2E1B',fontFamily:'Georgia,serif'}}>Resumen de tu reserva</h4>
+            <p style={{margin:'0 0 6px',fontSize:'0.9rem',color:'#4A5E4C'}}>🏕️ {cabana.nombre}</p>
+            <p style={{margin:'0 0 6px',fontSize:'0.9rem',color:'#4A5E4C'}}>📅 {formatFecha(form.llegada)} → {formatFecha(form.salida)}</p>
+            <p style={{margin:'0 0 10px',fontSize:'0.9rem',color:'#4A5E4C'}}>🌙 {noches} {noches === 1 ? 'noche' : 'noches'}</p>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:'0.9rem',marginBottom:'6px',color:'#7A8E7B'}}>
               <span>{noches} noches × ${cabana.precio.toLocaleString('es-CL')}</span>
               <span>${total.toLocaleString('es-CL')}</span>
             </div>
-            <div style={{display:'flex',justifyContent:'space-between',fontWeight:'600',borderTop:'1px solid #DDD5C4',paddingTop:'8px'}}>
+            <div style={{
+              display:'flex',
+              justifyContent:'space-between',
+              fontWeight:'600',
+              borderTop:'1px solid #E8E4DC',
+              paddingTop:'8px',
+              marginTop:'8px'
+            }}>
               <span>Total</span>
               <span style={{color:'#2C4A2E'}}>${total.toLocaleString('es-CL')}</span>
             </div>
