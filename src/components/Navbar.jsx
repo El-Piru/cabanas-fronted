@@ -52,7 +52,6 @@ export default function Navbar() {
       {/* Menú móvil desplegable */}
       {menuAbierto && (
         <div style={{background:'#1A2E1B',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)'}}>
-          <Link to="/" onClick={() => setMenuAbierto(false)} style={{display:'block',color:'rgba(250,247,242,0.8)',textDecoration:'none',padding:'10px 0',fontSize:'1rem'}}>Cabañas</Link>
           {token ? (
             <>
               {usuario?.rol === 'admin' ? (
@@ -67,8 +66,9 @@ export default function Navbar() {
             </>
           ) : (
             <>
+              <Link to="/registro" onClick={() => setMenuAbierto(false)} style={{display:'block',color:'rgba(250,247,242,0.8)',textDecoration:'none',padding:'10px 0',fontSize:'1rem'}}>Registrarse</Link>
               <Link to="/login" onClick={() => setMenuAbierto(false)} style={{display:'block',color:'rgba(250,247,242,0.8)',textDecoration:'none',padding:'10px 0',fontSize:'1rem'}}>Iniciar sesión</Link>
-              <Link to="/registro" onClick={() => setMenuAbierto(false)} style={{display:'block',background:'#C8860A',color:'#fff',padding:'8px 20px',borderRadius:'6px',textDecoration:'none',fontSize:'0.9rem',marginTop:'4px',width:'fit-content'}}>Registrarse</Link>
+              <Link to="/" onClick={() => setMenuAbierto(false)} style={{display:'block',color:'rgba(250,247,242,0.8)',textDecoration:'none',padding:'10px 0',fontSize:'1rem'}}>Cabañas</Link>
             </>
           )}
         </div>
