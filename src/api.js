@@ -42,6 +42,15 @@ export const api = {
     body: JSON.stringify(datos)
   }).then(r => r.json()),
 
+  pagarReserva: (id) => fetch(`${BASE_URL}/reservas/${id}/pagar`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`
+    },
+    credentials: 'include'
+  }).then(r => r.json()),
+
   misReservas: () => fetch(`${BASE_URL}/reservas/mis-reservas`, {
     headers: { 'Authorization': `Bearer ${getToken()}` },
     credentials: 'include'

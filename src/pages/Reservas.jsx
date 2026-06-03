@@ -6,6 +6,7 @@ export default function Reservas() {
   const navigate = useNavigate()
   const [reservas, setReservas] = useState([])
   const [cargando, setCargando] = useState(true)
+  const [procesandoPago, setProcesandoPago] = useState(null)
 
   useEffect(() => {
     const usuario = localStorage.getItem('usuario')
@@ -14,7 +15,38 @@ export default function Reservas() {
       if (res.ok) setReservas(res.data)
       setCargando(false)
     })
-  }, [])
+  }, [navigate])
+
+  const handlePagar = async (id) => {
+    setProcesandoPago(id)
+    try {
+      const res = await api.pagarReserva(id)
+      if (res.ok && res.initPoint) {
+        window.location.href = res.initPoint
+      } else {
+        alert(res.mensaje || 'Error al generar el portal de pago de Mercado Pago')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error de conexión con el servidor')
+    } finally {
+      setProcesandoPago(null)
+    }
+  }
+
+  const getInsigniaEstado = (estado) => {
+    let background = '#FEF3C7', color = '#92400E' // Pendiente (Amarillo)
+    if (estado === 'confirmada') {
+      background = '#D1FAE5'; color = '#065F46' // Confirmado (Verde)
+    } else if (estado === 'cancelada') {
+      background = '#FEE2E2'; color = '#991B1B' // Cancelado (Rojo)
+    }
+    return (
+      <span style={{background, color, padding:'4px 12px', borderRadius:'20px', fontSize:'0.8rem', fontWeight:'500', textTransform:'capitalize'}}>
+        {estado}
+      </span>
+    )
+  }
 
   return (
     <div style={{maxWidth:'800px',margin:'0 auto',padding:'2rem'}}>
@@ -45,13 +77,25 @@ export default function Reservas() {
                     {new Date(r.llegada).toLocaleDateString('es-CL')} → {new Date(r.salida).toLocaleDateString('es-CL')}
                   </p>
                 </div>
-                <span style={{background: r.estado === 'confirmada' ? '#D1FAE5' : '#FEE2E2',color: r.estado === 'confirmada' ? '#065F46' : '#991B1B',padding:'4px 12px',borderRadius:'20px',fontSize:'0.8rem',fontWeight:'500'}}>
-                  {r.estado}
-                </span>
+                {getInsigniaEstado(r.estado)}
               </div>
-              <div style={{borderTop:'1px solid #F0EBE2',paddingTop:'.75rem',display:'flex',justifyContent:'space-between'}}>
-                <span style={{fontSize:'0.85rem',color:'#4A5E4C'}}>Total pagado</span>
-                <span style={{fontWeight:'500',color:'#2C4A2E'}}>${r.total.toLocaleString('es-CL')}</span>
+              <div style={{borderTop:'1px solid #F0EBE2',paddingTop:'.75rem',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <div>
+                  <span style={{fontSize:'0.85rem',color:'#4A5E4C'}}>
+                    {r.estado === 'confirmada' ? 'Total pagado' : 'Total a pagar'}
+                  </span>
+                  <span style={{fontWeight:'600',color:'#2C4A2E',marginLeft:'8px'}}>${r.total.toLocaleString('es-CL')}</span>
+                </div>
+                
+                {r.estado === 'pendiente' && (
+                  <button
+                    onClick={() => handlePagar(r.id)}
+                    disabled={procesandoPago === r.id}
+                    style={{background:'#C8860A',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem',fontWeight:'500'}}
+                  >
+                    {procesandoPago === r.id ? 'Cargando pago...' : 'Pagar ahora 💳'}
+                  </button>
+                )}
               </div>
             </div>
           ))}
