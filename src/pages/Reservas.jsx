@@ -31,7 +31,7 @@ export default function Reservas() {
             onClick={() => navigate('/')}
             style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'10px 24px',borderRadius:'8px',cursor:'pointer'}}
           >
-            Ver cabanas
+            Ver cabañas
           </button>
         </div>
       ) : (
