@@ -20,14 +20,30 @@ export default function Reservar() {
     const usuario = localStorage.getItem('usuario')
     if (!usuario) { navigate('/login'); return }
     
-    api.getCabana(parseInt(id)).then(res => {
-      if (res.ok) setCabana(res.data)
-    })
+    api.getCabana(parseInt(id))
+      .then(res => {
+        if (res.ok) {
+          setCabana(res.data)
+        } else {
+          if (res.mensaje === 'Token requerido' || res.mensaje === 'Token inválido') {
+            localStorage.removeItem('usuario')
+            navigate('/login')
+          } else {
+            setError(res.mensaje || 'Error al cargar la cabaña')
+          }
+        }
+      })
+      .catch(err => {
+        console.error(err)
+        setError('Error de comunicación con el servidor')
+      })
 
-    api.getFechasOcupadas(parseInt(id)).then(res => {
-      if (res.ok) setFechasOcupadas(res.data)
-    })
-  }, [id])
+    api.getFechasOcupadas(parseInt(id))
+      .then(res => {
+        if (res.ok) setFechasOcupadas(res.data)
+      })
+      .catch(err => console.error('Error al obtener fechas ocupadas:', err))
+  }, [id, navigate])
 
   const verificarSolapamiento = (llegada, salida) => {
     if (!llegada || !salida) return false
@@ -120,6 +136,17 @@ export default function Reservar() {
       setCargando(false)
     }
   }
+
+  if (error && !cabana) return (
+    <div style={{textAlign:'center',padding:'4rem 1rem'}}>
+      <div style={{fontSize:'3rem',marginBottom:'1rem'}}>⚠️</div>
+      <h3 style={{color:'#991B1B',marginBottom:'0.5rem'}}>No pudimos cargar la cabaña</h3>
+      <p style={{color:'#7A8E7B',marginBottom:'2rem'}}>{error}</p>
+      <button onClick={() => navigate('/')} style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'10px 24px',borderRadius:'8px',cursor:'pointer'}}>
+        Volver al inicio
+      </button>
+    </div>
+  )
 
   if (!cabana) return <div style={{textAlign:'center',padding:'3rem'}}>Cargando...</div>
 
