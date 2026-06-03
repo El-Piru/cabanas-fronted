@@ -14,10 +14,10 @@ export default function Navbar() {
   return (
     <nav style={{background:'#2C4A2E',padding:'0 2rem',height:'60px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
       <Link to="/" style={{color:'#FAF7F2',fontWeight:'bold',fontSize:'1.2rem',textDecoration:'none'}}>
-        Cabanas del Bosque
+        Cabañas La Higuera Rapel
       </Link>
       <div style={{display:'flex',gap:'1rem',alignItems:'center'}}>
-        <Link to="/" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none'}}>Cabanas</Link>
+        <Link to="/" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none'}}>Cabañas</Link>
         {token ? (
           <>
             {usuario?.rol === 'admin' ? (
