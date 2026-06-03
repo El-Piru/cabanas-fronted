@@ -166,20 +166,33 @@ export default function CabanaCard({ cabana }) {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Hero Image */}
-            <div style={{height:'220px', position:'relative', background:'#FAF7F2', overflow:'hidden'}}>
+            <div style={{height:'220px', position:'relative', background:'#FAF7F2', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center'}}>
               {cabana.imagen ? (
-                <img src={cabana.imagen} alt={cabana.nombre} style={{width:'100%', height:'100%', objectFit:'cover'}} />
-              ) : (
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(135deg,#3D6B40,#6B9E55)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '5rem'
-                }}>🌲</div>
-              )}
+                <img 
+                  src={cabana.imagen} 
+                  alt={cabana.nombre} 
+                  style={{width:'100%', height:'100%', objectFit:'cover'}} 
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                    const fallback = e.target.parentElement.querySelector('.modal-fallback')
+                    if (fallback) fallback.style.display = 'flex'
+                  }}
+                />
+              ) : null}
+              <div className="modal-fallback" style={{
+                display: cabana.imagen ? 'none' : 'flex',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'linear-gradient(135deg,#3D6B40,#6B9E55)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '5rem'
+              }}>
+                🌲
+              </div>
               {/* Close Button */}
               <button
                 onClick={() => setMostrarModal(false)}
@@ -199,7 +212,8 @@ export default function CabanaCard({ cabana }) {
                   fontWeight: 'bold',
                   fontSize: '1.1rem',
                   color: '#1A2E1B',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  zIndex: 10
                 }}
               >
                 ✕
@@ -207,7 +221,7 @@ export default function CabanaCard({ cabana }) {
             </div>
 
             {/* Content */}
-            <div style={{padding:'1.75rem'}}>
+            <div style={{padding:'1.75rem', textAlign:'left'}}>
               <span style={{
                 background: '#EAE6DF',
                 color: '#4A5E4C',
