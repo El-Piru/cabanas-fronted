@@ -29,22 +29,23 @@ export default function Reservar() {
     })
   }, [id])
 
+  // Validaciones con zona horaria local consistente (mediodía)
   const verificarSolapamiento = (llegada, salida) => {
     if (!llegada || !salida) return false
-    const d1 = new Date(llegada)
-    const d2 = new Date(salida)
+    const d1 = new Date(llegada + 'T12:00:00')
+    const d2 = new Date(salida + 'T12:00:00')
 
     return fechasOcupadas.some(reserva => {
-      const inicio = new Date(reserva.llegada)
-      const fin = new Date(reserva.salida)
+      const inicio = new Date(reserva.llegada.split('T')[0] + 'T12:00:00')
+      const fin = new Date(reserva.salida.split('T')[0] + 'T12:00:00')
       return d1 < fin && d2 > inicio
     })
   }
 
   useEffect(() => {
     if (form.llegada && form.salida) {
-      const d1 = new Date(form.llegada)
-      const d2 = new Date(form.salida)
+      const d1 = new Date(form.llegada + 'T12:00:00')
+      const d2 = new Date(form.salida + 'T12:00:00')
       const n = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24))
       
       if (n <= 0) {
@@ -63,13 +64,15 @@ export default function Reservar() {
     }
   }, [form, cabana, fechasOcupadas])
 
+  // Obtiene un listado de objetos Date a mediodía local para bloquear en el calendario
   const obtenerFechasExcluidas = () => {
     const excluidas = []
     fechasOcupadas.forEach(reserva => {
-      let actual = new Date(reserva.llegada)
-      const fin = new Date(reserva.salida)
-      actual.setHours(12, 0, 0, 0)
-      fin.setHours(12, 0, 0, 0)
+      const llegadaStr = reserva.llegada.split('T')[0]
+      const salidaStr = reserva.salida.split('T')[0]
+      
+      let actual = new Date(llegadaStr + 'T12:00:00')
+      const fin = new Date(salidaStr + 'T12:00:00')
       
       while (actual < fin) {
         excluidas.push(new Date(actual))
@@ -116,10 +119,11 @@ export default function Reservar() {
       <p style={{color:'#7A8E7B',marginBottom:'0.5rem'}}>Te enviaremos un correo con todos los detalles.</p>
       <p style={{color:'#7A8E7B',marginBottom:'2rem',fontSize:'0.9rem'}}>Para consultas: 📞 9 8669 8970</p>
       <div style={{background:'#fff',borderRadius:'12px',padding:'1.5rem',marginBottom:'2rem',textAlign:'left',border:'1px solid #E8E4DC',borderLeft:'4px solid #2C4A2E',boxShadow:'0 4px 12px rgba(0,0,0,0.03)'}}>
-        <p style={{margin:'0 0 8px'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
-        <p style={{margin:'0 0 8px'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
-        <p style={{margin:'0 0 8px'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
-        <p style={{margin:'0 0 8px'}}><strong>🌙 Noches:</strong> {noches}</p>
+        <p style={{margin:'0 0 8px'}}><strong>Detalles de tu estadía:</strong></p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
+        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🌙 Noches:</strong> {noches}</p>
         <div style={{display:'flex',justifyContent:'space-between',fontWeight:'600',borderTop:'1px solid #ECE8E0',paddingTop:'10px',marginTop:'12px'}}>
           <span style={{color:'#1A2E1B'}}>Total</span>
           <span style={{color:'#2C4A2E',fontSize:'1.15rem'}}>${total.toLocaleString('es-CL')}</span>
