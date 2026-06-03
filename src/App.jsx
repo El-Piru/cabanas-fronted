@@ -6,6 +6,7 @@ import Registro from './pages/Registro'
 import Reservas from './pages/Reservas'
 import Reservar from './pages/Reservar'
 import Admin from './pages/Admin'
+import PagoResultado from './pages/PagoResultado'
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/mis-reservas" element={<Reservas />} />
+          <Route path="/pago/resultado" element={<PagoResultado />} />
         </Routes>
       </div>
     </BrowserRouter>

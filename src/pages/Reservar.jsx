@@ -104,7 +104,11 @@ export default function Reservar() {
       salida: form.salida
     })
     if (res.ok) {
-      setExito(true)
+      if (res.initPoint) {
+        window.location.href = res.initPoint
+      } else {
+        setError(res.mensaje || 'Se creó la reserva pero no se pudo generar el enlace de pago.')
+      }
     } else {
       setError(res.mensaje)
     }
