@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const BASE_URL = 'https://sabanas-proyecto-production.up.railway.app/api'
+const BASE_URL = 'https://cabanas-backend-95ey.onrender.com/api'
 const getToken = () => localStorage.getItem('token')
 
 export default function Admin() {
