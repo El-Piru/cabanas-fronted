@@ -47,7 +47,7 @@ export default function Home() {
         ) : (
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:'1.5rem'}}>
             {cabanas.map(cabana => (
-              <CabanaCard key={cabana.id} cabana={cabana} />
+              <CabanaCard key={cabana.capacidad} cabana={cabana} />
             ))}
           </div>
         )}

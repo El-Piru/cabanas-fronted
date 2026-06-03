@@ -41,7 +41,6 @@ export default function CabanaCard({ cabana }) {
         <p style={{fontSize:'0.85rem',color:'#7A8E7B',margin:'0 0 .75rem'}}>{cabana.descripcion}</p>
         <div style={{display:'flex',gap:'1rem',marginBottom:'1rem',fontSize:'0.8rem',color:'#4A5E4C'}}>
           <span>Capacidad: {cabana.capacidad} personas</span>
-          <span>{cabana.disponible ? 'Disponible' : 'Ocupada'}</span>
         </div>
         <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',borderTop:'1px solid #F0EBE2',paddingTop:'.75rem'}}>
           <span style={{fontSize:'1.2rem',fontWeight:'500',color:'#2C4A2E'}}>
@@ -49,7 +48,7 @@ export default function CabanaCard({ cabana }) {
             <small style={{fontSize:'0.8rem',color:'#7A8E7B'}}>/noche</small>
           </span>
           <button
-            onClick={() => navigate(`/reservar/${cabana.id}`)}
+            onClick={() => navigate(`/reservar/${cabana.capacidad}`)}
             style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontWeight:'500'}}
           >
             Reservar

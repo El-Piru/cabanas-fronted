@@ -23,8 +23,18 @@ export const api = {
   }).then(r => r.json()),
 
   // Cabanas
-  getCabanas: () => fetch(`${BASE_URL}/cabanas`)
+  getCabanas: () => fetch(`${BASE_URL}/cabanas/tipos`)
     .then(r => r.json()),
+
+  getCabanaPorCapacidad: (capacidad) => fetch(`${BASE_URL}/cabanas/tipos`)
+    .then(r => r.json())
+    .then(res => {
+      if (res.ok) {
+        const tipo = res.data.find(c => c.capacidad === parseInt(capacidad))
+        return { ok: true, data: tipo }
+      }
+      return res
+    }),
 
   getCabana: (id) => fetch(`${BASE_URL}/cabanas/${id}`, {
     headers: { 'Authorization': `Bearer ${getToken()}` },
@@ -65,6 +75,6 @@ export const api = {
     credentials: 'include'
   }).then(r => r.json()),
 
-  getFechasOcupadas: (cabanaId) => fetch(`${BASE_URL}/reservas/cabana/${cabanaId}/ocupadas`)
+  getFechasOcupadas: (capacidad) => fetch(`${BASE_URL}/reservas/capacidad/${capacidad}/ocupadas`)
     .then(r => r.json())
 }

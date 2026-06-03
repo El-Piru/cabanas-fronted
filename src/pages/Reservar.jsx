@@ -20,7 +20,7 @@ export default function Reservar() {
     const usuario = localStorage.getItem('usuario')
     if (!usuario) { navigate('/login'); return }
     
-    api.getCabana(parseInt(id))
+    api.getCabanaPorCapacidad(parseInt(id))
       .then(res => {
         if (res.ok) {
           setCabana(res.data)
@@ -116,7 +116,7 @@ export default function Reservar() {
     setError('')
     try {
       const res = await api.crearReserva({
-        cabanaId: parseInt(id),
+        capacidad: parseInt(id),
         llegada: form.llegada,
         salida: form.salida
       })
