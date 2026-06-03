@@ -99,8 +99,8 @@ export default function Reservar() {
       <p style={{color:'#7A8E7B',marginBottom:'2rem',fontSize:'0.9rem'}}>Para consultas: 📞 9 8669 8970</p>
       <div style={{background:'#F5ECD7',borderRadius:'12px',padding:'1.5rem',marginBottom:'2rem',textAlign:'left'}}>
         <p style={{margin:'0 0 8px'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
-        <p style={{margin:'0 0 8px'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 14:00 hrs</p>
-        <p style={{margin:'0 0 8px'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 12:00 hrs</p>
+        <p style={{margin:'0 0 8px'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
+        <p style={{margin:'0 0 8px'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
         <p style={{margin:'0 0 8px'}}><strong>🌙 Noches:</strong> {noches}</p>
         <p style={{margin:'0'}}><strong>💰 Total:</strong> ${total.toLocaleString('es-CL')}</p>
       </div>
@@ -121,12 +121,12 @@ export default function Reservar() {
         <div style={{marginBottom:'1rem'}}>
           <label style={{display:'block',marginBottom:'6px',fontWeight:'500'}}>Fecha de llegada</label>
           <input type="date" value={form.llegada} onChange={e => setForm({...form,llegada:e.target.value})} required min={new Date().toISOString().split('T')[0]} style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box'}} />
-          {form.llegada && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Entrada desde las 14:00 hrs</p>}
+          {form.llegada && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Entrada desde las 10:00 am</p>}
         </div>
         <div style={{marginBottom:'1.5rem'}}>
           <label style={{display:'block',marginBottom:'6px',fontWeight:'500'}}>Fecha de salida</label>
           <input type="date" value={form.salida} onChange={e => setForm({...form,salida:e.target.value})} required min={form.llegada} style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box'}} />
-          {form.salida && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Salida hasta las 12:00 hrs</p>}
+          {form.salida && <p style={{color:'#7A8E7B',fontSize:'0.85rem',margin:'4px 0 0'}}>Salida hasta las 7:00 pm</p>}
         </div>
 
         {noches > 0 && (
