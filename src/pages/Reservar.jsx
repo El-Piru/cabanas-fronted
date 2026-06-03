@@ -37,7 +37,8 @@ export default function Reservar() {
     return fechasOcupadas.some(reserva => {
       const inicio = new Date(reserva.llegada.split('T')[0] + 'T12:00:00')
       const fin = new Date(reserva.salida.split('T')[0] + 'T12:00:00')
-      return d1 < fin && d2 > inicio
+      // Lógica estricta de solapamiento de días enteros
+      return d1 <= fin && d2 >= inicio
     })
   }
 
@@ -63,6 +64,7 @@ export default function Reservar() {
     }
   }, [form, cabana, fechasOcupadas])
 
+  // Obtiene fechas incluyendo el día final (checkout)
   const obtenerFechasExcluidas = () => {
     const excluidas = []
     fechasOcupadas.forEach(reserva => {
@@ -72,7 +74,8 @@ export default function Reservar() {
       let actual = new Date(llegadaStr + 'T12:00:00')
       const fin = new Date(salidaStr + 'T12:00:00')
       
-      while (actual < fin) {
+      // actual <= fin para incluir también el día de salida en los bloqueados
+      while (actual <= fin) {
         excluidas.push(new Date(actual))
         actual.setDate(actual.getDate() + 1)
       }
