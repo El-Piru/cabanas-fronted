@@ -14,7 +14,6 @@ export default function Login() {
     setError('')
     const res = await api.login(form)
     if (res.ok) {
-      localStorage.setItem('token', res.token)
       localStorage.setItem('usuario', JSON.stringify(res.usuario))
       navigate('/')
     } else {

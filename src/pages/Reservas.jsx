@@ -8,8 +8,8 @@ export default function Reservas() {
   const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) { navigate('/login'); return }
+    const usuario = localStorage.getItem('usuario')
+    if (!usuario) { navigate('/login'); return }
     api.misReservas().then(res => {
       if (res.ok) setReservas(res.data)
       setCargando(false)

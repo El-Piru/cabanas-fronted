@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const BASE_URL = 'https://sabanas-proyecto-production.up.railway.app/api'
-const getToken = () => localStorage.getItem('token')
 
 export default function Admin() {
   const navigate = useNavigate()
@@ -13,19 +12,19 @@ export default function Admin() {
   const [nuevaCabana, setNuevaCabana] = useState({ nombre: '', descripcion: '', precio: '', capacidad: '' })
   const [msg, setMsg] = useState('')
 
-  const headers = { 'Authorization': `Bearer ${getToken()}`, 'Content-Type': 'application/json' }
+  const headers = { 'Content-Type': 'application/json' }
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem('usuario') || 'null')
-    if (!usuario) { navigate('/login'); return }
+    if (!usuario || usuario.rol !== 'admin') { navigate('/login'); return }
     cargarDatos()
   }, [])
 
   const cargarDatos = async () => {
     const [r1, r2, r3] = await Promise.all([
-      fetch(`${BASE_URL}/admin/reservas`, { headers }).then(r => r.json()),
-      fetch(`${BASE_URL}/admin/cabanas`, { headers }).then(r => r.json()),
-      fetch(`${BASE_URL}/admin/usuarios`, { headers }).then(r => r.json()),
+      fetch(`${BASE_URL}/admin/reservas`, { headers, credentials: 'include' }).then(r => r.json()),
+      fetch(`${BASE_URL}/admin/cabanas`, { headers, credentials: 'include' }).then(r => r.json()),
+      fetch(`${BASE_URL}/admin/usuarios`, { headers, credentials: 'include' }).then(r => r.json()),
     ])
     if (r1.ok) setReservas(r1.data)
     if (r2.ok) setCabanas(r2.data)
@@ -33,19 +32,19 @@ export default function Admin() {
   }
 
   const cancelarReserva = async (id) => {
-    await fetch(`${BASE_URL}/admin/reservas/${id}/cancelar`, { method: 'PUT', headers })
+    await fetch(`${BASE_URL}/admin/reservas/${id}/cancelar`, { method: 'PUT', headers, credentials: 'include' })
     cargarDatos()
   }
 
   const crearCabana = async () => {
-    const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers, body: JSON.stringify(nuevaCabana) }).then(r => r.json())
+    const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers, credentials: 'include', body: JSON.stringify(nuevaCabana) }).then(r => r.json())
     if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '' }) }
     else setMsg(res.mensaje)
   }
 
   const eliminarCabana = async (id) => {
     if (!confirm('¿Eliminar esta cabaña?')) return
-    await fetch(`${BASE_URL}/admin/cabanas/${id}`, { method: 'DELETE', headers })
+    await fetch(`${BASE_URL}/admin/cabanas/${id}`, { method: 'DELETE', headers, credentials: 'include' })
     cargarDatos()
   }
 

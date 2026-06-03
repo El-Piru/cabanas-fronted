@@ -1,14 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { api } from '../api'
 
 export default function Navbar() {
   const navigate = useNavigate()
-  const token = localStorage.getItem('token')
   const usuario = JSON.parse(localStorage.getItem('usuario') || 'null')
   const [menuAbierto, setMenuAbierto] = useState(false)
 
-  const cerrarSesion = () => {
-    localStorage.removeItem('token')
+  const cerrarSesion = async () => {
+    try {
+      await api.logout()
+    } catch (error) {
+      console.error('Error al cerrar sesión en el servidor:', error)
+    }
     localStorage.removeItem('usuario')
     navigate('/login')
     setMenuAbierto(false)
@@ -29,7 +33,7 @@ export default function Navbar() {
         {/* Menú desktop */}
         <div style={{display:'flex',gap:'1rem',alignItems:'center'}} className="nav-desktop">
           <Link to="/" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none',fontSize:'0.9rem'}}>Cabañas</Link>
-          {token ? (
+          {usuario ? (
             <>
               {usuario?.rol === 'admin' ? (
                 <Link to="/admin" style={{color:'#F5C842',textDecoration:'none',fontWeight:'500',fontSize:'0.9rem'}}>Panel Admin</Link>
@@ -52,7 +56,7 @@ export default function Navbar() {
       {/* Menú móvil desplegable */}
       {menuAbierto && (
         <div style={{background:'#1A2E1B',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)'}}>
-          {token ? (
+          {usuario ? (
             <>
               {usuario?.rol === 'admin' ? (
                 <Link to="/admin" onClick={() => setMenuAbierto(false)} style={{display:'block',color:'#F5C842',textDecoration:'none',padding:'10px 0',fontWeight:'500',fontSize:'1rem'}}>Panel Admin</Link>

@@ -17,8 +17,8 @@ export default function Reservar() {
   const [fechasOcupadas, setFechasOcupadas] = useState([])
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) { navigate('/login'); return }
+    const usuario = localStorage.getItem('usuario')
+    if (!usuario) { navigate('/login'); return }
     
     api.getCabana(parseInt(id)).then(res => {
       if (res.ok) setCabana(res.data)
