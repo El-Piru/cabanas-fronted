@@ -28,7 +28,7 @@ export default function Registro() {
           Crear cuenta
         </h2>
         <p style={{color:'#7A8E7B',textAlign:'center',marginBottom:'2rem',fontSize:'0.9rem'}}>
-          Unete a Cabanas del Bosque
+          Unete a Cabañas La Higuera
         </p>
 
         {error && (
