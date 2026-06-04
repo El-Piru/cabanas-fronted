@@ -58,23 +58,26 @@ export default function CabanaCard({ cabana }) {
       <div 
         onClick={() => setMostrarModal(true)}
         style={{
-          background:'#fff',
-          borderRadius:'12px',
-          overflow:'hidden',
-          border:'1px solid #ECE8E0',
-          cursor:'pointer',
-          transition:'transform 0.2s ease, box-shadow 0.2s ease'
+          background: '#ffffff',
+          borderRadius: '16px',
+          overflow: 'hidden',
+          border: '1px solid rgba(236, 232, 224, 0.7)',
+          cursor: 'pointer',
+          boxShadow: '0 4px 15px rgba(26, 46, 27, 0.02)',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
         onMouseEnter={e => {
-          e.currentTarget.style.transform='translateY(-4px)'
-          e.currentTarget.style.boxShadow='0 8px 20px rgba(44,74,46,0.15)'
+          e.currentTarget.style.transform = 'translateY(-6px)'
+          e.currentTarget.style.boxShadow = '0 12px 30px rgba(26, 46, 27, 0.08)'
+          e.currentTarget.style.borderColor = 'rgba(44, 74, 46, 0.2)'
         }}
         onMouseLeave={e => {
-          e.currentTarget.style.transform='translateY(0)'
-          e.currentTarget.style.boxShadow='none'
+          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.boxShadow = '0 4px 15px rgba(26, 46, 27, 0.02)'
+          e.currentTarget.style.borderColor = 'rgba(236, 232, 224, 0.7)'
         }}
       >
-        <div style={{height:'180px', background:'#FAF7F2', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', position:'relative'}}>
+        <div style={{height:'190px', background:'#FAF8F5', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', position:'relative', borderBottom:'1px solid rgba(236, 232, 224, 0.4)'}}>
           {cabana.imagen ? (
             <img
               src={cabana.imagen}
@@ -94,38 +97,83 @@ export default function CabanaCard({ cabana }) {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'linear-gradient(135deg,#3D6B40,#6B9E55)',
+            background: '#FAF8F5',
             alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '4rem'
+            justifyContent: 'center'
           }}>
-            🌲
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:'0.6rem'}}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7A8E7B" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 10l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <path d="M9 22V12h6v10" />
+              </svg>
+              <span style={{fontSize:'0.65rem', color:'#7A8E7B', letterSpacing:'2px', textTransform:'uppercase', fontWeight:'600'}}>Cabaña</span>
+            </div>
           </div>
         </div>
-        <div style={{padding:'1.25rem'}}>
-          <h3 style={{margin:'0 0 4px',color:'#1A2E1B'}}>{cabana.nombre}</h3>
-          <p style={{fontSize:'0.85rem',color:'#7A8E7B',margin:'0 0 .75rem'}}>{cabana.descripcion}</p>
+        <div style={{padding:'1.5rem'}}>
+          <h3 style={{
+            margin:'0 0 6px',
+            fontFamily:'"Playfair Display", Georgia, serif',
+            fontSize:'1.25rem',
+            fontWeight:'400',
+            color:'#1A2E1B'
+          }}>
+            {cabana.nombre}
+          </h3>
+          <p style={{
+            fontSize:'0.85rem',
+            color:'#6E8270',
+            margin:'0 0 1.25rem',
+            lineHeight:'1.45'
+          }}>
+            {cabana.descripcion}
+          </p>
           
-          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem'}}>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1.25rem'}}>
             <span style={{fontSize:'0.8rem',color:'#4A5E4C',fontWeight:'500'}}>
               👥 Capacidad: {cabana.capacidad} personas
             </span>
-            <span style={{fontSize:'0.8rem',color:'#1A6B8A',fontWeight:'600'}}>
-              Ver detalles ➔
+            <span style={{
+              fontSize:'0.8rem',
+              color:'#2C4A2E',
+              fontWeight:'600',
+              textDecoration:'underline',
+              textUnderlineOffset:'3px'
+            }}>
+              Ver detalles
             </span>
           </div>
 
-          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',borderTop:'1px solid #F0EBE2',paddingTop:'.75rem'}}>
-            <span style={{fontSize:'1.2rem',fontWeight:'500',color:'#2C4A2E'}}>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',borderTop:'1px solid #FAF6F0',paddingTop:'1rem'}}>
+            <span style={{fontSize:'1.25rem',fontWeight:'600',color:'#2C4A2E',fontFamily:'"Outfit", sans-serif'}}>
               ${cabana.precio.toLocaleString('es-CL')}
-              <small style={{fontSize:'0.8rem',color:'#7A8E7B'}}>/noche</small>
+              <small style={{fontSize:'0.8rem',color:'#7A8E7B',fontWeight:'400'}}>/noche</small>
             </span>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 navigate(`/reservar/${cabana.capacidad}`)
               }}
-              style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontWeight:'500'}}
+              style={{
+                background:'#2C4A2E',
+                color:'#fff',
+                border:'none',
+                padding:'8px 20px',
+                borderRadius:'50px',
+                cursor:'pointer',
+                fontWeight:'600',
+                fontSize:'0.85rem',
+                boxShadow:'0 2px 8px rgba(44,74,46,0.1)',
+                transition:'all 0.2s ease'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = '#1A2E1B'
+                e.currentTarget.style.transform = 'scale(1.03)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = '#2C4A2E'
+                e.currentTarget.style.transform = 'scale(1)'
+              }}
             >
               Reservar
             </button>
@@ -142,8 +190,8 @@ export default function CabanaCard({ cabana }) {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(26, 46, 27, 0.75)',
-            backdropFilter: 'blur(8px)',
+            background: 'rgba(26, 46, 27, 0.65)',
+            backdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -154,19 +202,20 @@ export default function CabanaCard({ cabana }) {
         >
           <div 
             style={{
-              background: '#fff',
-              borderRadius: '16px',
+              background: '#ffffff',
+              borderRadius: '24px',
               maxWidth: '600px',
               width: '100%',
               maxHeight: '90vh',
               overflowY: 'auto',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-              position: 'relative'
+              boxShadow: '0 25px 50px rgba(26,46,27,0.15)',
+              position: 'relative',
+              border: '1px solid rgba(236, 232, 224, 0.7)'
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Hero Image */}
-            <div style={{height:'220px', position:'relative', background:'#FAF7F2', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center'}}>
+            {/* Hero Image / Placeholder */}
+            <div style={{height:'240px', position:'relative', background:'#FAF8F5', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', borderBottom:'1px solid rgba(236,232,224,0.4)'}}>
               {cabana.imagen ? (
                 <img 
                   src={cabana.imagen} 
@@ -186,34 +235,48 @@ export default function CabanaCard({ cabana }) {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'linear-gradient(135deg,#3D6B40,#6B9E55)',
+                background: '#FAF8F5',
                 alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '5rem'
+                justifyContent: 'center'
               }}>
-                🌲
+                <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:'0.75rem'}}>
+                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#7A8E7B" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 10l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <path d="M9 22V12h6v10" />
+                  </svg>
+                  <span style={{fontSize:'0.75rem', color:'#7A8E7B', letterSpacing:'3px', textTransform:'uppercase', fontWeight:'600'}}>Cabaña La Higuera</span>
+                </div>
               </div>
               {/* Close Button */}
               <button
                 onClick={() => setMostrarModal(false)}
                 style={{
                   position: 'absolute',
-                  top: '12px',
-                  right: '12px',
+                  top: '16px',
+                  right: '16px',
                   background: 'rgba(255,255,255,0.9)',
                   border: 'none',
-                  width: '32px',
-                  height: '32px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '50%',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontWeight: 'bold',
-                  fontSize: '1.1rem',
+                  fontSize: '1rem',
                   color: '#1A2E1B',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                  zIndex: 10
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                  zIndex: 10,
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = '#ffffff'
+                  e.currentTarget.style.transform = 'scale(1.05)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.9)'
+                  e.currentTarget.style.transform = 'scale(1)'
                 }}
               >
                 ✕
@@ -221,61 +284,77 @@ export default function CabanaCard({ cabana }) {
             </div>
 
             {/* Content */}
-            <div style={{padding:'1.75rem', textAlign:'left'}}>
+            <div style={{padding:'2rem', textAlign:'left'}}>
               <span style={{
-                background: '#EAE6DF',
-                color: '#4A5E4C',
-                padding: '4px 10px',
-                borderRadius: '20px',
-                fontSize: '0.8rem',
+                background: '#FAF6F0',
+                color: '#5A7A5E',
+                padding: '4px 12px',
+                borderRadius: '50px',
+                fontSize: '0.75rem',
                 fontWeight: '600',
                 textTransform: 'uppercase',
-                letterSpacing: '0.5px'
+                letterSpacing: '1px',
+                border: '1px solid rgba(44,74,46,0.1)'
               }}>
-                Equipamiento Completo
+                Equipamiento Detallado
               </span>
-              <h2 style={{fontFamily:'Georgia,serif', color:'#1A2E1B', margin:'12px 0 6px'}}>{cabana.nombre}</h2>
-              <p style={{fontSize:'0.95rem', color:'#666', lineHeight:'1.5', margin:'0 0 1.5rem'}}>{cabana.descripcion}</p>
+              <h2 style={{
+                fontFamily:'"Playfair Display", Georgia, serif',
+                color:'#1A2E1B',
+                fontSize:'1.8rem',
+                fontWeight:'400',
+                margin:'16px 0 8px'
+              }}>
+                {cabana.nombre}
+              </h2>
+              <p style={{
+                fontSize:'0.95rem',
+                color:'#5A6A5C',
+                lineHeight:'1.55',
+                margin:'0 0 2rem'
+              }}>
+                {cabana.descripcion}
+              </p>
 
               {/* Detailed features list */}
-              <div style={{display:'flex', flexDirection:'column', gap:'1.25rem', borderTop:'1px solid #ECE8E0', paddingTop:'1.25rem'}}>
-                <div style={{display:'flex', gap:'12px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.4rem', lineHeight:'1'}}>🛏️</span>
+              <div style={{display:'flex', flexDirection:'column', gap:'1.5rem', borderTop:'1px solid #ECE8E0', paddingTop:'1.5rem'}}>
+                <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
+                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛏️</span>
                   <div>
-                    <h4 style={{margin:'0 0 2px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600'}}>Dormitorios</h4>
-                    <p style={{margin:0, fontSize:'0.85rem', color:'#555', lineHeight:'1.4'}}>{detalles.dormitorios}</p>
+                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Dormitorios</h4>
+                    <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.dormitorios}</p>
                   </div>
                 </div>
 
-                <div style={{display:'flex', gap:'12px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.4rem', lineHeight:'1'}}>🚿</span>
+                <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
+                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🚿</span>
                   <div>
-                    <h4 style={{margin:'0 0 2px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600'}}>Baños</h4>
-                    <p style={{margin:0, fontSize:'0.85rem', color:'#555', lineHeight:'1.4'}}>{detalles.banos}</p>
+                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Baños</h4>
+                    <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.banos}</p>
                   </div>
                 </div>
 
-                <div style={{display:'flex', gap:'12px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.4rem', lineHeight:'1'}}>🍳</span>
+                <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
+                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🍳</span>
                   <div>
-                    <h4 style={{margin:'0 0 2px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600'}}>Cocina y Comedor</h4>
-                    <p style={{margin:0, fontSize:'0.85rem', color:'#555', lineHeight:'1.4'}}>{detalles.cocina}</p>
+                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Cocina y Comedor</h4>
+                    <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.cocina}</p>
                   </div>
                 </div>
 
-                <div style={{display:'flex', gap:'12px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.4rem', lineHeight:'1'}}>🏡</span>
+                <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
+                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🏡</span>
                   <div>
-                    <h4 style={{margin:'0 0 2px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600'}}>Exterior y Terraza</h4>
-                    <p style={{margin:0, fontSize:'0.85rem', color:'#555', lineHeight:'1.4'}}>{detalles.exterior}</p>
+                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Exterior y Terraza</h4>
+                    <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.exterior}</p>
                   </div>
                 </div>
 
-                <div style={{display:'flex', gap:'12px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.4rem', lineHeight:'1'}}>✨</span>
+                <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
+                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>✨</span>
                   <div>
-                    <h4 style={{margin:'0 0 2px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600'}}>Servicios Incluidos</h4>
-                    <p style={{margin:0, fontSize:'0.85rem', color:'#555', lineHeight:'1.4'}}>{detalles.servicios}</p>
+                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Servicios Incluidos</h4>
+                    <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.servicios}</p>
                   </div>
                 </div>
               </div>
@@ -286,25 +365,32 @@ export default function CabanaCard({ cabana }) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 borderTop: '1px solid #ECE8E0',
-                marginTop: '1.75rem',
-                paddingTop: '1.25rem'
+                marginTop: '2rem',
+                paddingTop: '1.5rem'
               }}>
                 <div>
-                  <span style={{fontSize:'0.8rem', color:'#7A8E7B', display:'block'}}>Precio por Noche</span>
-                  <span style={{fontSize:'1.4rem', fontWeight:'600', color:'#2C4A2E'}}>${cabana.precio.toLocaleString('es-CL')}</span>
+                  <span style={{fontSize:'0.8rem', color:'#7A8E7B', display:'block', fontWeight:'500'}}>Precio por Noche</span>
+                  <span style={{fontSize:'1.5rem', fontWeight:'600', color:'#2C4A2E', fontFamily:'"Outfit", sans-serif'}}>${cabana.precio.toLocaleString('es-CL')}</span>
                 </div>
                 <div style={{display:'flex', gap:'0.75rem'}}>
                   <button
                     onClick={() => setMostrarModal(false)}
                     style={{
-                      background: '#F0EBE2',
+                      background: '#FAF6F0',
                       color: '#4A5E4C',
-                      border: 'none',
+                      border: '1px solid rgba(44,74,46,0.1)',
                       padding: '10px 20px',
-                      borderRadius: '8px',
+                      borderRadius: '50px',
                       cursor: 'pointer',
-                      fontWeight: '500',
-                      fontSize: '0.9rem'
+                      fontWeight: '600',
+                      fontSize: '0.9rem',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = '#FAF2E6'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = '#FAF6F0'
                     }}
                   >
                     Cerrar
@@ -319,10 +405,20 @@ export default function CabanaCard({ cabana }) {
                       color: '#fff',
                       border: 'none',
                       padding: '10px 24px',
-                      borderRadius: '8px',
+                      borderRadius: '50px',
                       cursor: 'pointer',
                       fontWeight: '600',
-                      fontSize: '0.9rem'
+                      fontSize: '0.9rem',
+                      boxShadow: '0 4px 12px rgba(44,74,46,0.15)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = '#1A2E1B'
+                      e.currentTarget.style.transform = 'scale(1.02)'
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = '#2C4A2E'
+                      e.currentTarget.style.transform = 'scale(1)'
                     }}
                   >
                     Reservar Ahora
