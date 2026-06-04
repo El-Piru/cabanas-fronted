@@ -22,7 +22,7 @@ export default function PagoResultado() {
         return (
           <div style={{ textAlign: 'center', padding: '2rem' }}>
             <div style={{ fontSize: '4.5rem', marginBottom: '1.5rem' }}>✅</div>
-            <h1 style={{ fontFamily: 'Georgia,serif', color: '#1A2E1B', marginBottom: '1rem', fontSize: '2rem' }}>
+            <h1 style={{ color: '#1A2E1B', marginBottom: '1rem', fontSize: '2rem' }}>
               ¡Pago procesado con éxito!
             </h1>
             <p style={{ color: '#4A5E4C', fontSize: '1.1rem', marginBottom: '0.5rem', lineHeight: '1.6' }}>
@@ -53,7 +53,7 @@ export default function PagoResultado() {
         return (
           <div style={{ textAlign: 'center', padding: '2rem' }}>
             <div style={{ fontSize: '4.5rem', marginBottom: '1.5rem' }}>⏳</div>
-            <h1 style={{ fontFamily: 'Georgia,serif', color: '#C8860A', marginBottom: '1rem', fontSize: '2rem' }}>
+            <h1 style={{ color: '#C8860A', marginBottom: '1rem', fontSize: '2rem' }}>
               Pago en proceso de confirmación
             </h1>
             <p style={{ color: '#4A5E4C', fontSize: '1.1rem', marginBottom: '0.5rem', lineHeight: '1.6' }}>
@@ -78,7 +78,7 @@ export default function PagoResultado() {
         return (
           <div style={{ textAlign: 'center', padding: '2rem' }}>
             <div style={{ fontSize: '4.5rem', marginBottom: '1.5rem' }}>❌</div>
-            <h1 style={{ fontFamily: 'Georgia,serif', color: '#991B1B', marginBottom: '1rem', fontSize: '2rem' }}>
+            <h1 style={{ color: '#991B1B', marginBottom: '1rem', fontSize: '2rem' }}>
               No pudimos procesar tu pago
             </h1>
             <p style={{ color: '#4A5E4C', fontSize: '1.1rem', marginBottom: '0.5rem', lineHeight: '1.6' }}>

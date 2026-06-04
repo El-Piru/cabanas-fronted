@@ -12,13 +12,19 @@ export default function Registro() {
     e.preventDefault()
     setCargando(true)
     setError('')
-    const res = await api.registro(form)
-    if (res.ok) {
-      navigate('/login')
-    } else {
-      setError(res.mensaje)
+    try {
+      const res = await api.registro(form)
+      if (res.ok) {
+        navigate('/login')
+      } else {
+        setError(res.mensaje || 'Error al registrar usuario')
+      }
+    } catch (err) {
+      console.error('Error de registro:', err)
+      setError('Error de comunicación con el servidor. Por favor, intenta más tarde.')
+    } finally {
+      setCargando(false)
     }
-    setCargando(false)
   }
 
   return (

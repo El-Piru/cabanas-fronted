@@ -12,15 +12,21 @@ export default function Login() {
     e.preventDefault()
     setCargando(true)
     setError('')
-    const res = await api.login(form)
-    if (res.ok) {
-      localStorage.setItem('token', res.token)
-      localStorage.setItem('usuario', JSON.stringify(res.usuario))
-      navigate('/')
-    } else {
-      setError(res.mensaje)
+    try {
+      const res = await api.login(form)
+      if (res.ok) {
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('usuario', JSON.stringify(res.usuario))
+        navigate('/')
+      } else {
+        setError(res.mensaje || 'Error al iniciar sesión')
+      }
+    } catch (err) {
+      console.error('Error de login:', err)
+      setError('Error de comunicación con el servidor. Por favor, intenta más tarde.')
+    } finally {
+      setCargando(false)
     }
-    setCargando(false)
   }
 
   return (

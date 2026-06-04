@@ -22,14 +22,14 @@ export default function Reservar() {
     
     api.getCabanaPorCapacidad(parseInt(id))
       .then(res => {
-        if (res.ok) {
+        if (res.ok && res.data) {
           setCabana(res.data)
         } else {
           if (res.mensaje === 'Token requerido' || res.mensaje === 'Token inválido') {
             localStorage.removeItem('usuario')
             navigate('/login')
           } else {
-            setError(res.mensaje || 'Error al cargar la cabaña')
+            setError(res.mensaje || 'La capacidad especificada no existe o no está disponible.')
           }
         }
       })
