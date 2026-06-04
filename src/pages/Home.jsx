@@ -38,20 +38,22 @@ export default function Home() {
           marginBottom: '1rem',
           lineHeight: '1.15',
           letterSpacing: '-0.5px',
-          textShadow: '0 2px 10px rgba(0,0,0,0.2)'
+          textShadow: '0 2px 10px rgba(0,0,0,0.2)',
+          color: '#ffffff'
         }}>
           Cabañas La Higuera Rapel
         </h1>
         <p style={{
           fontSize: 'clamp(1.05rem, 3vw, 1.25rem)',
-          opacity: .95,
+          opacity: .9,
           fontWeight: '300',
           letterSpacing: '0.2px',
           marginBottom: '2.5rem',
           maxWidth: '650px',
           margin: '0 auto 2.5rem',
           fontFamily: '"Outfit", "Inter", sans-serif',
-          textShadow: '0 1px 5px rgba(0,0,0,0.15)'
+          textShadow: '0 1px 5px rgba(0,0,0,0.15)',
+          color: '#ffffff'
         }}>
           Tu refugio perfecto a orillas del Lago Rapel
         </p>
