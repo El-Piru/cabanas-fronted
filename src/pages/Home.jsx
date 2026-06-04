@@ -32,9 +32,9 @@ export default function Home() {
         }} />
 
         <h1 style={{
-          fontFamily: '"Playfair Display", Georgia, serif',
+          fontFamily: '"Outfit", sans-serif',
           fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
-          fontWeight: '400',
+          fontWeight: '700',
           marginBottom: '1rem',
           lineHeight: '1.15',
           letterSpacing: '-0.5px',
@@ -96,22 +96,11 @@ export default function Home() {
           padding: '3.5rem 2rem 3rem'
         }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <span style={{
-              color: '#5A7A5E',
-              fontSize: '0.8rem',
-              fontWeight: '600',
-              textTransform: 'uppercase',
-              letterSpacing: '1.5px',
-              display: 'block',
-              marginBottom: '0.5rem'
-            }}>
-              Nuestras Alternativas
-            </span>
             <h2 style={{
-              fontFamily: '"Playfair Display", Georgia, serif',
+              fontFamily: '"Outfit", sans-serif',
               fontSize: 'clamp(1.8rem, 4vw, 2.2rem)',
               color: '#1A2E1B',
-              fontWeight: '400',
+              fontWeight: '600',
               marginBottom: '0.5rem'
             }}>
               Nuestras Cabañas
@@ -177,9 +166,9 @@ export default function Home() {
               pointerEvents: 'none'
             }} />
             <h3 style={{
-              fontFamily: '"Playfair Display", Georgia, serif',
+              fontFamily: '"Outfit", sans-serif',
               fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
-              fontWeight: '400',
+              fontWeight: '600',
               marginBottom: '0.75rem'
             }}>
               ¿Tienes dudas o buscas algo especial?

@@ -113,9 +113,9 @@ export default function CabanaCard({ cabana }) {
         <div style={{padding:'1.5rem'}}>
           <h3 style={{
             margin:'0 0 6px',
-            fontFamily:'"Playfair Display", Georgia, serif',
+            fontFamily:'"Outfit", sans-serif',
             fontSize:'1.25rem',
-            fontWeight:'400',
+            fontWeight:'600',
             color:'#1A2E1B'
           }}>
             {cabana.nombre}
@@ -299,10 +299,10 @@ export default function CabanaCard({ cabana }) {
                 Equipamiento Detallado
               </span>
               <h2 style={{
-                fontFamily:'"Playfair Display", Georgia, serif',
+                fontFamily:'"Outfit", sans-serif',
                 color:'#1A2E1B',
                 fontSize:'1.8rem',
-                fontWeight:'400',
+                fontWeight:'600',
                 margin:'16px 0 8px'
               }}>
                 {cabana.nombre}
