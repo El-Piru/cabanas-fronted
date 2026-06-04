@@ -20,7 +20,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav style={{background:'#1A2E1B',padding:'0 1.5rem',position:'relative'}}>
+    <nav style={{background:'#2A1B10',padding:'0 1.5rem',position:'relative'}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px',maxWidth:'1100px',margin:'0 auto'}}>
         <Link to="/" style={{display:'flex',alignItems:'center',gap:'10px',color:'#FAF7F2',fontWeight:'bold',fontSize:'1.05rem',textDecoration:'none',fontFamily:'Georgia,serif',flexShrink:0}}>
           <img
@@ -59,7 +59,7 @@ export default function Navbar() {
       </div>
 
       {menuAbierto && (
-        <div style={{background:'#1A2E1B',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)',maxWidth:'1100px',margin:'0 auto'}}>
+        <div style={{background:'#2A1B10',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)',maxWidth:'1100px',margin:'0 auto'}}>
           {usuario ? (
             <>
               {usuario?.rol === 'admin' ? (
