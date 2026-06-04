@@ -75,7 +75,7 @@ export default function Home() {
         }}>
           <span>🚤 Paseos en lancha</span>
           <span>🚣 Kayak y botes</span>
-          <span>🏊 Piscina</span>
+          <span>🏊 Piscina y Tobogán</span>
           <span>🏄 Moto de agua</span>
         </div>
       </div>
@@ -112,8 +112,8 @@ export default function Home() {
               margin: '0.75rem auto 1rem',
               borderRadius: '2px'
             }} />
-            <p style={{ color: '#7A8E7B', fontSize: '0.95rem', maxWidth: '500px', margin: '0 auto' }}>
-              Cabañas para 2, 4, 6 y 8 personas — todos los servicios incluidos
+            <p style={{ color: '#7A8E7B', fontSize: '0.95rem', maxWidth: '600px', margin: '0 auto' }}>
+              Cabañas para 2, 4, 6, 8 y 10 personas — Piscina y tobogán incluidos en el precio
             </p>
           </div>
 

@@ -7,35 +7,35 @@ const DETALLES_POR_CAPACIDAD = {
     banos: "1 baño completo en suite con hidromasaje",
     cocina: "Kitchenette equipada (frigobar, microondas, cafetera, vajilla básica para 2)",
     exterior: "Balcón/terraza privada con parrilla pequeña y hermosa vista al entorno arbolado",
-    servicios: "Sábanas y toallas premium, calefacción eléctrica, TV Smart (Netflix), acceso a piscina, estacionamiento"
+    servicios: "Sábanas y toallas premium, calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
   },
   4: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
     banos: "1 baño completo con ducha de agua caliente",
     cocina: "Cocina americana equipada (refrigerador, encimera, vajilla completa, hervidor eléctrico)",
     exterior: "Terraza privada con parrilla para asados y vista al bosque de higueras",
-    servicios: "Sábanas y toallas (cambio c/3 días), TV por cable, calefacción, acceso a piscina, kayaks, estacionamiento"
+    servicios: "Sábanas y toallas (cambio c/3 días), TV por cable, calefacción, acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   6: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
     banos: "1 baño completo + 1 medio baño de visitas",
     cocina: "Cocina independiente equipada (refrigerador grande, cocina con horno, microondas, vajilla completa)",
     exterior: "Gran terraza techada con parrilla para asados y vista al jardín principal",
-    servicios: "Sábanas y toallas premium, calefacción a leña (bosca), TV satelital, acceso a piscina, botes de remo, estacionamiento para 2 vehículos"
+    servicios: "Sábanas y toallas premium, calefacción a leña (bosca), TV satelital, acceso a piscina y tobogán, botes de remo, estacionamiento para 2 vehículos"
   },
   8: {
     dormitorios: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
     banos: "2 baños completos con tina/ducha",
     cocina: "Cocina amplia equipada (refrigerador de doble puerta, horno eléctrico, cafetera, vajilla completa)",
     exterior: "Terraza panorámica con parrilla familiar grande frente a áreas verdes/cercanas al lago",
-    servicios: "Sábanas de alta calidad, toallas de baño, chimenea de leña, Smart TV de 50\", acceso preferencial a lanchas, kayaks, estacionamiento"
+    servicios: "Sábanas de alta calidad, toallas de baño, chimenea de leña, Smart TV de 50\", acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   10: {
     dormitorios: "3 dormitorios (1 Cama matrimonial en una habitación, 2 Camarotes en la segunda y 2 Camarotes en la tercera)",
     banos: "2 baños completos con tina + 1 baño social de visitas",
     cocina: "Cocina familiar full equipada (refrigerador industrial, microondas, vajilla para 12 personas, cafetera espresso)",
     exterior: "Amplia terraza frente al lago con parrilla grande, hamacas de descanso y mesa familiar exterior",
-    servicios: "Sábanas y toallas deluxe, calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina y muelle privado, estacionamiento para 3 vehículos"
+    servicios: "Sábanas y toallas deluxe, calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina, tobogán y muelle privado, estacionamiento para 3 vehículos"
   }
 }
 
