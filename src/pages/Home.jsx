@@ -15,11 +15,11 @@ export default function Home() {
 
   return (
     <div>
-      <div style={{background:'linear-gradient(135deg, #1A2E1B 0%, #2C4A2E 60%, #1A6B8A 100%)',padding:'4rem 1.5rem',textAlign:'center',color:'#fff'}}>
-        <h1 style={{fontFamily:'Georgia,serif',fontSize:'clamp(1.8rem, 5vw, 3rem)',marginBottom:'1rem',lineHeight:'1.2'}}>
+      <div style={{background:'linear-gradient(to top, #D2DCD6 0%, #2C4A2E 55%, #1A2E1B 100%)',padding:'4rem 1.5rem',textAlign:'center',color:'#fff'}}>
+        <h1 style={{fontFamily:'Georgia,serif',fontSize:'clamp(1.8rem, 5vw, 3rem)',marginBottom:'1rem',lineHeight:'1.2',textShadow:'0 2px 4px rgba(0,0,0,0.15)'}}>
           Cabañas La Higuera Rapel
         </h1>
-        <p style={{fontSize:'clamp(1rem, 3vw, 1.25rem)',opacity:.85,marginBottom:'2rem'}}>
+        <p style={{fontSize:'clamp(1rem, 3vw, 1.25rem)',opacity:.9,marginBottom:'2rem',textShadow:'0 1px 3px rgba(0,0,0,0.15)'}}>
           Tu refugio perfecto a orillas del Lago Rapel
         </p>
         <div style={{display:'flex',justifyContent:'center',gap:'1rem',flexWrap:'wrap',fontSize:'clamp(0.85rem, 2.5vw, 1rem)',opacity:.9}}>
