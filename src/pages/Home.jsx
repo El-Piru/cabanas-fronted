@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <div>
-      <div style={{background:'linear-gradient(to top, #D2DCD6 0%, #2C4A2E 55%, #1A2E1B 100%)',padding:'4rem 1.5rem',textAlign:'center',color:'#fff'}}>
+      <div style={{background:'linear-gradient(to top, #405E43 0%, #1A2E1B 100%)',padding:'4rem 1.5rem',textAlign:'center',color:'#fff'}}>
         <h1 style={{fontFamily:'Georgia,serif',fontSize:'clamp(1.8rem, 5vw, 3rem)',marginBottom:'1rem',lineHeight:'1.2',textShadow:'0 2px 4px rgba(0,0,0,0.15)'}}>
           Cabañas La Higuera Rapel
         </h1>
