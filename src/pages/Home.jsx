@@ -78,6 +78,30 @@ export default function Home() {
           <span>🏊 Piscina y Tobogán</span>
           <span>🏄 Moto de agua</span>
         </div>
+        <div style={{ marginTop: '2rem' }}>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{
+            background: '#C01C1C',
+            color: '#fff',
+            padding: '10px 26px',
+            borderRadius: '50px',
+            textDecoration: 'none',
+            fontWeight: '600',
+            fontSize: '0.85rem',
+            boxShadow: '0 4px 15px rgba(192, 28, 28, 0.3)',
+            transition: 'all 0.2s ease',
+            display: 'inline-block'
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform='translateY(-2px)'
+            e.currentTarget.style.boxShadow='0 6px 20px rgba(192, 28, 28, 0.4)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform='translateY(0)'
+            e.currentTarget.style.boxShadow='0 4px 15px rgba(192, 28, 28, 0.3)'
+          }}>
+            📍 Cómo llegar (Google Maps)
+          </a>
+        </div>
       </div>
 
       {/* Main Container Overlapping Hero */}
@@ -198,29 +222,6 @@ export default function Home() {
                 e.currentTarget.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'
               }}>
                 💬 WhatsApp Directo
-              </a>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{
-                background: '#407DAF',
-                color: '#fff',
-                padding: '12px 28px',
-                borderRadius: '50px',
-                textDecoration: 'none',
-                fontWeight: '600',
-                fontSize: '0.95rem',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                boxShadow: '0 4px 15px rgba(64, 125, 175, 0.3)',
-                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                display: 'inline-block'
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform='translateY(-2px)'
-                e.currentTarget.style.boxShadow='0 6px 20px rgba(64, 125, 175, 0.4)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform='translateY(0)'
-                e.currentTarget.style.boxShadow='0 4px 15px rgba(64, 125, 175, 0.3)'
-              }}>
-                🗺️ Cómo llegar (GPS)
               </a>
               <a href="mailto:juinzhy@gmail.com" style={{
                 background: 'rgba(255, 255, 255, 0.1)',

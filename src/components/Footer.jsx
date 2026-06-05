@@ -62,7 +62,7 @@ export default function Footer() {
         <div>
           <h4 style={{ color: '#FAF7F2', fontSize: '0.95rem', fontWeight: '600', margin: '0 0 1rem' }}>Ubicación</h4>
           <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'block', margin: '0 0 0.5rem', fontSize: '0.85rem', transition: 'color 0.2s ease' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>
-            📍 Camino Punta Arenas s/n, El Manzano, Las Cabras (Cómo llegar)
+            📍 Camino Punta Arenas s/n, El Manzano, Las Cabras
           </a>
           <p style={{ margin: '0 0 0.5rem', fontSize: '0.85rem' }}>📞 +56 9 7899 6989</p>
           <p style={{ margin: 0, fontSize: '0.85rem' }}>✉️ reservas@cabanaslahiguera.cl</p>
