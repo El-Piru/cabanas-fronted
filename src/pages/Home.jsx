@@ -99,7 +99,7 @@ export default function Home() {
             e.currentTarget.style.transform='translateY(0)'
             e.currentTarget.style.boxShadow='0 4px 15px rgba(192, 28, 28, 0.3)'
           }}>
-            📍 Cómo llegar (Google Maps)
+            📍 Cómo llegar
           </a>
         </div>
       </div>
