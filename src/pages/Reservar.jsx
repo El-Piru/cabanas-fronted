@@ -15,6 +15,7 @@ export default function Reservar() {
   const [exito, setExito] = useState(false)
   const [cargando, setCargando] = useState(false)
   const [fechasOcupadas, setFechasOcupadas] = useState([])
+  const [aceptaTerminos, setAceptaTerminos] = useState(false)
 
   useEffect(() => {
     const usuario = localStorage.getItem('usuario')
@@ -108,6 +109,10 @@ export default function Reservar() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!aceptaTerminos) {
+      setError('Debes aceptar los Términos y Condiciones y las Políticas de Cancelación para continuar.')
+      return
+    }
     if (verificarSolapamiento(form.llegada, form.salida)) {
       setError('La cabaña ya está reservada en esas fechas.')
       return
@@ -234,7 +239,22 @@ export default function Reservar() {
           </div>
         )}
 
-        <button onClick={handleSubmit} disabled={cargando || noches === 0} style={{width:'100%',background:noches > 0 ? '#C01C1C' : '#ccc',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',cursor:noches > 0 ? 'pointer' : 'not-allowed'}}>
+        {noches > 0 && (
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '1.5rem', marginTop: '1rem', textAlign: 'left' }}>
+            <input 
+              type="checkbox" 
+              id="terminos" 
+              checked={aceptaTerminos} 
+              onChange={(e) => setAceptaTerminos(e.target.checked)} 
+              style={{ marginTop: '4px', cursor: 'pointer', width: '16px', height: '16px' }}
+            />
+            <label htmlFor="terminos" style={{ fontSize: '0.85rem', color: '#5A6A5C', cursor: 'pointer', lineHeight: '1.4' }}>
+              Acepto los <a href="/terminos" target="_blank" rel="noopener noreferrer" style={{ color: '#C01C1C', textDecoration: 'underline', fontWeight: '500' }}>Términos y Condiciones</a> y las <a href="/terminos#politica-cancelacion" target="_blank" rel="noopener noreferrer" style={{ color: '#C01C1C', textDecoration: 'underline', fontWeight: '500' }}>Políticas de Cancelación</a> de Cabañas La Higuera.
+            </label>
+          </div>
+        )}
+
+        <button onClick={handleSubmit} disabled={cargando || noches === 0 || !aceptaTerminos} style={{width:'100%',background:(noches > 0 && aceptaTerminos) ? '#C01C1C' : '#ccc',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',cursor:(noches > 0 && aceptaTerminos) ? 'pointer' : 'not-allowed',transition:'background 0.2s'}}>
           {cargando ? 'Confirmando...' : 'Confirmar reserva'}
         </button>
       </div>

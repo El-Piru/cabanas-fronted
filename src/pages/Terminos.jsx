@@ -55,7 +55,7 @@ export default function Terminos() {
         </p>
       </section>
 
-      <section style={{ marginBottom: '2rem', background: '#FAF6F0', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(44, 74, 46, 0.1)' }}>
+      <section id="politica-cancelacion" style={{ marginBottom: '2rem', background: '#FAF6F0', padding: '1.5rem', borderRadius: '16px', border: '1px solid rgba(44, 74, 46, 0.1)' }}>
         <h2 style={{ color: '#1A2E1B', fontSize: '1.3rem', fontWeight: '600', marginBottom: '0.75rem' }}>
           4. Políticas de Cancelación y Reembolsos
         </h2>
