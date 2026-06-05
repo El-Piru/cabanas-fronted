@@ -201,7 +201,7 @@ export default function Home() {
               Contáctanos directamente y te ayudamos a elegir la cabaña perfecta para tu estadía a orillas del Lago Rapel.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-              <a href="https://wa.me/56978996989" target="_blank" rel="noopener noreferrer" style={{
+              <a href="https://wa.me/56986698970" target="_blank" rel="noopener noreferrer" style={{
                 background: '#25D366',
                 color: '#fff',
                 padding: '12px 28px',
@@ -223,7 +223,7 @@ export default function Home() {
               }}>
                 💬 WhatsApp Directo
               </a>
-              <a href="mailto:juinzhy@gmail.com" style={{
+              <a href="mailto:Bana_ju@hotmail.com" style={{
                 background: 'rgba(255, 255, 255, 0.1)',
                 color: '#fff',
                 padding: '12px 28px',

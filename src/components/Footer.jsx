@@ -45,10 +45,10 @@ export default function Footer() {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <li><Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Inicio</Link></li>
             <li><Link to="/mis-reservas" style={{ color: 'inherit', textDecoration: 'none' }}>Mis Reservas</Link></li>
-            <li><a href="https://wa.me/56978996989" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Contacto Directo</a></li>
+            <li><a href="https://wa.me/56986698970" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Contacto Directo</a></li>
           </ul>
         </div>
-
+ 
         {/* Columna 3: Información Legal */}
         <div>
           <h4 style={{ color: '#FAF7F2', fontSize: '0.95rem', fontWeight: '600', margin: '0 0 1rem' }}>Legal</h4>
@@ -57,15 +57,15 @@ export default function Footer() {
             <li><Link to="/politica-de-privacidad" style={{ color: 'inherit', textDecoration: 'none' }}>Política de Privacidad</Link></li>
           </ul>
         </div>
-
+ 
         {/* Columna 4: Contacto */}
         <div>
           <h4 style={{ color: '#FAF7F2', fontSize: '0.95rem', fontWeight: '600', margin: '0 0 1rem' }}>Ubicación</h4>
           <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'block', margin: '0 0 0.5rem', fontSize: '0.85rem', transition: 'color 0.2s ease' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>
             📍 Camino Punta Arenas s/n, El Manzano, Las Cabras
           </a>
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.85rem' }}>📞 +56 9 7899 6989</p>
-          <p style={{ margin: 0, fontSize: '0.85rem' }}>✉️ reservas@cabanaslahiguera.cl</p>
+          <p style={{ margin: '0 0 0.5rem', fontSize: '0.85rem' }}>📞 +56 9 8669 8970</p>
+          <p style={{ margin: 0, fontSize: '0.85rem' }}>✉️ Bana_ju@hotmail.com</p>
         </div>
       </div>
 
