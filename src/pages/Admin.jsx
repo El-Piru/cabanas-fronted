@@ -43,14 +43,31 @@ export default function Admin() {
   }, [])
 
   const cargarDatos = async () => {
-    const [r1, r2, r3] = await Promise.all([
-      fetch(`${BASE_URL}/admin/reservas`, { headers, credentials: 'include' }).then(r => r.json()),
-      fetch(`${BASE_URL}/admin/cabanas`, { headers, credentials: 'include' }).then(r => r.json()),
-      fetch(`${BASE_URL}/admin/usuarios`, { headers, credentials: 'include' }).then(r => r.json()),
-    ])
-    if (r1.ok) setReservas(r1.data)
-    if (r2.ok) setCabanas(r2.data)
-    if (r3.ok) setUsuarios(r3.data)
+    try {
+      const [resRes, resCab, resUsu] = await Promise.all([
+        fetch(`${BASE_URL}/admin/reservas`, { headers, credentials: 'include' }),
+        fetch(`${BASE_URL}/admin/cabanas`, { headers, credentials: 'include' }),
+        fetch(`${BASE_URL}/admin/usuarios`, { headers, credentials: 'include' }),
+      ])
+
+      if (resRes.status === 401 || resCab.status === 401 || resUsu.status === 401) {
+        console.warn('Sesión expirada o token inválido. Redirigiendo al login...');
+        localStorage.removeItem('token')
+        localStorage.removeItem('usuario')
+        navigate('/login')
+        return
+      }
+
+      const r1 = await resRes.json()
+      const r2 = await resCab.json()
+      const r3 = await resUsu.json()
+
+      if (r1.ok) setReservas(r1.data)
+      if (r2.ok) setCabanas(r2.data)
+      if (r3.ok) setUsuarios(r3.data)
+    } catch (error) {
+      console.error('Error al cargar datos del administrador:', error)
+    }
   }
 
   const cancelarReserva = async (id) => {
