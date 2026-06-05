@@ -10,6 +10,8 @@ import Admin from './pages/Admin'
 import PagoResultado from './pages/PagoResultado'
 import Terminos from './pages/Terminos'
 import Privacidad from './pages/Privacidad'
+import RecuperarPassword from './pages/RecuperarPassword'
+import RestablecerPassword from './pages/RestablecerPassword'
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route path="/pago/resultado" element={<PagoResultado />} />
             <Route path="/terminos-y-condiciones" element={<Terminos />} />
             <Route path="/politica-de-privacidad" element={<Privacidad />} />
+            <Route path="/recuperar-password" element={<RecuperarPassword />} />
+            <Route path="/restablecer-password" element={<RestablecerPassword />} />
           </Routes>
         </div>
         <Footer />

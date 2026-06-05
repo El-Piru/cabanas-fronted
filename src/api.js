@@ -22,6 +22,24 @@ export const api = {
     credentials: 'include'
   }).then(r => r.json()),
 
+  recuperarPassword: (email) => fetch(`${BASE_URL}/auth/recuperar-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  }).then(r => r.json()),
+
+  verificarTokenReset: (id, token) => fetch(`${BASE_URL}/auth/verificar-token-reset`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, token })
+  }).then(r => r.json()),
+
+  restablecerPassword: (id, token, password) => fetch(`${BASE_URL}/auth/restablecer-password`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, token, password })
+  }).then(r => r.json()),
+
   // Cabanas
   getCabanas: () => fetch(`${BASE_URL}/cabanas/tipos`)
     .then(r => r.json()),
