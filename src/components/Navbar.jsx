@@ -20,7 +20,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav style={{background:'#1A2E1B',padding:'0 1.5rem',position:'relative'}}>
+    <nav style={{background:'#407DAF',padding:'0 1.5rem',position:'relative'}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:'60px',maxWidth:'1100px',margin:'0 auto'}}>
         <Link to="/" style={{display:'flex',alignItems:'center',gap:'10px',color:'#FAF7F2',fontWeight:'bold',fontSize:'1.05rem',textDecoration:'none',fontFamily:'Georgia,serif',flexShrink:0}}>
           <img
@@ -45,21 +45,21 @@ export default function Navbar() {
               ) : (
                 <Link to="/mis-reservas" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none',fontSize:'0.9rem'}}>Mis Reservas</Link>
               )}
-              <button onClick={cerrarSesion} style={{background:'#C8860A',color:'#fff',border:'none',padding:'6px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem'}}>
+              <button onClick={cerrarSesion} style={{background:'#C01C1C',color:'#fff',border:'none',padding:'6px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem'}}>
                 Salir
               </button>
             </>
           ) : (
             <>
               <Link to="/login" style={{color:'rgba(250,247,242,0.8)',textDecoration:'none',fontSize:'0.9rem'}}>Iniciar sesión</Link>
-              <Link to="/registro" style={{background:'#C8860A',color:'#fff',padding:'6px 16px',borderRadius:'6px',textDecoration:'none',fontSize:'0.9rem'}}>Registrarse</Link>
+              <Link to="/registro" style={{background:'#C01C1C',color:'#fff',padding:'6px 16px',borderRadius:'6px',textDecoration:'none',fontSize:'0.9rem'}}>Registrarse</Link>
             </>
           )}
         </div>
       </div>
 
       {menuAbierto && (
-        <div style={{background:'#1A2E1B',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)',maxWidth:'1100px',margin:'0 auto'}}>
+        <div style={{background:'#407DAF',padding:'1rem 0',borderTop:'1px solid rgba(255,255,255,0.1)',maxWidth:'1100px',margin:'0 auto'}}>
           {usuario ? (
             <>
               {usuario?.rol === 'admin' ? (
@@ -68,7 +68,7 @@ export default function Navbar() {
                 <Link to="/mis-reservas" onClick={() => setMenuAbierto(false)} style={{display:'block',color:'rgba(250,247,242,0.8)',textDecoration:'none',padding:'10px 0',fontSize:'1rem'}}>Mis Reservas</Link>
               )}
               <div style={{color:'rgba(250,247,242,0.6)',padding:'10px 0',fontSize:'0.9rem'}}>Hola, {usuario?.nombre}</div>
-              <button onClick={cerrarSesion} style={{background:'#C8860A',color:'#fff',border:'none',padding:'8px 20px',borderRadius:'6px',cursor:'pointer',fontSize:'0.9rem',marginTop:'4px'}}>
+              <button onClick={cerrarSesion} style={{background:'#C01C1C',color:'#fff',border:'none',padding:'8px 20px',borderRadius:'6px',cursor:'pointer',fontSize:'0.9rem',marginTop:'4px'}}>
                 Salir
               </button>
             </>

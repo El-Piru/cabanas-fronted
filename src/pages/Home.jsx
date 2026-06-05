@@ -17,7 +17,7 @@ export default function Home() {
     <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
       {/* Hero Banner with Soft Radial Light */}
       <div style={{
-        background: 'radial-gradient(circle at 50% 120%, #3F6343 0%, #1A2E1B 100%)',
+        background: 'radial-gradient(circle at 50% 120%, #6BA3D6 0%, #204C72 100%)',
         padding: '5rem 1.5rem 8rem',
         textAlign: 'center',
         color: '#fff',
@@ -99,7 +99,7 @@ export default function Home() {
             <h2 style={{
               fontFamily: '"Outfit", sans-serif',
               fontSize: 'clamp(1.8rem, 4vw, 2.2rem)',
-              color: '#1A2E1B',
+              color: '#182535',
               fontWeight: '600',
               marginBottom: '0.5rem'
             }}>
@@ -108,7 +108,7 @@ export default function Home() {
             <div style={{
               width: '50px',
               height: '2px',
-              background: '#2C4A2E',
+              background: '#C01C1C',
               margin: '0.75rem auto 1rem',
               borderRadius: '2px'
             }} />
@@ -120,8 +120,8 @@ export default function Home() {
           {cargando ? (
             <div style={{ textAlign: 'center', padding: '4rem', color: '#7A8E7B' }}>
               <div className="spinner" style={{
-                border: '3px solid rgba(44, 74, 46, 0.1)',
-                borderTop: '3px solid #2C4A2E',
+                border: '3px solid rgba(192, 28, 28, 0.1)',
+                borderTop: '3px solid #C01C1C',
                 borderRadius: '50%',
                 width: '30px',
                 height: '30px',
@@ -148,14 +148,14 @@ export default function Home() {
           {/* Elegant CTA Box */}
           <div style={{
             marginTop: '4rem',
-            background: 'linear-gradient(135deg, #2C4A2E 0%, #1A2E1B 100%)',
+            background: 'linear-gradient(135deg, #407DAF 0%, #204C72 100%)',
             borderRadius: '20px',
             padding: '3rem 2rem',
             textAlign: 'center',
             color: '#fff',
             position: 'relative',
             overflow: 'hidden',
-            boxShadow: '0 10px 25px rgba(26, 46, 27, 0.15)'
+            boxShadow: '0 10px 25px rgba(32, 76, 114, 0.15)'
           }}>
             <div style={{
               position: 'absolute',

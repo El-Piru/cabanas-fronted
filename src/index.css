@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 :root {
-  --text: #4A5E4C;
-  --text-h: #1A2E1B;
+  --text: #2D3A4B;
+  --text-h: #182535;
   --bg: #FAF8F5;
   --border: #ECE8E0;
   --code-bg: #f4f3ec;
-  --accent: #2C4A2E;
-  --accent-bg: rgba(44, 74, 46, 0.1);
-  --accent-border: rgba(44, 74, 46, 0.5);
+  --accent: #C01C1C;
+  --accent-bg: rgba(192, 28, 28, 0.08);
+  --accent-border: rgba(192, 28, 28, 0.4);
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(26, 46, 27, 0.08) 0 10px 15px -3px, rgba(26, 46, 27, 0.04) 0 4px 6px -2px;

@@ -142,7 +142,7 @@ export default function Reservar() {
       <div style={{fontSize:'3rem',marginBottom:'1rem'}}>⚠️</div>
       <h3 style={{color:'#991B1B',marginBottom:'0.5rem'}}>No pudimos cargar la cabaña</h3>
       <p style={{color:'#7A8E7B',marginBottom:'2rem'}}>{error}</p>
-      <button onClick={() => navigate('/')} style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'10px 24px',borderRadius:'8px',cursor:'pointer'}}>
+      <button onClick={() => navigate('/')} style={{background:'#C01C1C',color:'#fff',border:'none',padding:'10px 24px',borderRadius:'8px',cursor:'pointer'}}>
         Volver al inicio
       </button>
     </div>
@@ -156,18 +156,18 @@ export default function Reservar() {
       <h2 style={{color:'#1A2E1B',marginBottom:'0.5rem'}}>¡Reserva confirmada!</h2>
       <p style={{color:'#7A8E7B',marginBottom:'0.5rem'}}>Te enviaremos un correo con todos los detalles.</p>
       <p style={{color:'#7A8E7B',marginBottom:'2rem',fontSize:'0.9rem'}}>Para consultas: 📞 9 8669 8970</p>
-      <div style={{background:'#fff',borderRadius:'12px',padding:'1.5rem',marginBottom:'2rem',textAlign:'left',border:'1px solid #E8E4DC',borderLeft:'4px solid #2C4A2E',boxShadow:'0 4px 12px rgba(0,0,0,0.03)'}}>
+      <div style={{background:'#fff',borderRadius:'12px',padding:'1.5rem',marginBottom:'2rem',textAlign:'left',border:'1px solid #E8E4DC',borderLeft:'4px solid #C01C1C',boxShadow:'0 4px 12px rgba(0,0,0,0.03)'}}>
         <p style={{margin:'0 0 8px'}}><strong>Detalles de tu estadía:</strong></p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
-        <p style={{margin:'0 0 8px',color:'#4A5E4C'}}><strong>🌙 Noches:</strong> {noches}</p>
+        <p style={{margin:'0 0 8px',color:'#3D4C5E'}}><strong>🏕️ Cabaña:</strong> {cabana.nombre}</p>
+        <p style={{margin:'0 0 8px',color:'#3D4C5E'}}><strong>📅 Entrada:</strong> {formatFecha(form.llegada)} desde las 10:00 am</p>
+        <p style={{margin:'0 0 8px',color:'#3D4C5E'}}><strong>📅 Salida:</strong> {formatFecha(form.salida)} hasta las 7:00 pm</p>
+        <p style={{margin:'0 0 8px',color:'#3D4C5E'}}><strong>🌙 Noches:</strong> {noches}</p>
         <div style={{display:'flex',justifyContent:'space-between',fontWeight:'600',borderTop:'1px solid #ECE8E0',paddingTop:'10px',marginTop:'12px'}}>
-          <span style={{color:'#1A2E1B'}}>Total</span>
-          <span style={{color:'#2C4A2E',fontSize:'1.15rem'}}>${total.toLocaleString('es-CL')}</span>
+          <span style={{color:'#182535'}}>Total</span>
+          <span style={{color:'#C01C1C',fontSize:'1.15rem'}}>${total.toLocaleString('es-CL')}</span>
         </div>
       </div>
-      <button onClick={() => navigate('/mis-reservas')} style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'12px 24px',borderRadius:'8px',cursor:'pointer',fontSize:'1rem'}}>
+      <button onClick={() => navigate('/mis-reservas')} style={{background:'#C01C1C',color:'#fff',border:'none',padding:'12px 24px',borderRadius:'8px',cursor:'pointer',fontSize:'1rem'}}>
         Ver mis reservas
       </button>
     </div>
@@ -175,8 +175,8 @@ export default function Reservar() {
 
   return (
     <div style={{maxWidth:'500px',margin:'2rem auto',padding:'0 1rem'}}>
-      <h1 style={{fontFamily:'Georgia,serif',color:'#1A2E1B',marginBottom:'0.5rem'}}>Reservar</h1>
-      <p style={{color:'#7A8E7B',marginBottom:'2rem'}}>{cabana.nombre} — ${cabana.precio.toLocaleString('es-CL')}/noche · {cabana.capacidad} personas</p>
+      <h1 style={{fontFamily:'"Outfit",sans-serif',color:'#182535',marginBottom:'0.5rem'}}>Reservar</h1>
+      <p style={{color:'#5A6A5C',marginBottom:'2rem'}}>{cabana.nombre} — ${cabana.precio.toLocaleString('es-CL')}/noche · {cabana.capacidad} personas</p>
 
       {error && <div style={{background:'#FEE2E2',color:'#991B1B',padding:'10px',borderRadius:'8px',marginBottom:'1rem'}}>{error}</div>}
 
@@ -229,12 +229,12 @@ export default function Reservar() {
             </div>
             <div style={{display:'flex',justifyContent:'space-between',fontWeight:'600',borderTop:'1px solid #E8E4DC',paddingTop:'8px',marginTop:'8px'}}>
               <span>Total</span>
-              <span style={{color:'#2C4A2E'}}>${total.toLocaleString('es-CL')}</span>
+              <span style={{color:'#C01C1C'}}>${total.toLocaleString('es-CL')}</span>
             </div>
           </div>
         )}
 
-        <button onClick={handleSubmit} disabled={cargando || noches === 0} style={{width:'100%',background:noches > 0 ? '#2C4A2E' : '#ccc',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',cursor:noches > 0 ? 'pointer' : 'not-allowed'}}>
+        <button onClick={handleSubmit} disabled={cargando || noches === 0} style={{width:'100%',background:noches > 0 ? '#C01C1C' : '#ccc',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',cursor:noches > 0 ? 'pointer' : 'not-allowed'}}>
           {cargando ? 'Confirmando...' : 'Confirmar reserva'}
         </button>
       </div>
@@ -251,7 +251,7 @@ export default function Reservar() {
           box-sizing: border-box !important;
           font-size: 1rem !important;
           background: #fff !important;
-          color: #1A2E1B !important;
+          color: #182535 !important;
           outline: none !important;
         }
       `}</style>

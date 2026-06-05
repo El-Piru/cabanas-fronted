@@ -56,8 +56,8 @@ export default function CabanaCard({ cabana }) {
         }}
         onMouseEnter={e => {
           e.currentTarget.style.transform = 'translateY(-6px)'
-          e.currentTarget.style.boxShadow = '0 12px 30px rgba(26, 46, 27, 0.08)'
-          e.currentTarget.style.borderColor = 'rgba(44, 74, 46, 0.2)'
+          e.currentTarget.style.boxShadow = '0 12px 30px rgba(32, 76, 114, 0.08)'
+          e.currentTarget.style.borderColor = 'rgba(64, 125, 175, 0.2)'
         }}
         onMouseLeave={e => {
           e.currentTarget.style.transform = 'translateY(0)'
@@ -104,13 +104,13 @@ export default function CabanaCard({ cabana }) {
             fontFamily:'"Outfit", sans-serif',
             fontSize:'1.25rem',
             fontWeight:'600',
-            color:'#1A2E1B'
+            color:'#182535'
           }}>
             {cabana.nombre}
           </h3>
           <p style={{
             fontSize:'0.85rem',
-            color:'#6E8270',
+            color:'#5A6A5C',
             margin:'0 0 1.25rem',
             lineHeight:'1.45'
           }}>
@@ -118,12 +118,12 @@ export default function CabanaCard({ cabana }) {
           </p>
           
           <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1.25rem'}}>
-            <span style={{fontSize:'0.8rem',color:'#4A5E4C',fontWeight:'500'}}>
+            <span style={{fontSize:'0.8rem',color:'#3D4C5E',fontWeight:'500'}}>
               👥 Capacidad: {cabana.capacidad} personas
             </span>
             <span style={{
               fontSize:'0.8rem',
-              color:'#2C4A2E',
+              color:'#C01C1C',
               fontWeight:'600',
               textDecoration:'underline',
               textUnderlineOffset:'3px'
@@ -133,7 +133,7 @@ export default function CabanaCard({ cabana }) {
           </div>
 
           <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',borderTop:'1px solid #FAF6F0',paddingTop:'1rem'}}>
-            <span style={{fontSize:'1.25rem',fontWeight:'600',color:'#2C4A2E',fontFamily:'"Outfit", sans-serif'}}>
+            <span style={{fontSize:'1.25rem',fontWeight:'600',color:'#204C72',fontFamily:'"Outfit", sans-serif'}}>
               ${cabana.precio.toLocaleString('es-CL')}
               <small style={{fontSize:'0.8rem',color:'#7A8E7B',fontWeight:'400'}}>/noche</small>
             </span>
@@ -143,7 +143,7 @@ export default function CabanaCard({ cabana }) {
                 navigate(`/reservar/${cabana.capacidad}`)
               }}
               style={{
-                background:'#2C4A2E',
+                background:'#C01C1C',
                 color:'#fff',
                 border:'none',
                 padding:'8px 20px',
@@ -151,15 +151,15 @@ export default function CabanaCard({ cabana }) {
                 cursor:'pointer',
                 fontWeight:'600',
                 fontSize:'0.85rem',
-                boxShadow:'0 2px 8px rgba(44,74,46,0.1)',
+                boxShadow:'0 2px 8px rgba(192,28,28,0.1)',
                 transition:'all 0.2s ease'
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = '#1A2E1B'
+                e.currentTarget.style.background = '#9A1313'
                 e.currentTarget.style.transform = 'scale(1.03)'
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = '#2C4A2E'
+                e.currentTarget.style.background = '#C01C1C'
                 e.currentTarget.style.transform = 'scale(1)'
               }}
             >
@@ -178,7 +178,7 @@ export default function CabanaCard({ cabana }) {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(26, 46, 27, 0.65)',
+            background: 'rgba(24, 37, 53, 0.65)',
             backdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
@@ -196,7 +196,7 @@ export default function CabanaCard({ cabana }) {
               width: '100%',
               maxHeight: '90vh',
               overflowY: 'auto',
-              boxShadow: '0 25px 50px rgba(26,46,27,0.15)',
+              boxShadow: '0 25px 50px rgba(24,37,53,0.15)',
               position: 'relative',
               border: '1px solid rgba(236, 232, 224, 0.7)'
             }}
@@ -275,20 +275,20 @@ export default function CabanaCard({ cabana }) {
             <div style={{padding:'2rem', textAlign:'left'}}>
               <span style={{
                 background: '#FAF6F0',
-                color: '#5A7A5E',
+                color: '#C01C1C',
                 padding: '4px 12px',
                 borderRadius: '50px',
                 fontSize: '0.75rem',
                 fontWeight: '600',
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
-                border: '1px solid rgba(44,74,46,0.1)'
+                border: '1px solid rgba(192,28,28,0.1)'
               }}>
                 Equipamiento Detallado
               </span>
               <h2 style={{
                 fontFamily:'"Outfit", sans-serif',
-                color:'#1A2E1B',
+                color:'#182535',
                 fontSize:'1.8rem',
                 fontWeight:'600',
                 margin:'16px 0 8px'
@@ -309,7 +309,7 @@ export default function CabanaCard({ cabana }) {
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
                   <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛏️</span>
                   <div>
-                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Dormitorios</h4>
+                    <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Dormitorios</h4>
                     <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.dormitorios}</p>
                   </div>
                 </div>
@@ -344,7 +344,7 @@ export default function CabanaCard({ cabana }) {
               }}>
                 <div>
                   <span style={{fontSize:'0.8rem', color:'#7A8E7B', display:'block', fontWeight:'500'}}>Precio por Noche</span>
-                  <span style={{fontSize:'1.5rem', fontWeight:'600', color:'#2C4A2E', fontFamily:'"Outfit", sans-serif'}}>${cabana.precio.toLocaleString('es-CL')}</span>
+                  <span style={{fontSize:'1.5rem', fontWeight:'600', color:'#204C72', fontFamily:'"Outfit", sans-serif'}}>${cabana.precio.toLocaleString('es-CL')}</span>
                 </div>
                 <div style={{display:'flex', gap:'0.75rem'}}>
                   <button
@@ -352,7 +352,7 @@ export default function CabanaCard({ cabana }) {
                     style={{
                       background: '#FAF6F0',
                       color: '#4A5E4C',
-                      border: '1px solid rgba(44,74,46,0.1)',
+                      border: '1px solid rgba(192,28,28,0.1)',
                       padding: '10px 20px',
                       borderRadius: '50px',
                       cursor: 'pointer',
@@ -375,7 +375,7 @@ export default function CabanaCard({ cabana }) {
                       navigate(`/reservar/${cabana.capacidad}`)
                     }}
                     style={{
-                      background: '#2C4A2E',
+                      background: '#C01C1C',
                       color: '#fff',
                       border: 'none',
                       padding: '10px 24px',
@@ -383,15 +383,15 @@ export default function CabanaCard({ cabana }) {
                       cursor: 'pointer',
                       fontWeight: '600',
                       fontSize: '0.9rem',
-                      boxShadow: '0 4px 12px rgba(44,74,46,0.15)',
+                      boxShadow: '0 4px 12px rgba(192,28,28,0.15)',
                       transition: 'all 0.2s ease'
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.background = '#1A2E1B'
+                      e.currentTarget.style.background = '#9A1313'
                       e.currentTarget.style.transform = 'scale(1.02)'
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.background = '#2C4A2E'
+                      e.currentTarget.style.background = '#C01C1C'
                       e.currentTarget.style.transform = 'scale(1)'
                     }}
                   >
