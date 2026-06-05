@@ -61,7 +61,9 @@ export default function Footer() {
         {/* Columna 4: Contacto */}
         <div>
           <h4 style={{ color: '#FAF7F2', fontSize: '0.95rem', fontWeight: '600', margin: '0 0 1rem' }}>Ubicación</h4>
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.85rem' }}>📍 Camino El Estero, Lago Rapel, Chile</p>
+          <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', display: 'block', margin: '0 0 0.5rem', fontSize: '0.85rem', transition: 'color 0.2s ease' }} onMouseEnter={e => e.currentTarget.style.color = '#fff'} onMouseLeave={e => e.currentTarget.style.color = 'inherit'}>
+            📍 Camino Punta Arenas s/n, El Manzano, Las Cabras (Cómo llegar)
+          </a>
           <p style={{ margin: '0 0 0.5rem', fontSize: '0.85rem' }}>📞 +56 9 7899 6989</p>
           <p style={{ margin: 0, fontSize: '0.85rem' }}>✉️ reservas@cabanaslahiguera.cl</p>
         </div>
