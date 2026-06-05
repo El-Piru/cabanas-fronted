@@ -401,54 +401,60 @@ export default function Admin() {
             </div>
           </div>
 
-          {/* Panel de Detalle de Reserva Seleccionada */}
+          {/* MODAL: DETALLE DE RESERVA */}
           {selectedReserva && (
-            <div style={{ ...s.card, border: '2px solid #2C4A2E', position: 'relative', animation: 'fadeIn 0.2s ease-out' }}>
-              <button 
-                onClick={() => setSelectedReserva(null)}
-                style={{ position: 'absolute', top: '12px', right: '15px', background: 'none', border: 'none', fontSize: '1.2rem', cursor: 'pointer', color: '#7A8E7B' }}
-              >
-                ✕
-              </button>
-              <h3 style={{ margin: '0 0 1rem', fontFamily: 'Georgia,serif', color: '#1A2E1B' }}>
-                {selectedReserva.estado === 'mantenimiento' ? '🔧 Detalle de Bloqueo por Mantenimiento' : '📋 Detalle de Reserva Seleccionada'}
-              </h3>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', fontSize: '0.9rem' }}>
-                <div>
-                  <p style={{ margin: '0 0 8px' }}><strong>ID Reserva:</strong> #{selectedReserva.id}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Cabaña:</strong> {selectedReserva.cabana?.nombre}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Estado:</strong> <span style={s.badge(selectedReserva.estado)}>{selectedReserva.estado}</span></p>
-                </div>
-                <div>
-                  <p style={{ margin: '0 0 8px' }}><strong>Fecha Entrada:</strong> {new Date(selectedReserva.llegada).toLocaleDateString('es-CL')}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Fecha Salida:</strong> {new Date(selectedReserva.salida).toLocaleDateString('es-CL')}</p>
-                  <p style={{ margin: '0 0 8px' }}><strong>Total Tarifa:</strong> ${selectedReserva.total?.toLocaleString('es-CL')}</p>
-                </div>
-                {selectedReserva.estado !== 'mantenimiento' && (
-                  <div>
-                    <p style={{ margin: '0 0 8px' }}><strong>Huésped:</strong> {selectedReserva.usuario?.nombre}</p>
-                    <p style={{ margin: '0 0 8px' }}><strong>Email:</strong> {selectedReserva.usuario?.email}</p>
-                    <p style={{ margin: '0 0 8px' }}><strong>Teléfono:</strong> {selectedReserva.usuario?.telefono || 'N/A'}</p>
-                  </div>
-                )}
-              </div>
-              
-              <div style={{ display: 'flex', gap: '10px', marginTop: '1.5rem', justifyContent: 'flex-end' }}>
-                {selectedReserva.estado !== 'cancelada' && (
+            <div style={s.overlay}>
+              <div style={s.modal}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                  <h3 style={{ margin: 0, fontFamily: 'Georgia,serif', color: '#1A2E1B', fontSize: '1.25rem' }}>
+                    {selectedReserva.estado === 'mantenimiento' ? '🔧 Bloqueo por Mantenimiento' : '📋 Detalle de Reserva'}
+                  </h3>
                   <button 
-                    onClick={() => cancelarReserva(selectedReserva.id)} 
-                    style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', padding: '8px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                    onClick={() => setSelectedReserva(null)}
+                    style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#7A8E7B' }}
                   >
-                    🚫 Liberar Fechas / Cancelar Reserva
+                    ✕
                   </button>
-                )}
-                <button 
-                  onClick={() => setSelectedReserva(null)}
-                  style={{ background: '#E5E7EB', color: '#374151', border: 'none', padding: '8px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
-                >
-                  Cerrar Detalles
-                </button>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', color: '#374151', marginBottom: '1.5rem' }}>
+                  <div><strong>ID Reserva:</strong> #{selectedReserva.id}</div>
+                  <div><strong>Cabaña:</strong> {selectedReserva.cabana?.nombre}</div>
+                  <div>
+                    <strong>Estado:</strong>{' '}
+                    <span style={s.badge(selectedReserva.estado)}>
+                      {selectedReserva.estado === 'confirmada' ? 'Confirmada / Aprobada' : selectedReserva.estado === 'mantenimiento' ? 'Mantenimiento' : 'Pendiente de Pago'}
+                    </span>
+                  </div>
+                  <div><strong>Fecha Entrada:</strong> {new Date(selectedReserva.llegada).toLocaleDateString('es-CL')}</div>
+                  <div><strong>Fecha Salida:</strong> {new Date(selectedReserva.salida).toLocaleDateString('es-CL')}</div>
+                  {selectedReserva.estado !== 'mantenimiento' && (
+                    <>
+                      <div><strong>Total Tarifa:</strong> ${selectedReserva.total?.toLocaleString('es-CL')}</div>
+                      <hr style={{ border: 'none', borderTop: '1px solid #ECE8E0', margin: '0.5rem 0' }} />
+                      <div><strong>Huésped:</strong> {selectedReserva.usuario?.nombre}</div>
+                      <div><strong>Email:</strong> {selectedReserva.usuario?.email}</div>
+                      <div><strong>Teléfono:</strong> {selectedReserva.usuario?.telefono || 'N/A'}</div>
+                    </>
+                  )}
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                  {selectedReserva.estado !== 'cancelada' && (
+                    <button 
+                      onClick={() => cancelarReserva(selectedReserva.id)} 
+                      style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem' }}
+                    >
+                      🚫 Liberar Fechas / Cancelar
+                    </button>
+                  )}
+                  <button 
+                    onClick={() => setSelectedReserva(null)}
+                    style={{ background: '#E5E7EB', color: '#374151', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem' }}
+                  >
+                    Cerrar
+                  </button>
+                </div>
               </div>
             </div>
           )}
