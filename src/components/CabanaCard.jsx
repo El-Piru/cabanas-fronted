@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const DETALLES_POR_CAPACIDAD = {
   2: {
     dormitorios: "2 dormitorios (1 Cama matrimonial)",
-    banos: "1 baño completo en suite con hidromasaje",
+    banos: "1 baño completo en suite (tina/ducha o hidromasaje según cabaña asignada)",
     servicios: "Sábanas y toallas premium, calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
   },
   4: {
