@@ -187,17 +187,11 @@ export default function Home() {
                 fontWeight: '600',
                 marginBottom: '1rem'
               }}>
-                Un entorno natural inigualable
+                Nuestras cabañas junto al lago
               </h3>
-              <p style={{ color: '#5C6E5E', lineHeight: '1.6', marginBottom: '1.5rem' }}>
-                Ubicadas en un sector privilegiado del Lago Rapel, nuestras cabañas ofrecen el equilibrio perfecto entre descanso y diversión. Disfruta de amplias áreas verdes, acceso directo al lago y todas las comodidades para una estadía inolvidable junto a tu familia.
+              <p style={{ color: '#5C6E5E', lineHeight: '1.6', fontSize: '1.05rem', margin: 0 }}>
+                El complejo cuenta con cabañas dispuestas a ambos lados de un sendero central que conduce directamente a la orilla del Lago Rapel, ofreciendo una vista despejada hacia el agua y los cerros que rodean el sector.
               </p>
-              <ul style={{ paddingLeft: '20px', color: '#5C6E5E', lineHeight: '2' }}>
-                <li>Acceso exclusivo al lago y muelle propio 🌊</li>
-                <li>Amplias zonas de picnic y áreas verdes 🌳</li>
-                <li>Piscina equipada con tobogán gigante 🏊</li>
-                <li>Estacionamiento privado y seguro 🚗</li>
-              </ul>
             </div>
             <div style={{
               position: 'relative',
