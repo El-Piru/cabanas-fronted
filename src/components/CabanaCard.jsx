@@ -29,9 +29,164 @@ const DETALLES_POR_CAPACIDAD = {
   }
 }
 
+// Genera un vector SVG minimalista y animado de cabaña rectangular según la capacidad
+const renderAnimatedCabin = (capacidad, isHovered) => {
+  const roofColor = '#3A4B5C' // Slate gray
+  const wallColor = '#8E7B6C' // Warm wood taupe
+  const wallColorLight = '#9D8C7D'
+  const groundColor = '#D2C9BD'
+  const doorColor = '#A0522D' // Wood brown
+  const windowOffColor = '#2D3748' // Dark window
+  const windowOnColor = '#FBBF24' // Warm yellow window
+  
+  const windowColor = isHovered ? windowOnColor : windowOffColor;
+
+  const smokeStyle = `
+    @keyframes floatSmoke1 {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0; }
+      100% { transform: translateY(-35px) scale(1.5); opacity: 0; }
+    }
+    @keyframes floatSmoke2 {
+      0% { transform: translateY(0) scale(0.6); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0; }
+      100% { transform: translateY(-45px) scale(1.8); opacity: 0; }
+    }
+    .smoke-p1-${capacidad} { animation: floatSmoke1 3s infinite linear; transform-origin: 140px 65px; }
+    .smoke-p2-${capacidad} { animation: floatSmoke2 3s infinite linear 1.5s; transform-origin: 140px 65px; }
+    .cabin-win { transition: fill 0.3s ease; }
+  `;
+
+  if (capacidad === 2) {
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{maxHeight:'100%',maxWidth:'100%'}}>
+        <style>{smokeStyle}</style>
+        <rect width="200" height="150" fill="#FAF8F5" />
+        <circle cx="140" cy="65" r="4" fill="#B8B2A7" className={`smoke-p1-${capacidad}`} />
+        <circle cx="140" cy="65" r="5" fill="#B8B2A7" className={`smoke-p2-${capacidad}`} />
+        <rect x="136" y="70" width="8" height="20" fill="#2D3748" rx="1" />
+        <rect x="60" y="85" width="80" height="45" fill={wallColor} rx="3" />
+        <line x1="60" y1="95" x2="140" y2="95" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="60" y1="107" x2="140" y2="107" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="60" y1="119" x2="140" y2="119" stroke={wallColorLight} strokeWidth="2" />
+        <polygon points="50,85 150,85 100,50" fill={roofColor} />
+        <rect x="72" y="98" width="16" height="32" fill={doorColor} rx="1" />
+        <circle cx="84" cy="114" r="1.5" fill="#FCD34D" />
+        <circle cx="112" cy="106" r="10" fill={windowColor} className="cabin-win" stroke="#2D3748" strokeWidth="2" />
+        <line x1="102" y1="106" x2="122" y2="106" stroke="#2D3748" strokeWidth="1" />
+        <line x1="112" y1="96" x2="112" y2="116" stroke="#2D3748" strokeWidth="1" />
+        <rect x="15" y="130" width="170" height="4" fill={groundColor} rx="2" />
+      </svg>
+    );
+  } else if (capacidad === 4) {
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{maxHeight:'100%',maxWidth:'100%'}}>
+        <style>{smokeStyle}</style>
+        <rect width="200" height="150" fill="#FAF8F5" />
+        <circle cx="140" cy="60" r="4" fill="#B8B2A7" className={`smoke-p1-${capacidad}`} />
+        <circle cx="140" cy="60" r="5" fill="#B8B2A7" className={`smoke-p2-${capacidad}`} />
+        <rect x="136" y="64" width="8" height="20" fill="#2D3748" rx="1" />
+        <rect x="55" y="80" width="90" height="50" fill={wallColor} rx="3" />
+        <line x1="55" y1="90" x2="145" y2="90" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="55" y1="102" x2="145" y2="102" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="55" y1="114" x2="145" y2="114" stroke={wallColorLight} strokeWidth="2" />
+        <polygon points="45,80 155,80 100,45" fill={roofColor} />
+        <rect x="68" y="93" width="18" height="37" fill={doorColor} rx="1" />
+        <circle cx="81" cy="111" r="1.5" fill="#FCD34D" />
+        <rect x="102" y="93" width="22" height="22" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="113" y1="93" x2="113" y2="115" stroke="#2D3748" strokeWidth="1" />
+        <line x1="102" y1="104" x2="124" y2="104" stroke="#2D3748" strokeWidth="1" />
+        <rect x="15" y="130" width="170" height="4" fill={groundColor} rx="2" />
+      </svg>
+    );
+  } else if (capacidad === 6) {
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{maxHeight:'100%',maxWidth:'100%'}}>
+        <style>{smokeStyle}</style>
+        <rect width="200" height="150" fill="#FAF8F5" />
+        <circle cx="150" cy="55" r="4" fill="#B8B2A7" className={`smoke-p1-${capacidad}`} />
+        <circle cx="150" cy="55" r="5" fill="#B8B2A7" className={`smoke-p2-${capacidad}`} />
+        <rect x="146" y="59" width="8" height="20" fill="#2D3748" rx="1" />
+        <rect x="45" y="75" width="110" height="55" fill={wallColor} rx="3" />
+        <line x1="45" y1="85" x2="155" y2="85" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="45" y1="97" x2="155" y2="97" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="45" y1="109" x2="155" y2="109" stroke={wallColorLight} strokeWidth="2" />
+        <polygon points="35,75 165,75 100,40" fill={roofColor} />
+        <rect x="91" y="88" width="18" height="42" fill={doorColor} rx="1" />
+        <circle cx="104" cy="109" r="1.5" fill="#FCD34D" />
+        <rect x="58" y="92" width="20" height="20" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="68" y1="92" x2="68" y2="112" stroke="#2D3748" strokeWidth="1" />
+        <line x1="58" y1="102" x2="78" y2="102" stroke="#2D3748" strokeWidth="1" />
+        <rect x="122" y="92" width="20" height="20" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="132" y1="92" x2="132" y2="112" stroke="#2D3748" strokeWidth="1" />
+        <line x1="122" y1="102" x2="142" y2="102" stroke="#2D3748" strokeWidth="1" />
+        <rect x="15" y="130" width="170" height="4" fill={groundColor} rx="2" />
+      </svg>
+    );
+  } else if (capacidad === 8) {
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{maxHeight:'100%',maxWidth:'100%'}}>
+        <style>{smokeStyle}</style>
+        <rect width="200" height="150" fill="#FAF8F5" />
+        <circle cx="140" cy="45" r="4" fill="#B8B2A7" className={`smoke-p1-${capacidad}`} />
+        <circle cx="140" cy="45" r="5" fill="#B8B2A7" className={`smoke-p2-${capacidad}`} />
+        <rect x="136" y="49" width="8" height="20" fill="#2D3748" rx="1" />
+        <rect x="55" y="65" width="90" height="65" fill={wallColor} rx="3" />
+        <line x1="55" y1="75" x2="145" y2="75" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="55" y1="87" x2="145" y2="87" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="55" y1="99" x2="145" y2="99" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="55" y1="111" x2="145" y2="111" stroke={wallColorLight} strokeWidth="2" />
+        <polygon points="45,65 155,65 100,28" fill={roofColor} />
+        <rect x="68" y="90" width="18" height="40" fill={doorColor} rx="1" />
+        <circle cx="81" cy="110" r="1.5" fill="#FCD34D" />
+        <rect x="102" y="98" width="22" height="22" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="113" y1="98" x2="113" y2="120" stroke="#2D3748" strokeWidth="1" />
+        <line x1="102" y1="109" x2="124" y2="109" stroke="#2D3748" strokeWidth="1" />
+        <rect x="89" y="72" width="22" height="15" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="100" y1="72" x2="100" y2="87" stroke="#2D3748" strokeWidth="1" />
+        <rect x="15" y="130" width="170" height="4" fill={groundColor} rx="2" />
+      </svg>
+    );
+  } else {
+    // 10 personas
+    return (
+      <svg width="100%" height="100%" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{maxHeight:'100%',maxWidth:'100%'}}>
+        <style>{smokeStyle}</style>
+        <rect width="200" height="150" fill="#FAF8F5" />
+        <circle cx="150" cy="40" r="4" fill="#B8B2A7" className={`smoke-p1-${capacidad}`} />
+        <circle cx="150" cy="40" r="5" fill="#B8B2A7" className={`smoke-p2-${capacidad}`} />
+        <rect x="146" y="44" width="8" height="20" fill="#2D3748" rx="1" />
+        <rect x="45" y="60" width="110" height="70" fill={wallColor} rx="3" />
+        <line x1="45" y1="70" x2="155" y2="70" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="45" y1="82" x2="155" y2="82" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="45" y1="94" x2="155" y2="94" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="45" y1="106" x2="155" y2="106" stroke={wallColorLight} strokeWidth="2" />
+        <line x1="45" y1="118" x2="155" y2="118" stroke={wallColorLight} strokeWidth="2" />
+        <polygon points="35,60 165,60 100,22" fill={roofColor} />
+        <rect x="91" y="88" width="18" height="42" fill={doorColor} rx="1" />
+        <circle cx="104" cy="109" r="1.5" fill="#FCD34D" />
+        <rect x="58" y="96" width="20" height="20" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="68" y1="96" x2="68" y2="116" stroke="#2D3748" strokeWidth="1" />
+        <line x1="58" y1="106" x2="78" y2="106" stroke="#2D3748" strokeWidth="1" />
+        <rect x="122" y="96" width="20" height="20" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="132" y1="96" x2="132" y2="116" stroke="#2D3748" strokeWidth="1" />
+        <line x1="122" y1="106" x2="142" y2="106" stroke="#2D3748" strokeWidth="1" />
+        <rect x="58" y="70" width="20" height="15" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="68" y1="70" x2="68" y2="85" stroke="#2D3748" strokeWidth="1" />
+        <rect x="122" y="70" width="20" height="15" fill={windowColor} className="cabin-win" rx="2" stroke="#2D3748" strokeWidth="2" />
+        <line x1="132" y1="70" x2="132" y2="85" stroke="#2D3748" strokeWidth="1" />
+        <rect x="15" y="130" width="170" height="4" fill={groundColor} rx="2" />
+      </svg>
+    );
+  }
+}
+
 export default function CabanaCard({ cabana }) {
   const navigate = useNavigate()
   const [mostrarModal, setMostrarModal] = useState(false)
+  const [hovered, setHovered] = useState(false)
 
   const fallbackDetalles = {
     dormitorios: `Dormitorios adaptados para la capacidad de ${cabana.capacidad} personas`,
@@ -54,50 +209,27 @@ export default function CabanaCard({ cabana }) {
           boxShadow: '0 4px 15px rgba(26, 46, 27, 0.02)',
           transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
-        onMouseEnter={e => {
-          e.currentTarget.style.transform = 'translateY(-6px)'
-          e.currentTarget.style.boxShadow = '0 12px 30px rgba(32, 76, 114, 0.08)'
-          e.currentTarget.style.borderColor = 'rgba(64, 125, 175, 0.2)'
+        onMouseEnter={() => {
+          setHovered(true)
         }}
-        onMouseLeave={e => {
-          e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = '0 4px 15px rgba(26, 46, 27, 0.02)'
-          e.currentTarget.style.borderColor = 'rgba(236, 232, 224, 0.7)'
+        onMouseLeave={() => {
+          setHovered(false)
         }}
       >
-        <div style={{height:'190px', background:'#FAF8F5', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', position:'relative', borderBottom:'1px solid rgba(236, 232, 224, 0.4)'}}>
-          {cabana.imagen ? (
-            <img
-              src={cabana.imagen}
-              alt={cabana.nombre}
-              style={{width:'100%', height:'100%', objectFit:'cover'}}
-              onError={(e) => {
-                e.target.style.display = 'none'
-                const fallback = e.target.parentElement.querySelector('.card-fallback')
-                if (fallback) fallback.style.display = 'flex'
-              }}
-            />
-          ) : null}
-          <div className="card-fallback" style={{
-            display: cabana.imagen ? 'none' : 'flex',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: '#FAF8F5',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:'0.6rem'}}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#7A8E7B" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 10l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <path d="M9 22V12h6v10" />
-              </svg>
-              <span style={{fontSize:'0.65rem', color:'#7A8E7B', letterSpacing:'2px', textTransform:'uppercase', fontWeight:'600'}}>Cabaña</span>
-            </div>
-          </div>
+        {/* Animated cabin vector illustration container */}
+        <div style={{
+          height: '190px', 
+          background: '#FAF8F5', 
+          overflow: 'hidden', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          position: 'relative', 
+          borderBottom: '1px solid rgba(236, 232, 224, 0.4)'
+        }}>
+          {renderAnimatedCabin(cabana.capacidad, hovered)}
         </div>
+        
         <div style={{padding:'1.5rem'}}>
           <h3 style={{
             margin:'0 0 6px',
@@ -202,39 +334,19 @@ export default function CabanaCard({ cabana }) {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Hero Image / Placeholder */}
-            <div style={{height:'240px', position:'relative', background:'#FAF8F5', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', borderBottom:'1px solid rgba(236,232,224,0.4)'}}>
-              {cabana.imagen ? (
-                <img 
-                  src={cabana.imagen} 
-                  alt={cabana.nombre} 
-                  style={{width:'100%', height:'100%', objectFit:'cover'}} 
-                  onError={(e) => {
-                    e.target.style.display = 'none'
-                    const fallback = e.target.parentElement.querySelector('.modal-fallback')
-                    if (fallback) fallback.style.display = 'flex'
-                  }}
-                />
-              ) : null}
-              <div className="modal-fallback" style={{
-                display: cabana.imagen ? 'none' : 'flex',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: '#FAF8F5',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:'0.75rem'}}>
-                  <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#7A8E7B" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M3 10l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                    <path d="M9 22V12h6v10" />
-                  </svg>
-                  <span style={{fontSize:'0.75rem', color:'#7A8E7B', letterSpacing:'3px', textTransform:'uppercase', fontWeight:'600'}}>Cabaña La Higuera</span>
-                </div>
-              </div>
+            {/* Modal Cabin Illustration header */}
+            <div style={{
+              height: '240px', 
+              position: 'relative', 
+              background: '#FAF8F5', 
+              overflow: 'hidden', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              borderBottom: '1px solid rgba(236,232,224,0.4)'
+            }}>
+              {renderAnimatedCabin(cabana.capacidad, true)}
+              
               {/* Close Button */}
               <button
                 onClick={() => setMostrarModal(false)}
@@ -321,8 +433,6 @@ export default function CabanaCard({ cabana }) {
                     <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.banos}</p>
                   </div>
                 </div>
-
-
 
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
                   <span style={{fontSize:'1.5rem', lineHeight:'1'}}>✨</span>
