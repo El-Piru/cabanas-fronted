@@ -83,7 +83,6 @@ export default function Footer() {
         color: 'rgba(250, 247, 242, 0.5)'
       }}>
         <span>© {anio} Cabañas La Higuera Rapel. Todos los derechos reservados.</span>
-        <span>Desarrollado con ❤️ para Lago Rapel, Chile</span>
       </div>
     </footer>
   )
