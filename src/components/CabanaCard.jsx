@@ -5,27 +5,27 @@ const DETALLES_POR_CAPACIDAD = {
   2: {
     dormitorios: "2 dormitorios (1 Cama matrimonial)",
     banos: "1 baño completo en suite (tina/ducha o hidromasaje según cabaña asignada)",
-    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
+    servicios: "Calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
   },
   4: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
     banos: "1 baño completo con ducha de agua caliente",
-    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. TV por cable, calefacción, acceso a piscina y tobogán, kayaks, estacionamiento"
+    servicios: "TV por cable, calefacción, acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   6: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
     banos: "1 baño completo + 1 medio baño de visitas",
-    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Calefacción a leña (bosca), TV satelital, acceso a piscina y tobogán, botes de remo, estacionamiento para 2 vehículos"
+    servicios: "Calefacción a leña (bosca), TV satelital, acceso a piscina y tobogán, botes de remo, estacionamiento para 2 vehículos"
   },
   8: {
     dormitorios: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
     banos: "1 baño completo con tina/ducha + 1 baño de visitas (sin ducha)",
-    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Chimenea de leña, Smart TV de 50\", acceso a piscina y tobogán, kayaks, estacionamiento"
+    servicios: "Chimenea de leña, Smart TV de 50\", acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   10: {
     dormitorios: "3 dormitorios (1 Cama matrimonial en una habitación, 2 Camarotes en la segunda y 2 Camarotes en la tercera)",
     banos: "1 baño completo con tina + 1 baño social de visitas (sin ducha)",
-    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina, tobogán y muelle privado, estacionamiento para 3 vehículos"
+    servicios: "Calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina, tobogán y muelle privado, estacionamiento para 3 vehículos"
   }
 }
 
@@ -281,7 +281,7 @@ export default function CabanaCard({ cabana }) {
   const fallbackDetalles = {
     dormitorios: `Dormitorios adaptados para la capacidad de ${cabana.capacidad} personas`,
     banos: "Baño completo equipado (1 ducha)",
-    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Acceso a piscina y estacionamiento"
+    servicios: "Acceso a piscina y estacionamiento"
   }
 
   const detalles = DETALLES_POR_CAPACIDAD[cabana.capacidad] || fallbackDetalles
@@ -529,6 +529,23 @@ export default function CabanaCard({ cabana }) {
                   <div>
                     <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Servicios Incluidos</h4>
                     <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.servicios}</p>
+                  </div>
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  gap: '12px',
+                  alignItems: 'flex-start',
+                  background: '#FFF5F5',
+                  padding: '12px 16px',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(192, 28, 28, 0.15)',
+                  marginTop: '0.5rem'
+                }}>
+                  <span style={{fontSize:'1.3rem', lineHeight:'1'}}>⚠️</span>
+                  <div>
+                    <h4 style={{margin:'0 0 2px', color:'#991B1B', fontSize:'0.9rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Ropa de Cama</h4>
+                    <p style={{margin:0, fontSize:'0.82rem', color:'#991B1B', lineHeight:'1.4'}}>Cada pasajero debe traer sus propias sábanas y toallas (no están incluidas en la cabaña).</p>
                   </div>
                 </div>
               </div>
