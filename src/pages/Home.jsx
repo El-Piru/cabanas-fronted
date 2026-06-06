@@ -214,6 +214,51 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Piscina / Tobogán Section */}
+          <div style={{
+            marginTop: '5rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '3rem',
+            alignItems: 'center',
+            paddingTop: '4rem',
+            borderTop: '1px solid rgba(236, 232, 224, 0.7)'
+          }}>
+            <div style={{
+              position: 'relative',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+              border: '1px solid rgba(236, 232, 224, 0.7)',
+              order: 2
+            }}>
+              <img 
+                src="/images/piscina.png" 
+                alt="Piscina y Tobogán Cabañas La Higuera" 
+                style={{ width: '100%', display: 'block', height: 'auto', objectFit: 'cover' }}
+              />
+            </div>
+            <div style={{ order: 1 }}>
+              <h3 style={{
+                fontFamily: '"Outfit", sans-serif',
+                fontSize: '1.8rem',
+                color: '#182535',
+                fontWeight: '600',
+                marginBottom: '1rem'
+              }}>
+                Diversión garantizada con piscina y tobogán gigante
+              </h3>
+              <p style={{ color: '#5C6E5E', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                Nuestra piscina al aire libre cuenta con un tobogán de agua gigante y áreas de descanso con quinchos rústicos de paja. Es el lugar preferido de grandes y chicos para refrescarse, tomar sol y pasar la tarde divirtiéndose en un ambiente seguro y familiar.
+              </p>
+              <ul style={{ paddingLeft: '20px', color: '#5C6E5E', lineHeight: '2' }}>
+                <li>Tobogán de agua de gran altura para todas las edades 🎢</li>
+                <li>Quinchos individuales con sombrillas rústicas de paja ⛱️</li>
+                <li>Entorno rodeado de palmeras y césped natural 🌴</li>
+              </ul>
+            </div>
+          </div>
+
           {/* Elegant CTA Box */}
           <div style={{
             marginTop: '4rem',
