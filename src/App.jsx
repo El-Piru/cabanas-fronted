@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Registro from './pages/Registro'
@@ -16,6 +17,7 @@ import RestablecerPassword from './pages/RestablecerPassword'
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div style={{minHeight:'100vh',background:'#FAF8F5',display:'flex',flexDirection:'column'}}>
         <Navbar />
         <div style={{flex:1}}>
