@@ -17,8 +17,8 @@ export default function Home() {
     <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
       {/* Hero Banner with Soft Radial Light */}
       <div style={{
-        background: 'radial-gradient(circle at 50% 120%, #6BA3D6 0%, #204C72 100%)',
-        padding: '5rem 1.5rem 8rem',
+        background: 'linear-gradient(to bottom, rgba(24, 43, 62, 0.5) 0%, rgba(24, 43, 62, 0.8) 100%), url("/images/entorno.png") center/cover no-repeat',
+        padding: '7rem 1.5rem 10rem',
         textAlign: 'center',
         color: '#fff',
         position: 'relative'
@@ -168,6 +168,51 @@ export default function Home() {
               ))}
             </div>
           )}
+
+          {/* Entorno / Galería Section */}
+          <div style={{
+            marginTop: '5rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '3rem',
+            alignItems: 'center',
+            paddingTop: '3rem',
+            borderTop: '1px solid rgba(236, 232, 224, 0.7)'
+          }}>
+            <div>
+              <h3 style={{
+                fontFamily: '"Outfit", sans-serif',
+                fontSize: '1.8rem',
+                color: '#182535',
+                fontWeight: '600',
+                marginBottom: '1rem'
+              }}>
+                Un entorno natural inigualable
+              </h3>
+              <p style={{ color: '#5C6E5E', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                Ubicadas en un sector privilegiado del Lago Rapel, nuestras cabañas ofrecen el equilibrio perfecto entre descanso y diversión. Disfruta de amplias áreas verdes, acceso directo al lago y todas las comodidades para una estadía inolvidable junto a tu familia.
+              </p>
+              <ul style={{ paddingLeft: '20px', color: '#5C6E5E', lineHeight: '2' }}>
+                <li>Acceso exclusivo al lago y muelle propio 🌊</li>
+                <li>Amplias zonas de picnic y áreas verdes 🌳</li>
+                <li>Piscina equipada con tobogán gigante 🏊</li>
+                <li>Estacionamiento privado y seguro 🚗</li>
+              </ul>
+            </div>
+            <div style={{
+              position: 'relative',
+              borderRadius: '16px',
+              overflow: 'hidden',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
+              border: '1px solid rgba(236, 232, 224, 0.7)'
+            }}>
+              <img 
+                src="/images/entorno.png" 
+                alt="Entorno Cabañas La Higuera" 
+                style={{ width: '100%', display: 'block', height: 'auto', objectFit: 'cover' }}
+              />
+            </div>
+          </div>
 
           {/* Elegant CTA Box */}
           <div style={{
