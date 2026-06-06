@@ -5,27 +5,27 @@ const DETALLES_POR_CAPACIDAD = {
   2: {
     dormitorios: "2 dormitorios (1 Cama matrimonial)",
     banos: "1 baño completo en suite (tina/ducha o hidromasaje según cabaña asignada)",
-    servicios: "Sábanas y toallas premium, calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
+    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
   },
   4: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
     banos: "1 baño completo con ducha de agua caliente",
-    servicios: "Sábanas y toallas (cambio c/3 días), TV por cable, calefacción, acceso a piscina y tobogán, kayaks, estacionamiento"
+    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. TV por cable, calefacción, acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   6: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
     banos: "1 baño completo + 1 medio baño de visitas",
-    servicios: "Sábanas y toallas premium, calefacción a leña (bosca), TV satelital, acceso a piscina y tobogán, botes de remo, estacionamiento para 2 vehículos"
+    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Calefacción a leña (bosca), TV satelital, acceso a piscina y tobogán, botes de remo, estacionamiento para 2 vehículos"
   },
   8: {
     dormitorios: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
     banos: "1 baño completo con tina/ducha + 1 baño de visitas (sin ducha)",
-    servicios: "Sábanas de alta calidad, toallas de baño, chimenea de leña, Smart TV de 50\", acceso a piscina y tobogán, kayaks, estacionamiento"
+    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Chimenea de leña, Smart TV de 50\", acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   10: {
     dormitorios: "3 dormitorios (1 Cama matrimonial en una habitación, 2 Camarotes en la segunda y 2 Camarotes en la tercera)",
     banos: "1 baño completo con tina + 1 baño social de visitas (sin ducha)",
-    servicios: "Sábanas y toallas deluxe, calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina, tobogán y muelle privado, estacionamiento para 3 vehículos"
+    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina, tobogán y muelle privado, estacionamiento para 3 vehículos"
   }
 }
 
@@ -281,7 +281,7 @@ export default function CabanaCard({ cabana }) {
   const fallbackDetalles = {
     dormitorios: `Dormitorios adaptados para la capacidad de ${cabana.capacidad} personas`,
     banos: "Baño completo equipado (1 ducha)",
-    servicios: "Sábanas, toallas, acceso a piscina y estacionamiento"
+    servicios: "⚠️ IMPORTANTE: Cada pasajero debe traer sus propias sábanas y toallas. Acceso a piscina y estacionamiento"
   }
 
   const detalles = DETALLES_POR_CAPACIDAD[cabana.capacidad] || fallbackDetalles
