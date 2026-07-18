@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { api } from '../api'
-
 export default function Login() {
   const navigate = useNavigate()
   const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
-
+  const [mostrarPassword, setMostrarPassword] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault()
     setCargando(true)
@@ -28,7 +27,6 @@ export default function Login() {
       setCargando(false)
     }
   }
-
   return (
     <div style={{minHeight:'80vh',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'"Outfit", sans-serif'}}>
       <div style={{background:'#fff',borderRadius:'16px',padding:'2.5rem',width:'400px',boxShadow:'0 8px 40px rgba(0,0,0,0.06)',border:'1px solid #ECE8E4'}}>
@@ -44,7 +42,12 @@ export default function Login() {
               <label style={{margin:0,fontSize:'0.9rem',fontWeight:'500',color:'#182535'}}>Contraseña</label>
               <Link to="/recuperar-password" style={{color:'#407DAF',fontSize:'0.8rem',textDecoration:'none',fontWeight:'500'}}>¿Olvidaste tu contraseña?</Link>
             </div>
-            <input type="password" value={form.password} onChange={e => setForm({...form,password:e.target.value})} required style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box',fontFamily:'inherit'}} />
+            <div style={{position:'relative'}}>
+              <input type={mostrarPassword ? 'text' : 'password'} value={form.password} onChange={e => setForm({...form,password:e.target.value})} required style={{width:'100%',padding:'10px',paddingRight:'70px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box',fontFamily:'inherit'}} />
+              <button type="button" onClick={() => setMostrarPassword(!mostrarPassword)} style={{position:'absolute',right:'10px',top:'50%',transform:'translateY(-50%)',background:'none',border:'none',color:'#407DAF',fontSize:'0.8rem',fontWeight:'500',cursor:'pointer',fontFamily:'inherit'}}>
+                {mostrarPassword ? 'Ocultar' : 'Mostrar'}
+              </button>
+            </div>
           </div>
           <button type="submit" disabled={cargando} style={{width:'100%',background:'#2B5880',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',cursor:'pointer',fontWeight:'600',fontFamily:'inherit',transition:'background 0.2s ease'}}
             onMouseEnter={e => e.currentTarget.style.background='#204C72'}
