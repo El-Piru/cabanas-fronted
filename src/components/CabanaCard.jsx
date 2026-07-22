@@ -5,27 +5,27 @@ const DETALLES_POR_CAPACIDAD = {
   2: {
     dormitorios: "2 dormitorios (1 Cama matrimonial)",
     banos: "1 baño",
-    servicios: "Calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
+    servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   4: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
     banos: "1 baño",
-    servicios: "Calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
+    servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   6: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
     banos: "1 baño",
-    servicios: "Calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
+    servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   8: {
     dormitorios: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
     banos: "1 baño",
-    servicios: "Calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
+    servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   10: {
     dormitorios: "3 dormitorios (1 Cama matrimonial en una habitación, 2 Camarotes en la segunda y 2 Camarotes en la tercera)",
     banos: "1 baño",
-    servicios: "Calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
+    servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   }
 }
 
@@ -281,7 +281,7 @@ export default function CabanaCard({ cabana }) {
   const fallbackDetalles = {
     dormitorios: `Dormitorios adaptados para la capacidad de ${cabana.capacidad} personas`,
     banos: "1 baño",
-    servicios: "Calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
+    servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   }
 
   const detalles = DETALLES_POR_CAPACIDAD[cabana.capacidad] || fallbackDetalles
