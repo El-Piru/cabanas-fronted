@@ -154,8 +154,9 @@ export default function Home() {
                 border: '3px solid rgba(192, 28, 28, 0.1)',
                 borderTop: '3px solid #C01C1C',
                 borderRadius: '50%',
-                width: '30px',
-                height: '30px',
+                width: '32px',
+                height: '32px',
+                animation: 'spin 0.8s linear infinite',
                 margin: '0 auto 1rem'
               }} />
               <span>Cargando cabañas...</span>
