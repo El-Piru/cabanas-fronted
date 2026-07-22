@@ -3,47 +3,47 @@ import { useNavigate } from 'react-router-dom'
 
 const DETALLES_POR_CAPACIDAD = {
   2: {
-    dormitoriosText: "2 dormitorios (1 Cama matrimonial)",
-    distribucion: [
-      { titulo: "Dormitorio 1", camas: ["1 Cama Matrimonial (2 plazas)"] }
+    dormitorios: "1 dormitorio",
+    lineasDormitorios: [
+      "- Dormitorio 1: 1 Cama matrimonial"
     ],
     banos: "1 baño completo",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   4: {
-    dormitoriosText: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
-    distribucion: [
-      { titulo: "Dormitorio 1", camas: ["1 Cama Matrimonial (2 plazas)"] },
-      { titulo: "Dormitorio 2", camas: ["2 Camas bajas de 1 plaza"] }
+    dormitorios: "2 dormitorios",
+    lineasDormitorios: [
+      "- Dormitorio 1: 1 Cama matrimonial",
+      "- Dormitorio 2: 2 Camas bajas"
     ],
     banos: "1 baño completo",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   6: {
-    dormitoriosText: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
-    distribucion: [
-      { titulo: "Dormitorio 1", camas: ["1 Cama Matrimonial (2 plazas)"] },
-      { titulo: "Dormitorio 2", camas: ["2 Camarotes (4 camas de 1 plaza)"] }
+    dormitorios: "2 dormitorios",
+    lineasDormitorios: [
+      "- Dormitorio 1: 1 Cama matrimonial",
+      "- Dormitorio 2: 2 Camarotes"
     ],
     banos: "1 baño completo",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   8: {
-    dormitoriosText: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
-    distribucion: [
-      { titulo: "Dormitorio 1", camas: ["1 Cama Matrimonial (2 plazas)"] },
-      { titulo: "Dormitorio 2", camas: ["2 Camarotes (4 camas de 1 plaza)"] },
-      { titulo: "Dormitorio 3", camas: ["2 Camas bajas de 1 plaza"] }
+    dormitorios: "3 dormitorios",
+    lineasDormitorios: [
+      "- Dormitorio 1: 1 Cama matrimonial",
+      "- Dormitorio 2: 2 Camarotes",
+      "- Dormitorio 3: 2 Camas bajas"
     ],
     banos: "1 baño completo",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   10: {
-    dormitoriosText: "3 dormitorios",
-    distribucion: [
-      { titulo: "Dormitorio 1", camas: ["1 Cama Matrimonial (2 plazas)"] },
-      { titulo: "Dormitorio 2", camas: ["2 Camarotes (4 camas de 1 plaza)"] },
-      { titulo: "Dormitorio 3", camas: ["2 Camarotes (4 camas de 1 plaza)"] }
+    dormitorios: "3 dormitorios",
+    lineasDormitorios: [
+      "- Dormitorio 1: 1 Cama matrimonial",
+      "- Dormitorio 2: 2 Camarotes",
+      "- Dormitorio 3: 2 Camarotes"
     ],
     banos: "1 baño completo",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
@@ -531,23 +531,16 @@ export default function CabanaCard({ cabana }) {
               <div style={{display:'flex', flexDirection:'column', gap:'1.5rem', borderTop:'1px solid #ECE8E0', paddingTop:'1.5rem'}}>
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
                   <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛏️</span>
-                  <div style={{width:'100%'}}>
-                    <h4 style={{margin:'0 0 6px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>
-                      Distribución de Dormitorios {detalles.dormitoriosText ? `(${detalles.dormitoriosText})` : ''}
+                  <div>
+                    <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>
+                      Dormitorios ({detalles.dormitorios})
                     </h4>
-                    {detalles.distribucion ? (
-                      <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(140px, 1fr))', gap:'10px', marginTop:'8px'}}>
-                        {detalles.distribucion.map((dorm, idx) => (
-                          <div key={idx} style={{background:'#FAF8F5', border:'1px solid #ECE8E0', borderRadius:'12px', padding:'10px 14px'}}>
-                            <span style={{fontSize:'0.82rem', fontWeight:'600', color:'#204C72', display:'block', marginBottom:'4px'}}>
-                              {dorm.titulo}
-                            </span>
-                            {dorm.camas.map((cama, cIdx) => (
-                              <span key={cIdx} style={{fontSize:'0.8rem', color:'#5A6A5C', display:'block', lineHeight:'1.35'}}>
-                                • {cama}
-                              </span>
-                            ))}
-                          </div>
+                    {detalles.lineasDormitorios ? (
+                      <div style={{marginTop:'4px'}}>
+                        {detalles.lineasDormitorios.map((linea, idx) => (
+                          <p key={idx} style={{margin:'2px 0', fontSize:'0.88rem', color:'#5A6A5C', lineHeight:'1.5'}}>
+                            {linea}
+                          </p>
                         ))}
                       </div>
                     ) : (
