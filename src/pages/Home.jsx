@@ -10,6 +10,9 @@ export default function Home() {
     api.getCabanas().then(res => {
       if (res.ok) setCabanas(res.data)
       setCargando(false)
+    }).catch(err => {
+      console.error('Error al cargar cabañas:', err)
+      setCargando(false)
     })
   }, [])
 

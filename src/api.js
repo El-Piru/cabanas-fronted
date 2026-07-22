@@ -1,4 +1,4 @@
-export const BASE_URL = import.meta.env.VITE_API_URL || (typeof window !== 'undefined' && window.location.hostname.includes('localhost') ? 'http://localhost:3000/api' : '/api')
+export const BASE_URL = import.meta.env.VITE_API_URL || 'https://cabanas-backend-95ey.onrender.com/api'
 
 const getToken = () => localStorage.getItem('token')
 
