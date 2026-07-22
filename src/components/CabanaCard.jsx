@@ -361,8 +361,8 @@ export default function CabanaCard({ cabana }) {
           </p>
           
           <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1.25rem'}}>
-            <span style={{fontSize:'0.8rem',color:'#3D4C5E',fontWeight:'500'}}>
-              👥 Capacidad: {cabana.capacidad} personas
+            <span style={{fontSize:'0.82rem',color:'#3D4C5E',fontWeight:'500'}}>
+              Capacidad: {cabana.capacidad} personas
             </span>
             <span style={{
               fontSize:'0.8rem',
@@ -530,7 +530,11 @@ export default function CabanaCard({ cabana }) {
               {/* Detailed features list */}
               <div style={{display:'flex', flexDirection:'column', gap:'1.5rem', borderTop:'1px solid #ECE8E0', paddingTop:'1.5rem'}}>
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛏️</span>
+                  <div style={{background:'#FAF6F0', width:'36px', height:'36px', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, border:'1px solid #ECE8E0'}}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C01C1C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2 4v16M2 8h20v12M2 17h20M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
+                    </svg>
+                  </div>
                   <div>
                     <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>
                       {detalles.tituloDormitorios || 'Dormitorios'}
@@ -550,17 +554,26 @@ export default function CabanaCard({ cabana }) {
                 </div>
 
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🚿</span>
+                  <div style={{background:'#FAF6F0', width:'36px', height:'36px', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, border:'1px solid #ECE8E0'}}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#204C72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z" />
+                      <path d="M6 12V5a3 3 0 0 1 6 0v1" />
+                    </svg>
+                  </div>
                   <div>
-                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Baños</h4>
+                    <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Baños</h4>
                     <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.banos}</p>
                   </div>
                 </div>
 
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛎️</span>
+                  <div style={{background:'#FAF6F0', width:'36px', height:'36px', borderRadius:'10px', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, border:'1px solid #ECE8E0'}}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#204C72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
                   <div>
-                    <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Servicios Incluidos</h4>
+                    <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Servicios Incluidos</h4>
                     <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.servicios}</p>
                   </div>
                 </div>

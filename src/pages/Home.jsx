@@ -77,10 +77,13 @@ export default function Home() {
           border: '1px solid rgba(255, 255, 255, 0.12)',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)'
         }}>
-          <span>🚤 Paseos en lancha</span>
-          <span>🚣 Kayak y botes</span>
-          <span>🏊 Piscina y Tobogán</span>
-          <span>🏄 Moto de agua</span>
+          <span>Paseos en lancha</span>
+          <span>•</span>
+          <span>Kayak y botes</span>
+          <span>•</span>
+          <span>Piscina y Tobogán</span>
+          <span>•</span>
+          <span>Moto de agua</span>
         </div>
         <div style={{ marginTop: '2rem' }}>
           <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{
@@ -103,7 +106,7 @@ export default function Home() {
             e.currentTarget.style.transform='translateY(0)'
             e.currentTarget.style.boxShadow='0 4px 15px rgba(192, 28, 28, 0.3)'
           }}>
-            📍 Cómo llegar
+            Cómo llegar
           </a>
         </div>
       </div>
@@ -250,9 +253,9 @@ export default function Home() {
                 Nuestra piscina al aire libre cuenta con un tobogán de agua gigante y áreas de descanso con quinchos rústicos de paja. Es el lugar preferido de grandes y chicos para refrescarse, tomar sol y pasar la tarde divirtiéndose en un ambiente seguro y familiar.
               </p>
               <ul style={{ paddingLeft: '20px', color: '#5C6E5E', lineHeight: '2' }}>
-                <li>Tobogán de agua de gran altura para todas las edades 🎢</li>
-                <li>Quinchos individuales con sombrillas rústicas de paja ⛱️</li>
-                <li>Entorno rodeado de palmeras y césped natural 🌴</li>
+                <li>Tobogán de agua de gran altura para todas las edades</li>
+                <li>Quinchos individuales con sombrillas rústicas de paja</li>
+                <li>Entorno rodeado de palmeras y césped natural</li>
               </ul>
             </div>
           </div>
@@ -309,7 +312,7 @@ export default function Home() {
                 e.currentTarget.style.transform='translateY(0)'
                 e.currentTarget.style.boxShadow='0 4px 15px rgba(37, 211, 102, 0.3)'
               }}>
-                💬 WhatsApp Directo
+                WhatsApp Directo
               </a>
               <a href="mailto:Bana_ju@hotmail.com" style={{
                 background: 'rgba(255, 255, 255, 0.1)',
