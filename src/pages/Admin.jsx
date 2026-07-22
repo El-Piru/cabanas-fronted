@@ -80,6 +80,27 @@ export default function Admin() {
     }
   }
 
+  const handleLimpiezaProduccion = async () => {
+    if (!confirm('¿Estás seguro de que deseas borrar TODAS las reservas de prueba y usuarios clientes para dejar la base de datos en cero en producción?')) return
+    try {
+      const res = await fetch(`${BASE_URL}/admin/limpieza-total-produccion`, {
+        method: 'POST',
+        headers,
+        credentials: 'include'
+      }).then(r => r.json())
+
+      if (res.ok) {
+        alert(res.mensaje)
+        cargarDatos()
+      } else {
+        alert(res.mensaje || 'Error al ejecutar limpieza')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error al conectar con el servidor')
+    }
+  }
+
   const crearCabana = async () => {
     const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers, credentials: 'include', body: JSON.stringify(nuevaCabana) }).then(r => r.json())
     if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '', imagen: '' }) }
@@ -311,12 +332,20 @@ export default function Admin() {
               </h2>
               <button onClick={() => cambiarMes(1)} style={{ background: '#fff', border: '1px solid #2C4A2E', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer', color: '#2C4A2E', fontWeight: '600' }}>Sig ▶</button>
             </div>
-            <button 
-              onClick={() => openModalParaCrear()} 
-              style={{ background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}
-            >
-              ➕ Crear Reserva / Bloquear Fechas
-            </button>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <button 
+                onClick={() => openModalParaCrear()} 
+                style={{ background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}
+              >
+                ➕ Crear Reserva / Bloquear Fechas
+              </button>
+              <button 
+                onClick={handleLimpiezaProduccion} 
+                style={{ background: '#991B1B', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}
+              >
+                🧹 Limpiar Datos de Prueba (Cero Reservas)
+              </button>
+            </div>
           </div>
 
           {/* Contenedor del Timeline del Calendario */}
