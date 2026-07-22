@@ -3,49 +3,28 @@ import { useNavigate } from 'react-router-dom'
 
 const DETALLES_POR_CAPACIDAD = {
   2: {
-    dormitorios: "1 dormitorio",
-    lineasDormitorios: [
-      "- Dormitorio 1: 1 Cama matrimonial"
-    ],
-    banos: "1 baño completo",
+    dormitorios: "2 dormitorios (1 Cama matrimonial)",
+    banos: "1 baño",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   4: {
-    dormitorios: "2 dormitorios",
-    lineasDormitorios: [
-      "- Dormitorio 1: 1 Cama matrimonial",
-      "- Dormitorio 2: 2 Camas bajas"
-    ],
-    banos: "1 baño completo",
+    dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
+    banos: "1 baño",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   6: {
-    dormitorios: "2 dormitorios",
-    lineasDormitorios: [
-      "- Dormitorio 1: 1 Cama matrimonial",
-      "- Dormitorio 2: 2 Camarotes"
-    ],
-    banos: "1 baño completo",
+    dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
+    banos: "1 baño",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   8: {
-    dormitorios: "3 dormitorios",
-    lineasDormitorios: [
-      "- Dormitorio 1: 1 Cama matrimonial",
-      "- Dormitorio 2: 2 Camarotes",
-      "- Dormitorio 3: 2 Camas bajas"
-    ],
-    banos: "1 baño completo",
+    dormitorios: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
+    banos: "1 baño",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   },
   10: {
-    dormitorios: "3 dormitorios",
-    lineasDormitorios: [
-      "- Dormitorio 1: 1 Cama matrimonial",
-      "- Dormitorio 2: 2 Camarotes",
-      "- Dormitorio 3: 2 Camarotes"
-    ],
-    banos: "1 baño completo",
+    dormitorios: "3 dormitorios (1 Cama matrimonial en una habitación, 2 Camarotes en la segunda y 2 Camarotes en la tercera)",
+    banos: "1 baño",
     servicios: "Cabaña equipada, calefacción a leña, TV por cable, acceso a piscina, tobogán y estacionamiento"
   }
 }
@@ -532,20 +511,8 @@ export default function CabanaCard({ cabana }) {
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
                   <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛏️</span>
                   <div>
-                    <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>
-                      {detalles.dormitorios}
-                    </h4>
-                    {detalles.lineasDormitorios ? (
-                      <div style={{marginTop:'4px'}}>
-                        {detalles.lineasDormitorios.map((linea, idx) => (
-                          <p key={idx} style={{margin:'2px 0', fontSize:'0.88rem', color:'#5A6A5C', lineHeight:'1.5'}}>
-                            {linea}
-                          </p>
-                        ))}
-                      </div>
-                    ) : (
-                      <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.dormitorios}</p>
-                    )}
+                    <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Dormitorios</h4>
+                    <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.dormitorios}</p>
                   </div>
                 </div>
 
