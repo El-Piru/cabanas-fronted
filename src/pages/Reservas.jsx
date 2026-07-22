@@ -88,7 +88,9 @@ export default function Reservas() {
             <div key={r.id} style={{background:'#fff',borderRadius:'12px',padding:'1.5rem',border:'1px solid #ECE8E0'}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
                 <div>
-                  <h3 style={{margin:'0 0 4px',color:'#1A2E1B'}}>{r.cabana.nombre}</h3>
+                  <h3 style={{margin:'0 0 4px',color:'#182535',fontFamily:'"Outfit", sans-serif',fontSize:'1.2rem',fontWeight:'600'}}>
+                    Cabaña para {r.cabana.capacidad} personas
+                  </h3>
                   <p style={{fontSize:'0.85rem',color:'#7A8E7B',margin:'0 0 .75rem'}}>
                     {new Date(r.llegada).toLocaleDateString('es-CL')} → {new Date(r.salida).toLocaleDateString('es-CL')}
                   </p>
