@@ -287,7 +287,7 @@ export default function Navbar() {
 
             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
               <h3 style={{ margin: 0, color: '#182535', fontSize: '1.4rem', fontFamily: '"Outfit", sans-serif', fontWeight: '600' }}>
-                Mis Datos de Usuario
+                Mis Datos
               </h3>
               <span style={{ fontSize: '0.8rem', color: '#7A8E7B', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600', marginTop: '4px', display: 'block' }}>
                 Perfil de Cliente
