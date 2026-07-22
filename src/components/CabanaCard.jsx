@@ -542,7 +542,7 @@ export default function CabanaCard({ cabana }) {
                   marginTop: '0.5rem'
                 }}>
                   <h4 style={{margin:'0 0 2px', color:'#991B1B', fontSize:'0.9rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>NOTA</h4>
-                  <p style={{margin:0, fontSize:'0.82rem', color:'#991B1B', lineHeight:'1.4'}}>No trae incluido sábanas y toallas.</p>
+                  <p style={{margin:0, fontSize:'0.82rem', color:'#991B1B', lineHeight:'1.4'}}>No está incluido sábanas y toallas.</p>
                 </div>
               </div>
 
