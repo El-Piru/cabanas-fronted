@@ -22,6 +22,12 @@ export const api = {
     credentials: 'include'
   }).then(r => r.json()),
 
+  eliminarCuenta: () => fetch(`${BASE_URL}/auth/eliminar-cuenta`, {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${getToken()}` },
+    credentials: 'include'
+  }).then(r => r.json()),
+
   recuperarPassword: (email) => fetch(`${BASE_URL}/auth/recuperar-password`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

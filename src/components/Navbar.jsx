@@ -36,6 +36,32 @@ export default function Navbar() {
     navigate('/login')
   }
 
+  const handleEliminarCuenta = async () => {
+    const confirmacion = window.confirm(
+      '¿Estás seguro de que deseas eliminar tu cuenta?\n\nEsta acción es permanente y no se podrá deshacer.'
+    )
+    if (!confirmacion) return
+
+    try {
+      const res = await api.eliminarCuenta()
+      if (res.ok) {
+        alert('Tu cuenta ha sido eliminada exitosamente.')
+        localStorage.removeItem('token')
+        localStorage.removeItem('usuario')
+        setMostrarModalDatos(false)
+        setDropdownAbierto(false)
+        setMenuAbierto(false)
+        navigate('/')
+        window.location.reload()
+      } else {
+        alert(res.mensaje || 'No se pudo eliminar la cuenta.')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error de conexión con el servidor.')
+    }
+  }
+
   return (
     <>
       <nav style={{ background: '#407DAF', padding: '0 1.5rem', position: 'relative', zIndex: 100 }}>
@@ -317,7 +343,21 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+            <div style={{ marginTop: '1.5rem', display: 'flex', gap: '0.75rem', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={handleEliminarCuenta}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#991B1B',
+                  cursor: 'pointer',
+                  fontSize: '0.85rem',
+                  textDecoration: 'underline',
+                  padding: '4px 0'
+                }}
+              >
+                Eliminar mi cuenta
+              </button>
               <button
                 onClick={() => setMostrarModalDatos(false)}
                 style={{
