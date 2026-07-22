@@ -4,27 +4,27 @@ import { useNavigate } from 'react-router-dom'
 const DETALLES_POR_CAPACIDAD = {
   2: {
     dormitorios: "2 dormitorios (1 Cama matrimonial)",
-    banos: "1 baño completo en suite (tina/ducha o hidromasaje según cabaña asignada)",
+    banos: "1 baño",
     servicios: "Calefacción eléctrica, TV Smart (Netflix), acceso a piscina y tobogán, estacionamiento"
   },
   4: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camas bajas)",
-    banos: "1 baño completo con ducha de agua caliente",
+    banos: "1 baño",
     servicios: "TV por cable, calefacción, acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   6: {
     dormitorios: "2 dormitorios (1 Cama matrimonial y 2 Camarotes)",
-    banos: "1 baño completo + 1 medio baño de visitas",
+    banos: "1 baño",
     servicios: "Calefacción a leña (bosca), TV satelital, acceso a piscina y tobogán, botes de remo, estacionamiento para 2 vehículos"
   },
   8: {
     dormitorios: "3 dormitorios (1 Cama matrimonial, 2 Camarotes y 2 Camas bajas)",
-    banos: "1 baño completo con tina/ducha + 1 baño de visitas (sin ducha)",
+    banos: "1 baño",
     servicios: "Chimenea de leña, Smart TV de 50\", acceso a piscina y tobogán, kayaks, estacionamiento"
   },
   10: {
     dormitorios: "3 dormitorios (1 Cama matrimonial en una habitación, 2 Camarotes en la segunda y 2 Camarotes en la tercera)",
-    banos: "1 baño completo con tina + 1 baño social de visitas (sin ducha)",
+    banos: "1 baño",
     servicios: "Calefacción por pellet, Smart TV, acceso completo a paseos en lancha, kayaks, piscina, tobogán y muelle privado, estacionamiento para 3 vehículos"
   }
 }
@@ -280,7 +280,7 @@ export default function CabanaCard({ cabana }) {
 
   const fallbackDetalles = {
     dormitorios: `Dormitorios adaptados para la capacidad de ${cabana.capacidad} personas`,
-    banos: "Baño completo equipado (1 ducha)",
+    banos: "1 baño",
     servicios: "Acceso a piscina y estacionamiento"
   }
 
