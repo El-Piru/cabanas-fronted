@@ -43,7 +43,25 @@ export default function Reservar() {
       .then(res => {
         if (res.ok) setFechasOcupadas(res.data)
       })
-      .catch(err => console.error('Error al obtener fechas ocupadas:', err))
+    // Cargar borrador guardado de fechas si existe y es válido
+    const borradorGuardado = localStorage.getItem(`borrador_reserva_${id}`)
+    if (borradorGuardado) {
+      try {
+        const datos = JSON.parse(borradorGuardado)
+        if (datos.llegada && datos.salida) {
+          const dLlegada = new Date(datos.llegada + 'T12:00:00')
+          const hoy = new Date()
+          hoy.setHours(0, 0, 0, 0)
+          if (dLlegada >= hoy) {
+            setForm({ llegada: datos.llegada, salida: datos.salida })
+          } else {
+            localStorage.removeItem(`borrador_reserva_${id}`)
+          }
+        }
+      } catch (e) {
+        console.error('Error al cargar borrador:', e)
+      }
+    }
   }, [id, navigate])
 
   const verificarSolapamiento = (llegada, salida) => {
@@ -77,9 +95,20 @@ export default function Reservar() {
         setNoches(n)
         setTotal(n * cabana.precio)
         setError('')
+        if (n > 0 && !verificarSolapamiento(form.llegada, form.salida)) {
+          localStorage.setItem(`borrador_reserva_${id}`, JSON.stringify(form))
+        }
       }
     }
-  }, [form, cabana, fechasOcupadas])
+  }, [form, cabana, fechasOcupadas, id])
+
+  const limpiarBorrador = () => {
+    setForm({ llegada: '', salida: '' })
+    setNoches(0)
+    setTotal(0)
+    setError('')
+    localStorage.removeItem(`borrador_reserva_${id}`)
+  }
 
   // Obtiene fechas incluyendo el día final (checkout)
   const obtenerFechasExcluidas = () => {
@@ -126,6 +155,7 @@ export default function Reservar() {
         salida: form.salida
       })
       if (res.ok) {
+        localStorage.removeItem(`borrador_reserva_${id}`)
         if (res.initPoint) {
           window.location.href = res.initPoint
         } else {
@@ -187,7 +217,18 @@ export default function Reservar() {
 
       <div style={{background:'#fff',borderRadius:'16px',padding:'2rem',boxShadow:'0 4px 20px rgba(0,0,0,0.08)'}}>
         <div style={{marginBottom:'1rem'}}>
-          <label style={{display:'block',marginBottom:'6px',fontWeight:'500'}}>Fecha de llegada</label>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'6px'}}>
+            <label style={{fontWeight:'500'}}>Fecha de llegada</label>
+            {(form.llegada || form.salida) && (
+              <button
+                type="button"
+                onClick={limpiarBorrador}
+                style={{background:'none', border:'none', color:'#C01C1C', cursor:'pointer', fontSize:'0.8rem', textDecoration:'underline'}}
+              >
+                Limpiar fechas
+              </button>
+            )}
+          </div>
           <DatePicker
             selected={form.llegada ? new Date(form.llegada + 'T12:00:00') : null}
             onChange={date => setForm({...form, llegada: date ? date.toISOString().split('T')[0] : '', salida: ''})}
