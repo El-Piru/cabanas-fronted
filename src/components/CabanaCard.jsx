@@ -533,7 +533,7 @@ export default function CabanaCard({ cabana }) {
                   <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛏️</span>
                   <div>
                     <h4 style={{margin:'0 0 4px', color:'#182535', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>
-                      Dormitorios ({detalles.dormitorios})
+                      {detalles.dormitorios}
                     </h4>
                     {detalles.lineasDormitorios ? (
                       <div style={{marginTop:'4px'}}>
