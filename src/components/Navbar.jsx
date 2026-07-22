@@ -70,11 +70,10 @@ export default function Navbar() {
                     fontWeight: '500',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '6px',
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  <span style={{ fontSize: '1rem' }}>👤</span>
                   <span>{usuario.nombre || 'Mi Cuenta'}</span>
                   <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>{dropdownAbierto ? '▲' : '▼'}</span>
                 </button>
@@ -111,15 +110,12 @@ export default function Navbar() {
                         border: 'none',
                         color: '#182535',
                         fontSize: '0.88rem',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
+                        cursor: 'pointer'
                       }}
                       onMouseEnter={e => e.currentTarget.style.background = '#FAF8F5'}
                       onMouseLeave={e => e.currentTarget.style.background = 'none'}
                     >
-                      📋 Mis Datos
+                      Mis Datos
                     </button>
 
                     {usuario?.rol === 'admin' ? (
@@ -127,9 +123,7 @@ export default function Navbar() {
                         to="/admin"
                         onClick={() => setDropdownAbierto(false)}
                         style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
+                          display: 'block',
                           padding: '10px 16px',
                           color: '#C01C1C',
                           textDecoration: 'none',
@@ -139,16 +133,14 @@ export default function Navbar() {
                         onMouseEnter={e => e.currentTarget.style.background = '#FAF8F5'}
                         onMouseLeave={e => e.currentTarget.style.background = 'none'}
                       >
-                        ⚙️ Panel Admin
+                        Panel Admin
                       </Link>
                     ) : (
                       <Link
                         to="/mis-reservas"
                         onClick={() => setDropdownAbierto(false)}
                         style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
+                          display: 'block',
                           padding: '10px 16px',
                           color: '#182535',
                           textDecoration: 'none',
@@ -157,7 +149,7 @@ export default function Navbar() {
                         onMouseEnter={e => e.currentTarget.style.background = '#FAF8F5'}
                         onMouseLeave={e => e.currentTarget.style.background = 'none'}
                       >
-                        📅 Mis Reservas
+                        Mis Reservas
                       </Link>
                     )}
 
@@ -174,15 +166,12 @@ export default function Navbar() {
                         color: '#C01C1C',
                         fontSize: '0.88rem',
                         fontWeight: '600',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px'
+                        cursor: 'pointer'
                       }}
                       onMouseEnter={e => e.currentTarget.style.background = '#FFF5F5'}
                       onMouseLeave={e => e.currentTarget.style.background = 'none'}
                     >
-                      🚪 Cerrar Sesión
+                      Cerrar Sesión
                     </button>
                   </div>
                 )}
@@ -202,7 +191,7 @@ export default function Navbar() {
             {usuario ? (
               <>
                 <div style={{ color: '#F5C842', padding: '8px 0', fontWeight: '600', fontSize: '1rem' }}>
-                  👤 Hola, {usuario?.nombre}
+                  Hola, {usuario?.nombre}
                 </div>
                 <button
                   onClick={() => {
@@ -211,15 +200,15 @@ export default function Navbar() {
                   }}
                   style={{ display: 'block', width: '100%', textAlign: 'left', background: 'none', border: 'none', color: 'rgba(250,247,242,0.9)', padding: '10px 0', fontSize: '1rem', cursor: 'pointer' }}
                 >
-                  📋 Mis Datos
+                  Mis Datos
                 </button>
                 {usuario?.rol === 'admin' ? (
-                  <Link to="/admin" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: '#F5C842', textDecoration: 'none', padding: '10px 0', fontWeight: '500', fontSize: '1rem' }}>⚙️ Panel Admin</Link>
+                  <Link to="/admin" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: '#F5C842', textDecoration: 'none', padding: '10px 0', fontWeight: '500', fontSize: '1rem' }}>Panel Admin</Link>
                 ) : (
-                  <Link to="/mis-reservas" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: 'rgba(250,247,242,0.8)', textDecoration: 'none', padding: '10px 0', fontSize: '1rem' }}>📅 Mis Reservas</Link>
+                  <Link to="/mis-reservas" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: 'rgba(250,247,242,0.8)', textDecoration: 'none', padding: '10px 0', fontSize: '1rem' }}>Mis Reservas</Link>
                 )}
                 <button onClick={cerrarSesion} style={{ background: '#C01C1C', color: '#fff', border: 'none', padding: '8px 20px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.9rem', marginTop: '8px' }}>
-                  🚪 Cerrar Sesión
+                  Cerrar Sesión
                 </button>
               </>
             ) : (
@@ -287,24 +276,10 @@ export default function Navbar() {
             </button>
 
             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-              <div style={{
-                width: '64px', height: '64px',
-                borderRadius: '50%',
-                background: '#FAF6F0',
-                color: '#C01C1C',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '2rem',
-                margin: '0 auto 12px',
-                border: '2px solid rgba(192,28,28,0.2)'
-              }}>
-                👤
-              </div>
               <h3 style={{ margin: 0, color: '#182535', fontSize: '1.4rem', fontFamily: '"Outfit", sans-serif', fontWeight: '600' }}>
                 Mis Datos de Usuario
               </h3>
-              <span style={{ fontSize: '0.8rem', color: '#7A8E7B', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600' }}>
+              <span style={{ fontSize: '0.8rem', color: '#7A8E7B', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: '600', marginTop: '4px', display: 'block' }}>
                 Perfil de Cliente
               </span>
             </div>
@@ -327,7 +302,7 @@ export default function Navbar() {
               <div style={{ borderTop: '1px solid #ECE8E0', paddingTop: '0.75rem' }}>
                 <span style={{ fontSize: '0.75rem', color: '#7A8E7B', fontWeight: '600', textTransform: 'uppercase' }}>Tipo de Cuenta</span>
                 <p style={{ margin: '2px 0 0', color: usuario?.rol === 'admin' ? '#C01C1C' : '#204C72', fontWeight: '600', fontSize: '0.95rem' }}>
-                  {usuario?.rol === 'admin' ? '⚙️ Administrador del Complejo' : '👤 Cliente Registrado'}
+                  {usuario?.rol === 'admin' ? 'Administrador del Complejo' : 'Cliente Registrado'}
                 </p>
               </div>
             </div>
