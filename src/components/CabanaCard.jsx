@@ -534,19 +534,15 @@ export default function CabanaCard({ cabana }) {
 
                 <div style={{
                   display: 'flex',
-                  gap: '12px',
-                  alignItems: 'flex-start',
+                  flexDirection: 'column',
                   background: '#FFF5F5',
                   padding: '12px 16px',
                   borderRadius: '12px',
                   border: '1px solid rgba(192, 28, 28, 0.15)',
                   marginTop: '0.5rem'
                 }}>
-                  <span style={{fontSize:'1.3rem', lineHeight:'1'}}>⚠️</span>
-                  <div>
-                    <h4 style={{margin:'0 0 2px', color:'#991B1B', fontSize:'0.9rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Ropa de Cama</h4>
-                    <p style={{margin:0, fontSize:'0.82rem', color:'#991B1B', lineHeight:'1.4'}}>Cada pasajero debe traer sus propias sábanas y toallas (no están incluidas en la cabaña).</p>
-                  </div>
+                  <h4 style={{margin:'0 0 2px', color:'#991B1B', fontSize:'0.9rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>NOTA</h4>
+                  <p style={{margin:0, fontSize:'0.82rem', color:'#991B1B', lineHeight:'1.4'}}>Cada pasajero debe traer sus propias sábanas y toallas (no están incluidas en la cabaña).</p>
                 </div>
               </div>
 
