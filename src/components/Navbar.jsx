@@ -1,9 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState, useRef, useEffect } from 'react'
 import { api } from '../api'
 
 export default function Navbar() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const esHome = location.pathname === '/'
   const usuario = JSON.parse(localStorage.getItem('usuario') || 'null')
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [dropdownAbierto, setDropdownAbierto] = useState(false)
@@ -53,7 +55,11 @@ export default function Navbar() {
           </button>
 
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }} className="nav-desktop">
-            <Link to="/" style={{ color: 'rgba(250,247,242,0.8)', textDecoration: 'none', fontSize: '0.9rem' }}>Cabañas</Link>
+            {!esHome && (
+              <Link to="/" style={{ color: 'rgba(250,247,242,0.8)', textDecoration: 'none', fontSize: '0.9rem' }}>
+                Menú
+              </Link>
+            )}
             
             {usuario ? (
               <div style={{ position: 'relative' }} ref={dropdownRef}>
@@ -188,6 +194,11 @@ export default function Navbar() {
         {/* Menú Móvil */}
         {menuAbierto && (
           <div style={{ background: '#407DAF', padding: '1rem 0', borderTop: '1px solid rgba(255,255,255,0.1)', maxWidth: '1100px', margin: '0 auto' }}>
+            {!esHome && (
+              <Link to="/" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: 'rgba(250,247,242,0.8)', textDecoration: 'none', padding: '10px 0', fontSize: '1rem' }}>
+                Menú
+              </Link>
+            )}
             {usuario ? (
               <>
                 <div style={{ color: '#F5C842', padding: '8px 0', fontWeight: '600', fontSize: '1rem' }}>
@@ -215,7 +226,6 @@ export default function Navbar() {
               <>
                 <Link to="/registro" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: 'rgba(250,247,242,0.8)', textDecoration: 'none', padding: '10px 0', fontSize: '1rem' }}>Registrarse</Link>
                 <Link to="/login" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: 'rgba(250,247,242,0.8)', textDecoration: 'none', padding: '10px 0', fontSize: '1rem' }}>Iniciar sesión</Link>
-                <Link to="/" onClick={() => setMenuAbierto(false)} style={{ display: 'block', color: 'rgba(250,247,242,0.8)', textDecoration: 'none', padding: '10px 0', fontSize: '1rem' }}>Cabañas</Link>
               </>
             )}
           </div>
