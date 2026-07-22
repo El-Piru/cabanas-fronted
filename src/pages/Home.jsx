@@ -41,7 +41,7 @@ export default function Home() {
           textShadow: '0 2px 10px rgba(0,0,0,0.2)',
           color: '#ffffff'
         }}>
-          Cabañas La Higuera Rapel
+          Cabañas La Higuera Rapel El Manzano
         </h1>
         <p style={{
           fontSize: 'clamp(1.05rem, 3vw, 1.25rem)',
