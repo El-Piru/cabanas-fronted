@@ -525,7 +525,7 @@ export default function CabanaCard({ cabana }) {
                 </div>
 
                 <div style={{display:'flex', gap:'16px', alignItems:'flex-start'}}>
-                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>✨</span>
+                  <span style={{fontSize:'1.5rem', lineHeight:'1'}}>🛎️</span>
                   <div>
                     <h4 style={{margin:'0 0 4px', color:'#1A2E1B', fontSize:'0.95rem', fontWeight:'600', fontFamily:'"Outfit", sans-serif'}}>Servicios Incluidos</h4>
                     <p style={{margin:0, fontSize:'0.85rem', color:'#5A6A5C', lineHeight:'1.45'}}>{detalles.servicios}</p>
