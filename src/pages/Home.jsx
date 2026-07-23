@@ -219,43 +219,7 @@ export default function Home() {
         </div>
 
         {/* Action Buttons */}
-        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => abrirGaleria('todas')}
-            style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              color: '#182535',
-              padding: '11px 26px',
-              borderRadius: '50px',
-              border: 'none',
-              fontWeight: '600',
-              fontSize: '0.9rem',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-              transition: 'all 0.2s ease',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-2px)'
-              e.currentTarget.style.background = '#ffffff'
-              e.currentTarget.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.3)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.95)'
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)'
-            }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-            Ver fotos
-          </button>
-
+        <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center' }}>
           <a href="https://www.google.com/maps/dir/?api=1&destination=Caba%C3%B1as+La+Higuera+El+Manzano+Las+Cabras" target="_blank" rel="noopener noreferrer" style={{
             background: '#C01C1C',
             color: '#fff',
@@ -368,10 +332,10 @@ export default function Home() {
               />
 
               {/* Navigation Buttons */}
-              {fotosComplejo.length > 1 && (
+              {fotosModalSel.length > 1 && (
                 <>
                   <button
-                    onClick={() => setFotoIndex(prev => (prev === 0 ? fotosComplejo.length - 1 : prev - 1))}
+                    onClick={() => setFotoIndex(prev => (prev === 0 ? fotosModalSel.length - 1 : prev - 1))}
                     style={{
                       position: 'absolute',
                       left: '15px',
@@ -395,7 +359,7 @@ export default function Home() {
                     ❮
                   </button>
                   <button
-                    onClick={() => setFotoIndex(prev => (prev === fotosComplejo.length - 1 ? 0 : prev + 1))}
+                    onClick={() => setFotoIndex(prev => (prev === fotosModalSel.length - 1 ? 0 : prev + 1))}
                     style={{
                       position: 'absolute',
                       right: '15px',
@@ -453,7 +417,7 @@ export default function Home() {
                 borderRadius: '20px',
                 flexShrink: 0
               }}>
-                {fotoIndex + 1} / {fotosComplejo.length}
+                {fotoIndex + 1} / {fotosModalSel.length}
               </span>
             </div>
           </div>
