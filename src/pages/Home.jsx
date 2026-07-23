@@ -17,65 +17,47 @@ export default function Home() {
   }, [])
 
   const [modalGaleria, setModalGaleria] = useState(false)
-  const [categoriaSel, setCategoriaSel] = useState('todas')
   const [fotoIndex, setFotoIndex] = useState(0)
 
-  const fotosActividades = [
+  const fotosComplejo = [
     {
       id: 'piscina',
-      categoria: 'piscina',
-      titulo: 'Piscina del Complejo',
-      descripcion: 'Piscina principal con vista al Lago Rapel, zona de descanso y quincho rodeado de palmeras.',
+      titulo: 'Piscina del Complejo y Vista al Lago',
+      descripcion: 'Piscina principal con zona de descanso, cercado de seguridad y quincho rodeado de palmeras.',
       src: '/images/piscina_real.jpg'
     },
     {
       id: 'toboggan',
-      categoria: 'piscina',
-      titulo: 'Tobogán Acuático y Muelle',
-      descripcion: 'Gran tobogán acuático gigante y muelle de embarque directo al lago.',
+      titulo: 'Tobogán Acuático y Muelle de Embarque',
+      descripcion: 'Gran tobogán acuático gigante y muelle con acceso directo al embalse Rapel.',
       src: '/images/toboggan_pier.jpg'
-    },
-    {
-      id: 'lancha',
-      categoria: 'lancha',
-      titulo: 'Paseos en Lancha y Embarcadero',
-      descripcion: 'Zonas de embarque y paseos por el embalse Rapel.',
-      src: '/images/toboggan_pier.jpg'
-    },
-    {
-      id: 'kayak',
-      categoria: 'kayak',
-      titulo: 'Kayak y Botes',
-      descripcion: 'Explora la tranquilidad del lago a tu propio ritmo a orillas del resort.',
-      src: '/images/quincho_lago.jpg'
     },
     {
       id: 'quincho',
-      categoria: 'resort',
-      titulo: 'Vista al Lago y Quinchos',
-      descripcion: 'Áreas de mesas con sombrillas de paja, quincho e iluminación frente al agua.',
+      titulo: 'Vista al Lago y Áreas Verdes',
+      descripcion: 'Mesas con sombrillas de paja, quincho e iluminación nocturna a orillas del agua.',
       src: '/images/quincho_lago.jpg'
     },
     {
       id: 'eventos',
-      categoria: 'resort',
       titulo: 'Eventos y Shows Folclóricos',
       descripcion: 'Presentaciones culturales, bailes tradicionales y entretenimiento a orillas del lago.',
       src: '/images/eventos.jpg'
+    },
+    {
+      id: 'entorno',
+      titulo: 'Entorno Natural El Manzano',
+      descripcion: 'Panorámica de las áreas verdes y vistas al embalse Rapel.',
+      src: '/images/entorno.png'
     }
   ]
 
-  const abrirGaleria = (cat = 'todas') => {
-    setCategoriaSel(cat)
-    setFotoIndex(0)
+  const abrirGaleria = (initialIndex = 0) => {
+    setFotoIndex(initialIndex)
     setModalGaleria(true)
   }
 
-  const fotosFiltradas = categoriaSel === 'todas'
-    ? fotosActividades
-    : fotosActividades.filter(f => f.categoria === categoriaSel)
-
-  const fotoActual = fotosFiltradas[fotoIndex] || fotosActividades[0]
+  const fotoActual = fotosComplejo[fotoIndex] || fotosComplejo[0]
 
   return (
     <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
@@ -136,14 +118,14 @@ export default function Home() {
           padding: '8px'
         }}>
           {[
-            { cat: 'lancha', label: 'Paseos en lancha' },
-            { cat: 'kayak', label: 'Kayak y botes' },
-            { cat: 'piscina', label: 'Piscina y Tobogán' },
-            { cat: 'moto', label: 'Moto de agua' }
+            { index: 1, label: 'Paseos en lancha' },
+            { index: 2, label: 'Kayak y botes' },
+            { index: 0, label: 'Piscina y Tobogán' },
+            { index: 1, label: 'Moto de agua' }
           ].map((item, idx) => (
             <button
-              key={item.cat}
-              onClick={() => abrirGaleria(item.cat)}
+              key={idx}
+              onClick={() => abrirGaleria(item.index)}
               style={{
                 background: 'rgba(255, 255, 255, 0.12)',
                 backdropFilter: 'blur(12px)',
@@ -179,7 +161,7 @@ export default function Home() {
         {/* Action Buttons */}
         <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           <button
-            onClick={() => abrirGaleria('todas')}
+            onClick={() => abrirGaleria(0)}
             style={{
               background: 'rgba(255, 255, 255, 0.95)',
               color: '#182535',
@@ -292,45 +274,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Category Tabs */}
-          <div style={{
-            display: 'flex',
-            gap: '0.5rem',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            marginBottom: '1.5rem',
-            maxWidth: '1000px'
-          }}>
-            {[
-              { id: 'todas', label: 'Todas las fotos' },
-              { id: 'piscina', label: 'Piscina y Tobogán' },
-              { id: 'lancha', label: 'Paseos en lancha' },
-              { id: 'kayak', label: 'Kayak y botes' },
-              { id: 'resort', label: 'Instalaciones' }
-            ].map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  setCategoriaSel(cat.id)
-                  setFotoIndex(0)
-                }}
-                style={{
-                  background: categoriaSel === cat.id ? '#C01C1C' : 'rgba(255, 255, 255, 0.1)',
-                  color: '#ffffff',
-                  border: 'none',
-                  padding: '7px 18px',
-                  borderRadius: '30px',
-                  cursor: 'pointer',
-                  fontSize: '0.85rem',
-                  fontWeight: categoriaSel === cat.id ? '600' : '400',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-
           {/* Active Image Container */}
           <div style={{
             position: 'relative',
@@ -365,10 +308,10 @@ export default function Home() {
               />
 
               {/* Navigation Buttons */}
-              {fotosFiltradas.length > 1 && (
+              {fotosComplejo.length > 1 && (
                 <>
                   <button
-                    onClick={() => setFotoIndex(prev => (prev === 0 ? fotosFiltradas.length - 1 : prev - 1))}
+                    onClick={() => setFotoIndex(prev => (prev === 0 ? fotosComplejo.length - 1 : prev - 1))}
                     style={{
                       position: 'absolute',
                       left: '15px',
@@ -392,7 +335,7 @@ export default function Home() {
                     ❮
                   </button>
                   <button
-                    onClick={() => setFotoIndex(prev => (prev === fotosFiltradas.length - 1 ? 0 : prev + 1))}
+                    onClick={() => setFotoIndex(prev => (prev === fotosComplejo.length - 1 ? 0 : prev + 1))}
                     style={{
                       position: 'absolute',
                       right: '15px',
@@ -450,7 +393,7 @@ export default function Home() {
                 borderRadius: '20px',
                 flexShrink: 0
               }}>
-                {fotoIndex + 1} / {fotosFiltradas.length}
+                {fotoIndex + 1} / {fotosComplejo.length}
               </span>
             </div>
           </div>
