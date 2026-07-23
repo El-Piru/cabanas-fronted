@@ -38,7 +38,7 @@ export default function Home() {
     {
       id: 'lancha',
       categoria: 'lancha',
-      titulo: 'Paseos en Lancha y Deportes',
+      titulo: 'Paseos en Lancha y Embarcadero',
       descripcion: 'Zonas de embarque y paseos por el embalse Rapel.',
       src: '/images/toboggan_pier.jpg'
     },
@@ -46,15 +46,8 @@ export default function Home() {
       id: 'kayak',
       categoria: 'kayak',
       titulo: 'Kayak y Botes',
-      descripcion: 'Explora la tranquilidad del lago a tu propio ritmo en nuestros kayak y botes de remo.',
+      descripcion: 'Explora la tranquilidad del lago a tu propio ritmo a orillas del resort.',
       src: '/images/quincho_lago.jpg'
-    },
-    {
-      id: 'moto',
-      categoria: 'moto',
-      titulo: 'Deportes Acuáticos y Muelle',
-      descripcion: 'Acceso a deportes náuticos y embarcadero en el embalse Rapel.',
-      src: '/images/toboggan_pier.jpg'
     },
     {
       id: 'quincho',
@@ -310,10 +303,10 @@ export default function Home() {
           }}>
             {[
               { id: 'todas', label: 'Todas las fotos' },
+              { id: 'piscina', label: 'Piscina y Tobogán' },
               { id: 'lancha', label: 'Paseos en lancha' },
               { id: 'kayak', label: 'Kayak y botes' },
-              { id: 'piscina', label: 'Piscina y Tobogán' },
-              { id: 'moto', label: 'Moto de agua' }
+              { id: 'resort', label: 'Instalaciones' }
             ].map(cat => (
               <button
                 key={cat.id}
@@ -342,99 +335,121 @@ export default function Home() {
           <div style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '900px',
-            maxHeight: '65vh',
+            maxWidth: '850px',
             borderRadius: '20px',
             overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+            boxShadow: '0 25px 60px rgba(0,0,0,0.6)',
             background: '#0d1520',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
+            margin: '0 auto'
           }}>
-            <img
-              src={fotoActual.src}
-              alt={fotoActual.titulo}
-              style={{
-                width: '100%',
-                maxHeight: '52vh',
-                objectFit: 'cover'
-              }}
-            />
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              maxHeight: '58vh',
+              overflow: 'hidden',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: '#060a0f'
+            }}>
+              <img
+                src={fotoActual.src}
+                alt={fotoActual.titulo}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '58vh',
+                  objectFit: 'contain'
+                }}
+              />
 
-            {/* Navigation Buttons */}
-            {fotosFiltradas.length > 1 && (
-              <>
-                <button
-                  onClick={() => setFotoIndex(prev => (prev === 0 ? fotosFiltradas.length - 1 : prev - 1))}
-                  style={{
-                    position: 'absolute',
-                    left: '15px',
-                    top: '40%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    color: '#fff',
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '50%',
-                    cursor: 'pointer',
-                    fontSize: '1.2rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backdropFilter: 'blur(4px)'
-                  }}
-                >
-                  ❮
-                </button>
-                <button
-                  onClick={() => setFotoIndex(prev => (prev === fotosFiltradas.length - 1 ? 0 : prev + 1))}
-                  style={{
-                    position: 'absolute',
-                    right: '15px',
-                    top: '40%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    color: '#fff',
-                    width: '44px',
-                    height: '44px',
-                    borderRadius: '50%',
-                    cursor: 'pointer',
-                    fontSize: '1.2rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backdropFilter: 'blur(4px)'
-                  }}
-                >
-                  ❯
-                </button>
-              </>
-            )}
+              {/* Navigation Buttons */}
+              {fotosFiltradas.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setFotoIndex(prev => (prev === 0 ? fotosFiltradas.length - 1 : prev - 1))}
+                    style={{
+                      position: 'absolute',
+                      left: '15px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'rgba(0, 0, 0, 0.6)',
+                      border: '1px solid rgba(255,255,255,0.25)',
+                      color: '#fff',
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      cursor: 'pointer',
+                      fontSize: '1.2rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backdropFilter: 'blur(6px)',
+                      zIndex: 10
+                    }}
+                  >
+                    ❮
+                  </button>
+                  <button
+                    onClick={() => setFotoIndex(prev => (prev === fotosFiltradas.length - 1 ? 0 : prev + 1))}
+                    style={{
+                      position: 'absolute',
+                      right: '15px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'rgba(0, 0, 0, 0.6)',
+                      border: '1px solid rgba(255,255,255,0.25)',
+                      color: '#fff',
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '50%',
+                      cursor: 'pointer',
+                      fontSize: '1.2rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backdropFilter: 'blur(6px)',
+                      zIndex: 10
+                    }}
+                  >
+                    ❯
+                  </button>
+                </>
+              )}
+            </div>
 
             {/* Caption & Counter */}
             <div style={{
               width: '100%',
-              padding: '1rem 1.5rem',
-              background: 'rgba(15, 25, 36, 0.95)',
-              borderTop: '1px solid rgba(255,255,255,0.1)',
+              padding: '1.25rem 1.75rem',
+              background: '#121d2b',
+              borderTop: '1px solid rgba(255,255,255,0.12)',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              gap: '1rem',
+              boxSizing: 'border-box',
               color: '#fff'
             }}>
-              <div>
-                <h4 style={{ margin: 0, fontSize: '1.1rem', fontFamily: '"Outfit", sans-serif', fontWeight: '600', color: '#fff' }}>
+              <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+                <h4 style={{ margin: 0, fontSize: '1.15rem', fontFamily: '"Outfit", sans-serif', fontWeight: '600', color: '#ffffff' }}>
                   {fotoActual.titulo}
                 </h4>
-                <p style={{ margin: '4px 0 0', fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', fontWeight: '300' }}>
+                <p style={{ margin: '4px 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', fontWeight: '300', lineHeight: '1.4' }}>
                   {fotoActual.descripcion}
                 </p>
               </div>
-              <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)', fontWeight: '500', whitespace: 'nowrap' }}>
+              <span style={{
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.6)',
+                fontWeight: '600',
+                whiteSpace: 'nowrap',
+                background: 'rgba(255,255,255,0.08)',
+                padding: '4px 12px',
+                borderRadius: '20px',
+                flexShrink: 0
+              }}>
                 {fotoIndex + 1} / {fotosFiltradas.length}
               </span>
             </div>
