@@ -21,6 +21,18 @@ export default function Home() {
 
   const fotosComplejo = [
     {
+      id: 'moto',
+      titulo: 'Moto de Agua en el Complejo',
+      descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
+      src: '/images/moto_agua_real.jpg'
+    },
+    {
+      id: 'lancha',
+      titulo: 'Paseo en Lancha por el Lago',
+      descripcion: 'Recorridos turísticos guiados en lancha con chalecos de seguridad para toda la familia.',
+      src: '/images/paseo_lancha_real.jpg'
+    },
+    {
       id: 'piscina',
       titulo: 'Piscina del Complejo y Vista al Lago',
       descripcion: 'Piscina principal con zona de descanso, cercado de seguridad y quincho rodeado de palmeras.',
@@ -119,9 +131,9 @@ export default function Home() {
         }}>
           {[
             { index: 1, label: 'Paseos en lancha' },
-            { index: 2, label: 'Kayak y botes' },
-            { index: 0, label: 'Piscina y Tobogán' },
-            { index: 1, label: 'Moto de agua' }
+            { index: 4, label: 'Kayak y botes' },
+            { index: 2, label: 'Piscina y Tobogán' },
+            { index: 0, label: 'Moto de agua' }
           ].map((item, idx) => (
             <button
               key={idx}
