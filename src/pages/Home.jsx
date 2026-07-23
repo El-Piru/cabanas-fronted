@@ -116,7 +116,7 @@ export default function Home() {
     setModalGaleria(true)
   }
 
-  const fotoActual = (fotosModalSel && fotosModalSel.length > 0) ? (fotosModalSel[fotoIndex] || fotosModalSel[0]) : galeriasPorActividad.todas.fotos[0]
+  const fotoActual = (fotosModalSel && fotosModalSel.length > 0) ? (fotosModalSel[fotoIndex] || fotosModalSel[0]) : null
 
   return (
     <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
@@ -297,7 +297,7 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Active Image Container */}
+          {/* Active Image or Empty State Container */}
           <div style={{
             position: 'relative',
             width: '100%',
@@ -310,115 +310,135 @@ export default function Home() {
             flexDirection: 'column',
             margin: '0 auto'
           }}>
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              maxHeight: '58vh',
-              overflow: 'hidden',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: '#060a0f'
-            }}>
-              <img
-                src={fotoActual.src}
-                alt={fotoActual.titulo}
-                style={{
-                  maxWidth: '100%',
+            {fotoActual ? (
+              <>
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
                   maxHeight: '58vh',
-                  objectFit: 'contain'
-                }}
-              />
-
-              {/* Navigation Buttons */}
-              {fotosModalSel.length > 1 && (
-                <>
-                  <button
-                    onClick={() => setFotoIndex(prev => (prev === 0 ? fotosModalSel.length - 1 : prev - 1))}
+                  overflow: 'hidden',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: '#060a0f'
+                }}>
+                  <img
+                    src={fotoActual.src}
+                    alt={fotoActual.titulo}
                     style={{
-                      position: 'absolute',
-                      left: '15px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'rgba(0, 0, 0, 0.6)',
-                      border: '1px solid rgba(255,255,255,0.25)',
-                      color: '#fff',
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '50%',
-                      cursor: 'pointer',
-                      fontSize: '1.2rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backdropFilter: 'blur(6px)',
-                      zIndex: 10
+                      maxWidth: '100%',
+                      maxHeight: '58vh',
+                      objectFit: 'contain'
                     }}
-                  >
-                    ❮
-                  </button>
-                  <button
-                    onClick={() => setFotoIndex(prev => (prev === fotosModalSel.length - 1 ? 0 : prev + 1))}
-                    style={{
-                      position: 'absolute',
-                      right: '15px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'rgba(0, 0, 0, 0.6)',
-                      border: '1px solid rgba(255,255,255,0.25)',
-                      color: '#fff',
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '50%',
-                      cursor: 'pointer',
-                      fontSize: '1.2rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backdropFilter: 'blur(6px)',
-                      zIndex: 10
-                    }}
-                  >
-                    ❯
-                  </button>
-                </>
-              )}
-            </div>
+                  />
 
-            {/* Caption & Counter */}
-            <div style={{
-              width: '100%',
-              padding: '1.25rem 1.75rem',
-              background: '#121d2b',
-              borderTop: '1px solid rgba(255,255,255,0.12)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              gap: '1rem',
-              boxSizing: 'border-box',
-              color: '#fff'
-            }}>
-              <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-                <h4 style={{ margin: 0, fontSize: '1.15rem', fontFamily: '"Outfit", sans-serif', fontWeight: '600', color: '#ffffff' }}>
-                  {fotoActual.titulo}
+                  {/* Navigation Buttons */}
+                  {fotosModalSel.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setFotoIndex(prev => (prev === 0 ? fotosModalSel.length - 1 : prev - 1))}
+                        style={{
+                          position: 'absolute',
+                          left: '15px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          background: 'rgba(0, 0, 0, 0.6)',
+                          border: '1px solid rgba(255,255,255,0.25)',
+                          color: '#fff',
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '50%',
+                          cursor: 'pointer',
+                          fontSize: '1.2rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backdropFilter: 'blur(6px)',
+                          zIndex: 10
+                        }}
+                      >
+                        ❮
+                      </button>
+                      <button
+                        onClick={() => setFotoIndex(prev => (prev === fotosModalSel.length - 1 ? 0 : prev + 1))}
+                        style={{
+                          position: 'absolute',
+                          right: '15px',
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          background: 'rgba(0, 0, 0, 0.6)',
+                          border: '1px solid rgba(255,255,255,0.25)',
+                          color: '#fff',
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '50%',
+                          cursor: 'pointer',
+                          fontSize: '1.2rem',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backdropFilter: 'blur(6px)',
+                          zIndex: 10
+                        }}
+                      >
+                        ❯
+                      </button>
+                    </>
+                  )}
+                </div>
+
+                {/* Caption & Counter */}
+                <div style={{
+                  width: '100%',
+                  padding: '1.25rem 1.75rem',
+                  background: '#121d2b',
+                  borderTop: '1px solid rgba(255,255,255,0.12)',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  boxSizing: 'border-box',
+                  color: '#fff'
+                }}>
+                  <div style={{ flex: '1 1 auto', minWidth: 0 }}>
+                    <h4 style={{ margin: 0, fontSize: '1.15rem', fontFamily: '"Outfit", sans-serif', fontWeight: '600', color: '#ffffff' }}>
+                      {fotoActual.titulo}
+                    </h4>
+                    <p style={{ margin: '4px 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', fontWeight: '300', lineHeight: '1.4' }}>
+                      {fotoActual.descripcion}
+                    </p>
+                  </div>
+                  <span style={{
+                    fontSize: '0.9rem',
+                    color: 'rgba(255,255,255,0.6)',
+                    fontWeight: '600',
+                    whiteSpace: 'nowrap',
+                    background: 'rgba(255,255,255,0.08)',
+                    padding: '4px 12px',
+                    borderRadius: '20px',
+                    flexShrink: 0
+                  }}>
+                    {fotoIndex + 1} / {fotosModalSel.length}
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div style={{
+                padding: '3.5rem 2rem',
+                textAlign: 'center',
+                color: '#ffffff',
+                fontFamily: '"Outfit", sans-serif'
+              }}>
+                <div style={{ fontSize: '2.8rem', marginBottom: '0.8rem', opacity: 0.8 }}>📷</div>
+                <h4 style={{ color: '#ffffff', margin: '0 0 0.5rem', fontSize: '1.25rem', fontWeight: '600' }}>
+                  Próximamente fotografías
                 </h4>
-                <p style={{ margin: '4px 0 0', fontSize: '0.9rem', color: 'rgba(255,255,255,0.75)', fontWeight: '300', lineHeight: '1.4' }}>
-                  {fotoActual.descripcion}
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.65)', fontWeight: '300' }}>
+                  Pronto añadiremos fotos de esta actividad.
                 </p>
               </div>
-              <span style={{
-                fontSize: '0.9rem',
-                color: 'rgba(255,255,255,0.6)',
-                fontWeight: '600',
-                whiteSpace: 'nowrap',
-                background: 'rgba(255,255,255,0.08)',
-                padding: '4px 12px',
-                borderRadius: '20px',
-                flexShrink: 0
-              }}>
-                {fotoIndex + 1} / {fotosModalSel.length}
-              </span>
-            </div>
+            )}
+          </div>
           </div>
         </div>
       )}
