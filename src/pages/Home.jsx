@@ -24,7 +24,14 @@ export default function Home() {
   const galeriasPorActividad = {
     lancha: {
       titulo: 'Paseos en Lancha',
-      fotos: []
+      fotos: [
+        {
+          id: 'lancha1',
+          titulo: 'Paseo Guiado en Lancha por el Lago',
+          descripcion: 'Recorridos turísticos en lancha con chalecos de seguridad para toda la familia.',
+          src: '/images/lancha_tour_real_v3.jpg'
+        }
+      ]
     },
     moto: {
       titulo: 'Motos de Agua',
@@ -34,12 +41,6 @@ export default function Home() {
           titulo: 'Moto de Agua en el Complejo',
           descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
           src: '/images/moto_seadoo_v2.jpg'
-        },
-        {
-          id: 'moto2',
-          titulo: 'Paseo Náutico por el Lago',
-          descripcion: 'Recorridos guiados por el embalse Rapel con chalecos de seguridad.',
-          src: '/images/lancha_tour_v2.jpg'
         }
       ]
     },
