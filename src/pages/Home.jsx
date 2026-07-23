@@ -17,59 +17,107 @@ export default function Home() {
   }, [])
 
   const [modalGaleria, setModalGaleria] = useState(false)
+  const [fotosModalSel, setFotosModalSel] = useState([])
   const [fotoIndex, setFotoIndex] = useState(0)
+  const [tituloModalSel, setTituloModalSel] = useState('Galería de Fotos')
 
-  const fotosComplejo = [
-    {
-      id: 'moto',
-      titulo: 'Moto de Agua en el Complejo',
-      descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
-      src: '/images/moto_agua_real.jpg'
+  const galeriasPorActividad = {
+    lancha: {
+      titulo: 'Paseos en Lancha',
+      fotos: [
+        {
+          id: 'lancha1',
+          titulo: 'Paseo en Lancha por el Lago',
+          descripcion: 'Recorridos turísticos guiados en lancha con chalecos de seguridad para toda la familia.',
+          src: '/images/paseo_lancha_real.jpg'
+        }
+      ]
     },
-    {
-      id: 'lancha',
-      titulo: 'Paseo en Lancha por el Lago',
-      descripcion: 'Recorridos turísticos guiados en lancha con chalecos de seguridad para toda la familia.',
-      src: '/images/paseo_lancha_real.jpg'
+    moto: {
+      titulo: 'Motos de Agua',
+      fotos: [
+        {
+          id: 'moto1',
+          titulo: 'Moto de Agua en el Complejo',
+          descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
+          src: '/images/moto_agua_real.jpg'
+        }
+      ]
     },
-    {
-      id: 'piscina',
-      titulo: 'Piscina del Complejo y Vista al Lago',
-      descripcion: 'Piscina principal con zona de descanso, cercado de seguridad y quincho rodeado de palmeras.',
-      src: '/images/piscina_real.jpg'
+    piscina: {
+      titulo: 'Piscina y Tobogán',
+      fotos: [
+        {
+          id: 'piscina1',
+          titulo: 'Piscina del Complejo y Vista al Lago',
+          descripcion: 'Piscina principal con zona de descanso, cercado de seguridad y quincho rodeado de palmeras.',
+          src: '/images/piscina_real.jpg'
+        },
+        {
+          id: 'toboggan1',
+          titulo: 'Tobogán Acuático y Muelle de Embarque',
+          descripcion: 'Gran tobogán acuático gigante y muelle con acceso directo al embalse Rapel.',
+          src: '/images/toboggan_pier.jpg'
+        }
+      ]
     },
-    {
-      id: 'toboggan',
-      titulo: 'Tobogán Acuático y Muelle de Embarque',
-      descripcion: 'Gran tobogán acuático gigante y muelle con acceso directo al embalse Rapel.',
-      src: '/images/toboggan_pier.jpg'
+    kayak: {
+      titulo: 'Kayak y Botes',
+      fotos: [
+        {
+          id: 'kayak1',
+          titulo: 'Vista al Lago y Quinchos',
+          descripcion: 'Mesas con sombrillas de paja, quincho e iluminación nocturna a orillas del agua.',
+          src: '/images/quincho_lago.jpg'
+        }
+      ]
     },
-    {
-      id: 'quincho',
-      titulo: 'Vista al Lago y Áreas Verdes',
-      descripcion: 'Mesas con sombrillas de paja, quincho e iluminación nocturna a orillas del agua.',
-      src: '/images/quincho_lago.jpg'
-    },
-    {
-      id: 'eventos',
-      titulo: 'Eventos y Shows Folclóricos',
-      descripcion: 'Presentaciones culturales, bailes tradicionales y entretenimiento a orillas del lago.',
-      src: '/images/eventos.jpg'
-    },
-    {
-      id: 'entorno',
-      titulo: 'Entorno Natural El Manzano',
-      descripcion: 'Panorámica de las áreas verdes y vistas al embalse Rapel.',
-      src: '/images/entorno.png'
+    todas: {
+      titulo: 'Galería de Fotos del Complejo',
+      fotos: [
+        {
+          id: 'moto1',
+          titulo: 'Moto de Agua en el Complejo',
+          descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
+          src: '/images/moto_agua_real.jpg'
+        },
+        {
+          id: 'lancha1',
+          titulo: 'Paseo en Lancha por el Lago',
+          descripcion: 'Recorridos turísticos guiados en lancha con chalecos de seguridad para toda la familia.',
+          src: '/images/paseo_lancha_real.jpg'
+        },
+        {
+          id: 'piscina1',
+          titulo: 'Piscina del Complejo y Vista al Lago',
+          descripcion: 'Piscina principal con zona de descanso, cercado de seguridad y quincho rodeado de palmeras.',
+          src: '/images/piscina_real.jpg'
+        },
+        {
+          id: 'toboggan1',
+          titulo: 'Tobogán Acuático y Muelle de Embarque',
+          descripcion: 'Gran tobogán acuático gigante y muelle con acceso directo al embalse Rapel.',
+          src: '/images/toboggan_pier.jpg'
+        },
+        {
+          id: 'eventos1',
+          titulo: 'Eventos y Shows Folclóricos',
+          descripcion: 'Presentaciones culturales, bailes tradicionales y entretenimiento a orillas del lago.',
+          src: '/images/eventos.jpg'
+        }
+      ]
     }
-  ]
+  }
 
-  const abrirGaleria = (initialIndex = 0) => {
-    setFotoIndex(initialIndex)
+  const abrirGaleria = (clave = 'todas') => {
+    const galeria = galeriasPorActividad[clave] || galeriasPorActividad['todas']
+    setFotosModalSel(galeria.fotos)
+    setTituloModalSel(galeria.titulo)
+    setFotoIndex(0)
     setModalGaleria(true)
   }
 
-  const fotoActual = fotosComplejo[fotoIndex] || fotosComplejo[0]
+  const fotoActual = fotosModalSel[fotoIndex] || fotosModalSel[0]
 
   return (
     <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
@@ -130,14 +178,14 @@ export default function Home() {
           padding: '8px'
         }}>
           {[
-            { index: 1, label: 'Paseos en lancha' },
-            { index: 4, label: 'Kayak y botes' },
-            { index: 2, label: 'Piscina y Tobogán' },
-            { index: 0, label: 'Moto de agua' }
+            { cat: 'lancha', label: 'Paseos en lancha' },
+            { cat: 'kayak', label: 'Kayak y botes' },
+            { cat: 'piscina', label: 'Piscina y Tobogán' },
+            { cat: 'moto', label: 'Moto de agua' }
           ].map((item, idx) => (
             <button
               key={idx}
-              onClick={() => abrirGaleria(item.index)}
+              onClick={() => abrirGaleria(item.cat)}
               style={{
                 background: 'rgba(255, 255, 255, 0.12)',
                 backdropFilter: 'blur(12px)',
@@ -173,7 +221,7 @@ export default function Home() {
         {/* Action Buttons */}
         <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           <button
-            onClick={() => abrirGaleria(0)}
+            onClick={() => abrirGaleria('todas')}
             style={{
               background: 'rgba(255, 255, 255, 0.95)',
               color: '#182535',
@@ -253,7 +301,7 @@ export default function Home() {
           {/* Header & Close Button */}
           <div style={{
             width: '100%',
-            maxWidth: '1000px',
+            maxWidth: '850px',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -261,7 +309,7 @@ export default function Home() {
             color: '#fff'
           }}>
             <h3 style={{ fontFamily: '"Outfit", sans-serif', fontSize: '1.4rem', fontWeight: '600', margin: 0 }}>
-              Galería de Actividades y Complejo
+              {tituloModalSel}
             </h3>
             <button
               onClick={() => setModalGaleria(false)}
