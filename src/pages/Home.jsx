@@ -151,6 +151,18 @@ export default function Home() {
     }
   }
 
+  // Precargar imágenes de galería para carga instantánea
+  useEffect(() => {
+    const urlsUnicas = new Set()
+    Object.values(galeriasPorActividad).forEach(galeria => {
+      galeria.fotos.forEach(foto => urlsUnicas.add(foto.src))
+    })
+    urlsUnicas.forEach(src => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [])
+
   const abrirGaleria = (clave = 'todas') => {
     const galeria = galeriasPorActividad[clave] || galeriasPorActividad['todas']
     setFotosModalSel(galeria.fotos)
