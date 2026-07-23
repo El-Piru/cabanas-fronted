@@ -41,6 +41,12 @@ export default function Home() {
           titulo: 'Moto de Agua en el Complejo',
           descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
           src: '/images/moto_seadoo_v2.jpg'
+        },
+        {
+          id: 'moto2',
+          titulo: 'Recorridos Náuticos por el Lago',
+          descripcion: 'Navegación y recorridos por las tranquilas aguas del embalse Rapel.',
+          src: '/images/lancha_tour_v2.jpg'
         }
       ]
     },
