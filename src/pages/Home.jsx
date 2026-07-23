@@ -61,14 +61,26 @@ export default function Home() {
         }
       ]
     },
-    kayak: {
-      titulo: 'Kayak y Botes',
+    eventos: {
+      titulo: 'Eventos y Celebraciones',
       fotos: [
         {
-          id: 'kayak1',
-          titulo: 'Vista al Lago y Quinchos',
-          descripcion: 'Mesas con sombrillas de paja, quincho e iluminación nocturna a orillas del agua.',
-          src: '/images/quincho_lago.jpg'
+          id: 'evento_comida',
+          titulo: 'Paseos de Curso, Grupos y Celebraciones',
+          descripcion: 'Desayunos, almuerzos y eventos especiales para grupos y familias.',
+          src: '/images/evento_comida_v1.jpg'
+        },
+        {
+          id: 'evento_exterior',
+          titulo: 'Montaje de Eventos a Orillas del Lago',
+          descripcion: 'Mesas decoradas frente al embalse Rapel con vista panorámica y palmeras.',
+          src: '/images/evento_exterior_v1.jpg'
+        },
+        {
+          id: 'evento_danza',
+          titulo: 'Shows Culturales y Danza Tradicional',
+          descripcion: 'Presentaciones en vivo, bailes tradicionales y entretenimiento a orillas del agua.',
+          src: '/images/evento_danza_v1.jpg'
         }
       ]
     },
@@ -79,13 +91,13 @@ export default function Home() {
           id: 'moto1',
           titulo: 'Moto de Agua en el Complejo',
           descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
-          src: '/images/moto_agua_real.jpg'
+          src: '/images/moto_seadoo_v2.jpg'
         },
         {
           id: 'lancha1',
-          titulo: 'Paseo en Lancha por el Lago',
-          descripcion: 'Recorridos turísticos guiados en lancha con chalecos de seguridad para toda la familia.',
-          src: '/images/paseo_lancha_real.jpg'
+          titulo: 'Paseo Guiado en Lancha por el Lago',
+          descripcion: 'Recorridos turísticos en lancha con chalecos de seguridad para toda la familia.',
+          src: '/images/lancha_tour_real_v3.jpg'
         },
         {
           id: 'piscina1',
@@ -100,10 +112,22 @@ export default function Home() {
           src: '/images/toboggan_pier.jpg'
         },
         {
-          id: 'eventos1',
-          titulo: 'Eventos y Shows Folclóricos',
-          descripcion: 'Presentaciones culturales, bailes tradicionales y entretenimiento a orillas del lago.',
-          src: '/images/eventos.jpg'
+          id: 'evento_comida',
+          titulo: 'Paseos de Curso, Grupos y Celebraciones',
+          descripcion: 'Desayunos, almuerzos y eventos especiales para grupos y familias.',
+          src: '/images/evento_comida_v1.jpg'
+        },
+        {
+          id: 'evento_exterior',
+          titulo: 'Montaje de Eventos a Orillas del Lago',
+          descripcion: 'Mesas decoradas frente al embalse Rapel con vista panorámica y palmeras.',
+          src: '/images/evento_exterior_v1.jpg'
+        },
+        {
+          id: 'evento_danza',
+          titulo: 'Shows Culturales y Danza Tradicional',
+          descripcion: 'Presentaciones en vivo, bailes tradicionales y entretenimiento a orillas del agua.',
+          src: '/images/evento_danza_v1.jpg'
         }
       ]
     }
@@ -179,7 +203,7 @@ export default function Home() {
         }}>
           {[
             { cat: 'lancha', label: 'Paseos en lancha' },
-            { cat: 'kayak', label: 'Kayak y botes' },
+            { cat: 'eventos', label: 'Eventos' },
             { cat: 'piscina', label: 'Piscina y Tobogán' },
             { cat: 'moto', label: 'Moto de agua' }
           ].map((item, idx) => (
