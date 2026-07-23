@@ -29,7 +29,7 @@ export default function Home() {
           id: 'lancha1',
           titulo: 'Paseo en Lancha por el Lago',
           descripcion: 'Recorridos turísticos guiados en lancha con chalecos de seguridad para toda la familia.',
-          src: '/images/paseo_lancha_real.jpg'
+          src: '/images/lancha_tour_v2.jpg'
         }
       ]
     },
@@ -40,7 +40,7 @@ export default function Home() {
           id: 'moto1',
           titulo: 'Moto de Agua en el Complejo',
           descripcion: 'Motos de agua equipadas y listas para disfrutar en las cristalinas aguas del embalse Rapel.',
-          src: '/images/moto_agua_real.jpg'
+          src: '/images/moto_seadoo_v2.jpg'
         }
       ]
     },
