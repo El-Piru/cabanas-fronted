@@ -65,6 +65,12 @@ export default function Home() {
       titulo: 'Eventos y Celebraciones',
       fotos: [
         {
+          id: 'evento_brindis',
+          titulo: 'Matrimonios y Brindis de Celebración',
+          descripcion: 'Decoración especial y brindis de bodas y festejos frente al Lago Rapel.',
+          src: '/images/evento_brindis_v1.jpg'
+        },
+        {
           id: 'evento_comida',
           titulo: 'Paseos de Curso, Grupos y Celebraciones',
           descripcion: 'Desayunos, almuerzos y eventos especiales para grupos y familias.',
@@ -110,6 +116,12 @@ export default function Home() {
           titulo: 'Tobogán Acuático y Muelle de Embarque',
           descripcion: 'Gran tobogán acuático gigante y muelle con acceso directo al embalse Rapel.',
           src: '/images/toboggan_pier.jpg'
+        },
+        {
+          id: 'evento_brindis',
+          titulo: 'Matrimonios y Brindis de Celebración',
+          descripcion: 'Decoración especial y brindis de bodas y festejos frente al Lago Rapel.',
+          src: '/images/evento_brindis_v1.jpg'
         },
         {
           id: 'evento_comida',
