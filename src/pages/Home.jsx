@@ -52,9 +52,9 @@ export default function Home() {
     {
       id: 'moto',
       categoria: 'moto',
-      titulo: 'Moto de Agua',
-      descripcion: 'Emoción y velocidad sobre las cristalinas aguas del embalse Rapel.',
-      src: '/images/moto_agua.jpg'
+      titulo: 'Deportes Acuáticos y Muelle',
+      descripcion: 'Acceso a deportes náuticos y embarcadero en el embalse Rapel.',
+      src: '/images/toboggan_pier.jpg'
     },
     {
       id: 'quincho',
