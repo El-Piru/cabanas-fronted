@@ -117,7 +117,7 @@ export default function Home() {
     setModalGaleria(true)
   }
 
-  const fotoActual = fotosModalSel[fotoIndex] || fotosModalSel[0]
+  const fotoActual = (fotosModalSel && fotosModalSel.length > 0) ? (fotosModalSel[fotoIndex] || fotosModalSel[0]) : galeriasPorActividad.todas.fotos[0]
 
   return (
     <div style={{ background: '#FAF8F5', minHeight: '100vh' }}>
