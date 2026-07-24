@@ -144,7 +144,11 @@ export default function Admin() {
     }
   }
 
+  const [enviandoEmailId, setEnviandoEmailId] = useState(null)
+
   const reenviarComprobanteAdmin = async (id) => {
+    if (enviandoEmailId === id) return
+    setEnviandoEmailId(id)
     try {
       const res = await fetch(`${BASE_URL}/admin/reservas/${id}/reenviar-email`, {
         method: 'POST',
@@ -154,13 +158,15 @@ export default function Admin() {
       const data = await res.json().catch(() => ({}))
 
       if (res.ok && data.ok) {
-        alert('Confirmación enviada exitosamente.')
+        alert('✅ Confirmación enviada exitosamente por correo.')
       } else {
-        alert(data.mensaje || 'No se pudo enviar la confirmación. Por favor reintenta en unos segundos.')
+        alert(data.mensaje || 'No se pudo enviar la confirmación. Intenta en unos segundos.')
       }
     } catch (err) {
       console.error(err)
       alert('Error de red al conectar con el servidor.')
+    } finally {
+      setEnviandoEmailId(null)
     }
   }
 
@@ -634,10 +640,20 @@ const parseLocalDate = (dateVal) => {
                   )}
                   {selectedReserva.estado !== 'mantenimiento' && (
                     <button 
+                      type="button"
+                      disabled={enviandoEmailId === selectedReserva.id}
                       onClick={() => reenviarComprobanteAdmin(selectedReserva.id)} 
-                      style={{ background: '#1A6B8A', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                      style={{ 
+                        background: enviandoEmailId === selectedReserva.id ? '#9CA3AF' : '#1A6B8A', 
+                        color: '#fff', 
+                        border: 'none', 
+                        padding: '10px 18px', 
+                        borderRadius: '8px', 
+                        cursor: enviandoEmailId === selectedReserva.id ? 'wait' : 'pointer', 
+                        fontWeight: '600' 
+                      }}
                     >
-                      📩 Enviar Confirmación
+                      {enviandoEmailId === selectedReserva.id ? '⏳ Enviando correo...' : '📩 Enviar Confirmación'}
                     </button>
                   )}
                   {selectedReserva.estado !== 'cancelada' && (
@@ -723,10 +739,21 @@ const parseLocalDate = (dateVal) => {
                       </button>
                     )}
                     <button 
+                      type="button"
+                      disabled={enviandoEmailId === r.id}
                       onClick={() => reenviarComprobanteAdmin(r.id)} 
-                      style={{ background: '#1A6B8A', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
+                      style={{ 
+                        background: enviandoEmailId === r.id ? '#9CA3AF' : '#1A6B8A', 
+                        color: '#fff', 
+                        border: 'none', 
+                        padding: '6px 12px', 
+                        borderRadius: '6px', 
+                        cursor: enviandoEmailId === r.id ? 'wait' : 'pointer', 
+                        fontSize: '0.8rem', 
+                        fontWeight: '600' 
+                      }}
                     >
-                      📩 Enviar Confirmación
+                      {enviandoEmailId === r.id ? '⏳ Enviando...' : '📩 Enviar Confirmación'}
                     </button>
                     {r.estado !== 'cancelada' && (
                       <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
