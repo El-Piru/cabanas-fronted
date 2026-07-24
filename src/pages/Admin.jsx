@@ -28,23 +28,28 @@ export default function Admin() {
     telefonoCliente: '',
     esBloqueo: false
   })
-  const { token, esAdmin, logout } = useAuth()
+  const { token, esAdmin, cargandoAuth, logout } = useAuth()
 
   const [msg, setMsg] = useState('')
   const [modalMsg, setModalMsg] = useState('')
 
-  const headers = { 
-    'Authorization': `Bearer ${token}`, 
+  const getHeaders = () => ({
+    'Authorization': `Bearer ${token || localStorage.getItem('token')}`, 
     'Content-Type': 'application/json' 
-  }
+  })
 
   useEffect(() => {
-    if (!esAdmin) { navigate('/login'); return }
+    if (cargandoAuth) return
+    if (!esAdmin) {
+      navigate('/login')
+      return
+    }
     cargarDatos()
-  }, [esAdmin])
+  }, [esAdmin, cargandoAuth])
 
   const cargarDatos = async () => {
     try {
+      const headers = getHeaders()
       const [resRes, resCab, resUsu] = await Promise.all([
         fetch(`${BASE_URL}/admin/reservas`, { headers, credentials: 'include' }),
         fetch(`${BASE_URL}/admin/cabanas`, { headers, credentials: 'include' }),
@@ -74,7 +79,7 @@ export default function Admin() {
 
   const cancelarReserva = async (id) => {
     if (!confirm('¿Estás seguro de que deseas cancelar esta reserva?')) return
-    const res = await fetch(`${BASE_URL}/admin/reservas/${id}/cancelar`, { method: 'PUT', headers, credentials: 'include' }).then(r => r.json())
+    const res = await fetch(`${BASE_URL}/admin/reservas/${id}/cancelar`, { method: 'PUT', headers: getHeaders(), credentials: 'include' }).then(r => r.json())
     if (res.ok) {
       setSelectedReserva(null)
       cargarDatos()
@@ -84,7 +89,7 @@ export default function Admin() {
   const confirmarReservaManual = async (id) => {
     if (!confirm('¿Deseas confirmar manualmente esta reserva y marcarla como PAGADA?')) return
     try {
-      const res = await fetch(`${BASE_URL}/admin/reservas/${id}/confirmar`, { method: 'PUT', headers, credentials: 'include' }).then(r => r.json())
+      const res = await fetch(`${BASE_URL}/admin/reservas/${id}/confirmar`, { method: 'PUT', headers: getHeaders(), credentials: 'include' }).then(r => r.json())
       if (res.ok) {
         alert('Reserva confirmada con éxito. Se envió el correo de confirmación al cliente.')
         setSelectedReserva(null)
@@ -106,7 +111,7 @@ export default function Admin() {
     try {
       const res = await fetch(`${BASE_URL}/admin/reservas/${selectedReserva.id}/cambiar-fechas`, {
         method: 'PUT',
-        headers,
+        headers: getHeaders(),
         credentials: 'include',
         body: JSON.stringify(nuevasFechas)
       }).then(r => r.json())
@@ -126,14 +131,14 @@ export default function Admin() {
   }
 
   const crearCabana = async () => {
-    const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers, credentials: 'include', body: JSON.stringify(nuevaCabana) }).then(r => r.json())
+    const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers: getHeaders(), credentials: 'include', body: JSON.stringify(nuevaCabana) }).then(r => r.json())
     if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '', imagen: '' }) }
     else setMsg(res.mensaje)
   }
 
   const eliminarCabana = async (id) => {
     if (!confirm('¿Eliminar esta cabaña?')) return
-    await fetch(`${BASE_URL}/admin/cabanas/${id}`, { method: 'DELETE', headers, credentials: 'include' })
+    await fetch(`${BASE_URL}/admin/cabanas/${id}`, { method: 'DELETE', headers: getHeaders(), credentials: 'include' })
     cargarDatos()
   }
 
@@ -150,7 +155,7 @@ export default function Admin() {
     try {
       const res = await fetch(`${BASE_URL}/admin/reservas/manual`, {
         method: 'POST',
-        headers,
+        headers: getHeaders(),
         credentials: 'include',
         body: JSON.stringify({
           cabanaId: parseInt(cabanaId),
@@ -300,6 +305,14 @@ export default function Admin() {
     ...(cellStyle.opacity ? { opacity: cellStyle.opacity } : {}),
     ...(cellStyle.cursor ? { cursor: cellStyle.cursor } : {})
   })
+
+  if (cargandoAuth) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
+        <div className="spinner" />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.page}>
