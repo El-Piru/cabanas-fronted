@@ -153,7 +153,7 @@ export default function Admin() {
       }).then(r => r.json())
 
       if (res.ok) {
-        alert('📩 Comprobante enviado exitosamente a bana_ju@hotmail.com')
+        alert('📩 Confirmación enviada exitosamente.')
       } else {
         alert(res.mensaje || 'No se pudo enviar el correo.')
       }
@@ -636,7 +636,7 @@ const parseLocalDate = (dateVal) => {
                       onClick={() => reenviarComprobanteAdmin(selectedReserva.id)} 
                       style={{ background: '#1A6B8A', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
                     >
-                      📩 Enviar Comprobante a bana_ju@hotmail.com
+                      📩 Enviar Confirmación
                     </button>
                   )}
                   {selectedReserva.estado !== 'cancelada' && (
@@ -725,7 +725,7 @@ const parseLocalDate = (dateVal) => {
                       onClick={() => reenviarComprobanteAdmin(r.id)} 
                       style={{ background: '#1A6B8A', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
                     >
-                      📩 Enviar a bana_ju@hotmail.com
+                      📩 Enviar Confirmación
                     </button>
                     {r.estado !== 'cancelada' && (
                       <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
