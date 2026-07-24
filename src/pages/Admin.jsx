@@ -575,7 +575,7 @@ const parseLocalDate = (dateVal) => {
                       ✏️ Cambiar Fechas
                     </button>
                   )}
-                  {selectedReserva.estado === 'pendiente' && (
+                  {selectedReserva.estado !== 'confirmada' && selectedReserva.estado !== 'mantenimiento' && (
                     <button 
                       onClick={() => confirmarReservaManual(selectedReserva.id)} 
                       className={styles.successBtn || styles.secondaryBtn}
@@ -636,17 +636,19 @@ const parseLocalDate = (dateVal) => {
                     </div>
                   )}
                   <div className={styles.badgeRow}>
-                    <span className={styles.badge} style={getBadgeStyle(r.estado)}>{r.estado}</span>
+                    <span className={styles.badge} style={getBadgeStyle(r.estado)}>
+                      {r.estado === 'confirmada' ? 'Pagada / Confirmada' : r.estado === 'pendiente' ? 'Pendiente de Pago' : r.estado === 'cancelada' ? 'Cancelada' : 'Mantenimiento'}
+                    </span>
                     <span className={styles.priceValue}>${r.total?.toLocaleString('es-CL')}</span>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                  {r.estado === 'pendiente' && (
+                  {r.estado !== 'confirmada' && r.estado !== 'mantenimiento' && (
                     <button 
                       onClick={() => confirmarReservaManual(r.id)} 
                       style={{ background: '#065F46', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
                     >
-                      ✅ Confirmar Pago
+                      ✅ Aprobar / Confirmar Pago
                     </button>
                   )}
                   {r.estado !== 'cancelada' && (
