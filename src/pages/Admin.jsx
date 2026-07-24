@@ -237,7 +237,9 @@ export default function Admin() {
   const reservasHoy = reservas.filter(r => {
     const hoy = new Date().toDateString()
     return new Date(r.createdAt).toDateString() === hoy
-  }  const getBadgeStyle = (estado) => ({
+  })
+
+  const getBadgeStyle = (estado) => ({
     background: estado === 'confirmada' ? '#D1FAE5' : estado === 'mantenimiento' ? '#E5E7EB' : estado === 'cancelada' ? '#FEE2E2' : '#FEF3C7',
     color: estado === 'confirmada' ? '#065F46' : estado === 'mantenimiento' ? '#374151' : estado === 'cancelada' ? '#991B1B' : '#92400E'
   })
@@ -250,8 +252,7 @@ export default function Admin() {
     background: cellStyle.background || (isWeekend ? '#FCFAF7' : '#fff'),
     ...(cellStyle.opacity ? { opacity: cellStyle.opacity } : {}),
     ...(cellStyle.cursor ? { cursor: cellStyle.cursor } : {})
-  })0.1)' }
-  }
+  })
 
   return (
     <div className={styles.page}>
