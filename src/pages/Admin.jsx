@@ -89,6 +89,7 @@ export default function Admin() {
   }
   const [editandoFechas, setEditandoFechas] = useState(false)
   const [nuevasFechas, setNuevasFechas] = useState({ llegada: '', salida: '' })
+  const [mostrarCanceladas, setMostrarCanceladas] = useState(false)
 
   const cancelarReserva = async (id) => {
     if (!confirm('¿Estás seguro de que deseas cancelar esta reserva?')) return
@@ -613,20 +614,35 @@ const parseLocalDate = (dateVal) => {
       )}
 
       {/* CONTENIDO TAB: RESERVAS */}
-      {tab === 'reservas' && (
-        <div>
-          <div className={styles.exportWrapper}>
-            <button 
-              onClick={exportarExcel} 
-              disabled={reservas.length === 0}
-              className={styles.exportBtn}
-            >
-              📥 Exportar a Excel (.csv)
-            </button>
-          </div>
+      {tab === 'reservas' && (() => {
+        const reservasFiltradas = reservasArray.filter(r => {
+          if (!mostrarCanceladas && r.estado === 'cancelada') return false
+          return true
+        })
 
-          {reservas.length === 0 && <p className={styles.emptyText}>No hay reservas aún.</p>}
-          {reservas.map(r => (
+        return (
+          <div>
+            <div className={styles.exportWrapper} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+              <button 
+                onClick={exportarExcel} 
+                disabled={reservasFiltradas.length === 0}
+                className={styles.exportBtn}
+              >
+                📥 Exportar a Excel (.csv)
+              </button>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', cursor: 'pointer', color: '#4A5E4C', fontWeight: '600' }}>
+                <input 
+                  type="checkbox" 
+                  checked={mostrarCanceladas} 
+                  onChange={e => setMostrarCanceladas(e.target.checked)} 
+                  style={{ accentColor: '#2C4A2E', width: '16px', height: '16px' }}
+                />
+                Mostrar también reservas canceladas
+              </label>
+            </div>
+
+            {reservasFiltradas.length === 0 && <p className={styles.emptyText}>No hay reservas pendientes ni pagadas activas.</p>}
+            {reservasFiltradas.map(r => (
             <div key={r.id} className={styles.card}>
               <div className={styles.flexBetween}>
                 <div>
@@ -666,9 +682,9 @@ const parseLocalDate = (dateVal) => {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          </div>
+        )
+      })()}
 
       {/* CONTENIDO TAB: CABAÑAS */}
       {tab === 'cabanas' && (
