@@ -5,6 +5,12 @@ import { BASE_URL } from '../api'
 import SEO from '../components/SEO'
 import styles from './Admin.module.css'
 
+const formatDateSafe = (dateVal) => {
+  if (!dateVal) return 'N/A'
+  const d = new Date(dateVal)
+  return isNaN(d.getTime()) ? 'N/A' : d.toLocaleDateString('es-CL')
+}
+
 export default function Admin() {
   const navigate = useNavigate()
   const [tab, setTab] = useState('calendario')
@@ -248,11 +254,14 @@ export default function Admin() {
     const checkDate = new Date(year, month, dia)
     checkDate.setHours(0,0,0,0)
     
-    return reservas.find(r => {
-      if (r.cabanaId !== cabanaId || r.estado === 'cancelada') return false
+    return (reservas || []).find(r => {
+      if (!r || r.cabanaId !== cabanaId || r.estado === 'cancelada') return false
+      if (!r.llegada || !r.salida) return false
       const llegada = new Date(r.llegada)
+      if (isNaN(llegada.getTime())) return false
       llegada.setHours(0,0,0,0)
       const salida = new Date(r.salida)
+      if (isNaN(salida.getTime())) return false
       salida.setHours(0,0,0,0)
       
       return checkDate >= llegada && checkDate < salida
@@ -414,9 +423,9 @@ export default function Admin() {
                         }
                         
                         if (isMaint) {
-                          titleStr = `BLOQUEADO POR MANTENIMIENTO\nDesde: ${new Date(res.llegada).toLocaleDateString('es-CL')}\nHasta: ${new Date(res.salida).toLocaleDateString('es-CL')}`
+                          titleStr = `BLOQUEADO POR MANTENIMIENTO\nDesde: ${formatDateSafe(res.llegada)}\nHasta: ${formatDateSafe(res.salida)}`
                         } else {
-                          titleStr = `Reserva #${res.id}\nCliente: ${res.usuario?.nombre}\nEmail: ${res.usuario?.email}\nTel: ${res.usuario?.telefono || 'Sin tel.'}\nDesde: ${new Date(res.llegada).toLocaleDateString('es-CL')}\nHasta: ${new Date(res.salida).toLocaleDateString('es-CL')}\nTotal: $${res.total?.toLocaleString('es-CL')}`
+                          titleStr = `Reserva #${res.id}\nCliente: ${res.usuario?.nombre || 'Desconocido'}\nEmail: ${res.usuario?.email || 'N/A'}\nTel: ${res.usuario?.telefono || 'Sin tel.'}\nDesde: ${formatDateSafe(res.llegada)}\nHasta: ${formatDateSafe(res.salida)}\nTotal: $${(res.total || 0).toLocaleString('es-CL')}`
                         }
                       }
                       
@@ -488,8 +497,8 @@ export default function Admin() {
                       {selectedReserva.estado === 'confirmada' ? 'Confirmada / Aprobada' : selectedReserva.estado === 'mantenimiento' ? 'Mantenimiento' : 'Pendiente de Pago'}
                     </span>
                   </div>
-                  <div><strong>Fecha Entrada:</strong> {new Date(selectedReserva.llegada).toLocaleDateString('es-CL')}</div>
-                  <div><strong>Fecha Salida:</strong> {new Date(selectedReserva.salida).toLocaleDateString('es-CL')}</div>
+                  <div><strong>Fecha Entrada:</strong> {formatDateSafe(selectedReserva.llegada)}</div>
+                  <div><strong>Fecha Salida:</strong> {formatDateSafe(selectedReserva.salida)}</div>
                   {editandoFechas && (
                     <div style={{ background: '#FAF8F5', padding: '14px', borderRadius: '10px', border: '1.5px solid #204C72', margin: '12px 0' }}>
                       <div style={{ fontWeight: '600', marginBottom: '8px', color: '#1A2E1B', fontSize: '0.9rem' }}>Selecciona el nuevo rango de fechas:</div>
@@ -604,10 +613,10 @@ export default function Admin() {
                 <div>
                   <strong>{r.cabana?.nombre}</strong> — {r.usuario?.nombre} ({r.usuario?.email})
                   <div className={styles.subText}>
-                    Llegada: {new Date(r.llegada).toLocaleDateString('es-CL')} → Salida: {new Date(r.salida).toLocaleDateString('es-CL')}
+                    Llegada: {formatDateSafe(r.llegada)} → Salida: {formatDateSafe(r.salida)}
                   </div>
                   <div className={styles.subText2}>
-                    Reservado el: {new Date(r.createdAt).toLocaleDateString('es-CL')}
+                    Reservado el: {formatDateSafe(r.createdAt)}
                   </div>
                   {r.usuario?.telefono && (
                     <div className={styles.subText2}>
