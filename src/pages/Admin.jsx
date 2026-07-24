@@ -51,6 +51,13 @@ export default function Admin() {
       return
     }
     cargarDatos()
+
+    // Polling automático cada 15 segundos para actualizar el calendario y lista en tiempo real
+    const interval = setInterval(() => {
+      cargarDatos()
+    }, 15000)
+
+    return () => clearInterval(interval)
   }, [esAdmin, cargandoAuth])
 
   const cargarDatos = async () => {
