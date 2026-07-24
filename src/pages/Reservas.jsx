@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
+import { useAuth } from '../context/AuthContext'
+import SEO from '../components/SEO'
+import styles from './Reservas.module.css'
 
 export default function Reservas() {
   const navigate = useNavigate()
+  const { estaAutenticado } = useAuth()
   const [reservas, setReservas] = useState([])
   const [cargando, setCargando] = useState(true)
   const [procesandoPago, setProcesandoPago] = useState(null)
 
   useEffect(() => {
-    const usuario = localStorage.getItem('usuario')
-    if (!usuario) { navigate('/login'); return }
+    if (!estaAutenticado) { navigate('/login'); return }
     api.misReservas().then(res => {
       if (res.ok) setReservas(res.data)
       setCargando(false)
     })
-  }, [navigate])
+  }, [navigate, estaAutenticado])
 
   const handlePagar = async (id) => {
     setProcesandoPago(id)
@@ -58,59 +61,60 @@ export default function Reservas() {
       background = '#FEE2E2'; color = '#991B1B' // Cancelado (Rojo)
     }
     return (
-      <span style={{background, color, padding:'4px 12px', borderRadius:'20px', fontSize:'0.8rem', fontWeight:'500', textTransform:'capitalize'}}>
+      <span className={styles.statusBadge} style={{background, color}}>
         {estado}
       </span>
     )
   }
 
   return (
-    <div style={{maxWidth:'800px',margin:'0 auto',padding:'2rem'}}>
-      <h1 style={{fontFamily:'Georgia,serif',fontSize:'2rem',color:'#1A2E1B',marginBottom:'2rem'}}>
+    <div className={styles.container}>
+      <SEO titulo="Mis Reservas" descripcion="Consulta y gestiona tus reservas en Cabañas La Higuera Rapel." />
+      <h1 className={styles.title}>
         Mis Reservas
       </h1>
 
       {cargando ? (
-        <p style={{color:'#7A8E7B'}}>Cargando...</p>
+        <p className={styles.loadingText}>Cargando...</p>
       ) : reservas.length === 0 ? (
-        <div style={{textAlign:'center',padding:'3rem',background:'#fff',borderRadius:'12px',border:'1px solid #ECE8E0'}}>
-          <p style={{color:'#7A8E7B',marginBottom:'1rem'}}>No tienes reservas aun</p>
+        <div className={styles.noDataCard}>
+          <p className={styles.noDataText}>No tienes reservas aun</p>
           <button
             onClick={() => navigate('/')}
-            style={{background:'#2C4A2E',color:'#fff',border:'none',padding:'10px 24px',borderRadius:'8px',cursor:'pointer'}}
+            className={styles.primaryBtn}
           >
             Ver cabañas
           </button>
         </div>
       ) : (
-        <div style={{display:'flex',flexDirection:'column',gap:'1rem'}}>
+        <div className={styles.listContainer}>
           {reservas.map(r => (
-            <div key={r.id} style={{background:'#fff',borderRadius:'12px',padding:'1.5rem',border:'1px solid #ECE8E0'}}>
-              <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}}>
+            <div key={r.id} className={styles.reservaCard}>
+              <div className={styles.cardHeader}>
                 <div>
-                  <h3 style={{margin:'0 0 4px',color:'#182535',fontFamily:'"Outfit", sans-serif',fontSize:'1.2rem',fontWeight:'600'}}>
+                  <h3 className={styles.cabanaTitle}>
                     Cabaña para {r.cabana.capacidad} personas
                   </h3>
-                  <p style={{fontSize:'0.85rem',color:'#7A8E7B',margin:'0 0 .75rem'}}>
+                  <p className={styles.datesText}>
                     {new Date(r.llegada).toLocaleDateString('es-CL')} → {new Date(r.salida).toLocaleDateString('es-CL')}
                   </p>
                 </div>
                 {getInsigniaEstado(r.estado)}
               </div>
-              <div style={{borderTop:'1px solid #F0EBE2',paddingTop:'.75rem',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div className={styles.cardFooter}>
                 <div>
-                  <span style={{fontSize:'0.85rem',color:'#4A5E4C'}}>
+                  <span className={styles.footerLabel}>
                     {r.estado === 'confirmada' ? 'Total pagado' : r.estado === 'cancelada' ? 'Total tarifa' : 'Total a pagar'}
                   </span>
-                  <span style={{fontWeight:'600',color:'#2C4A2E',marginLeft:'8px'}}>${r.total.toLocaleString('es-CL')}</span>
+                  <span className={styles.footerTotal}>${r.total.toLocaleString('es-CL')}</span>
                 </div>
                 
-                <div style={{display:'flex', gap:'8px'}}>
+                <div className={styles.actionButtons}>
                   {r.estado === 'pendiente' && (
                     <button
                       onClick={() => handlePagar(r.id)}
                       disabled={procesandoPago === r.id}
-                      style={{background:'#C8860A',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem',fontWeight:'500'}}
+                      className={styles.payBtn}
                     >
                       {procesandoPago === r.id ? 'Cargando pago...' : 'Pagar ahora 💳'}
                     </button>
@@ -119,7 +123,7 @@ export default function Reservas() {
                   {r.estado !== 'cancelada' && (
                     <button
                       onClick={() => handleCancelar(r.id)}
-                      style={{background:'#FEE2E2',color:'#991B1B',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer',fontSize:'0.85rem',fontWeight:'500'}}
+                      className={styles.cancelBtn}
                     >
                       Cancelar
                     </button>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { api } from '../api'
+import SEO from '../components/SEO'
+import styles from './RestablecerPassword.module.css'
 
 export default function RestablecerPassword() {
   const [searchParams] = useSearchParams()
@@ -70,41 +72,34 @@ export default function RestablecerPassword() {
   }
 
   return (
-    <div style={{minHeight:'80vh',display:'flex',alignItems:'center',justifyContent:'center',fontFamily:'"Outfit", sans-serif'}}>
-      <div style={{background:'#fff',borderRadius:'16px',padding:'2.5rem',width:'400px',boxShadow:'0 8px 40px rgba(0,0,0,0.06)',border:'1px solid #ECE8E4'}}>
-        <h2 style={{textAlign:'center',marginBottom:'1.5rem',color:'#204C72',fontFamily:'"Outfit", sans-serif',fontWeight:'600'}}>Nueva contraseña</h2>
+    <div className={styles.container}>
+      <SEO titulo="Restablecer Contraseña" descripcion="Establece una nueva contraseña para tu cuenta." />
+      <div className={styles.card}>
+        <h2 className={styles.title}>Nueva contraseña</h2>
 
         {verificando ? (
-          <div style={{textAlign:'center',padding:'2rem',color:'#7A8E7B'}}>
-            <div className="spinner" style={{
-              border: '3px solid rgba(43, 88, 128, 0.1)',
-              borderTop: '3px solid #2B5880',
-              borderRadius: '50%',
-              width: '30px',
-              height: '30px',
-              margin: '0 auto 1rem',
-              animation: 'spin 1s linear infinite'
-            }} />
+          <div className={styles.verificando}>
+            <div className={`${styles.spinner} spinner`} />
             <span>Verificando enlace...</span>
           </div>
         ) : !tokenValido ? (
-          <div style={{textAlign:'center'}}>
-            <div style={{background:'#FEE2E2',color:'#991B1B',padding:'15px',borderRadius:'8px',marginBottom:'1.5rem',fontSize:'0.9rem',lineHeight:'1.4'}}>
+          <div className={styles.invalidTokenContainer}>
+            <div className={styles.invalidTokenMsg}>
               ⚠️ El enlace de recuperación es inválido o ha expirado. Por favor, solicita uno nuevo.
             </div>
-            <Link to="/recuperar-password" style={{background:'#2B5880',color:'#fff',padding:'10px 20px',borderRadius:'8px',textDecoration:'none',fontSize:'0.9rem',fontWeight:'600',display:'inline-block'}}>
+            <Link to="/recuperar-password" className={styles.primaryLink}>
               Solicitar nuevo enlace
             </Link>
           </div>
         ) : (
           <div>
-            {error && <div style={{background:'#FEE2E2',color:'#991B1B',padding:'10px',borderRadius:'8px',marginBottom:'1rem',fontSize:'0.9rem'}}>{error}</div>}
+            {error && <div className={styles.error}>{error}</div>}
             {msg && (
-              <div style={{textAlign:'center'}}>
-                <div style={{background:'#D1FAE5',color:'#065F46',padding:'15px',borderRadius:'8px',marginBottom:'1.5rem',fontSize:'0.95rem',lineHeight:'1.4'}}>
+              <div className={styles.successContainer}>
+                <div className={styles.successMsg}>
                   ✅ {msg}
                 </div>
-                <Link to="/login" style={{background:'#2B5880',color:'#fff',padding:'10px 24px',borderRadius:'8px',textDecoration:'none',fontSize:'0.95rem',fontWeight:'600',display:'inline-block'}}>
+                <Link to="/login" className={styles.primaryLinkLarge}>
                   Iniciar sesión
                 </Link>
               </div>
@@ -112,18 +107,15 @@ export default function RestablecerPassword() {
 
             {!msg && (
               <form onSubmit={handleSubmit}>
-                <div style={{marginBottom:'1rem'}}>
-                  <label style={{display:'block',marginBottom:'6px',fontSize:'0.9rem',fontWeight:'500',color:'#182535'}}>Nueva contraseña</label>
-                  <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="Mínimo 6 caracteres" style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box',fontFamily:'inherit'}} />
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Nueva contraseña</label>
+                  <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="Mínimo 6 caracteres" className={styles.input} />
                 </div>
-                <div style={{marginBottom:'1.8rem'}}>
-                  <label style={{display:'block',marginBottom:'6px',fontSize:'0.9rem',fontWeight:'500',color:'#182535'}}>Confirmar contraseña</label>
-                  <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required placeholder="Repite la contraseña" style={{width:'100%',padding:'10px',border:'1.5px solid #E8E4DC',borderRadius:'8px',boxSizing:'border-box',fontFamily:'inherit'}} />
+                <div className={styles.inputGroupLast}>
+                  <label className={styles.label}>Confirmar contraseña</label>
+                  <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required placeholder="Repite la contraseña" className={styles.input} />
                 </div>
-                <button type="submit" disabled={cargandoSubmit} style={{width:'100%',background:'#2B5880',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',cursor:'pointer',fontWeight:'600',fontFamily:'inherit',transition:'background 0.2s ease'}}
-                  onMouseEnter={e => e.currentTarget.style.background='#204C72'}
-                  onMouseLeave={e => e.currentTarget.style.background='#2B5880'}
-                >
+                <button type="submit" disabled={cargandoSubmit} className={styles.submitBtn}>
                   {cargandoSubmit ? 'Restableciendo...' : 'Restablecer contraseña'}
                 </button>
               </form>

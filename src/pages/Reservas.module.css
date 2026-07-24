@@ -1,0 +1,142 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  font-family: Georgia, serif;
+  font-size: 2rem;
+  color: #1A2E1B;
+  margin-bottom: 2rem;
+}
+
+.loadingText {
+  color: #7A8E7B;
+}
+
+.noDataCard {
+  text-align: center;
+  padding: 3rem;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #ECE8E0;
+}
+
+.noDataText {
+  color: #7A8E7B;
+  margin-bottom: 1rem;
+}
+
+.primaryBtn {
+  background: #2C4A2E;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.primaryBtn:hover {
+  background: #1e3320;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.reservaCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #ECE8E0;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cabanaTitle {
+  margin: 0 0 4px;
+  color: #182535;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.datesText {
+  font-size: 0.85rem;
+  color: #7A8E7B;
+  margin: 0 0 .75rem;
+}
+
+.statusBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.cardFooter {
+  border-top: 1px solid #F0EBE2;
+  padding-top: .75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerLabel {
+  font-size: 0.85rem;
+  color: #4A5E4C;
+}
+
+.footerTotal {
+  font-weight: 600;
+  color: #2C4A2E;
+  margin-left: 8px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.payBtn {
+  background: #C8860A;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.payBtn:hover {
+  background: #a36d08;
+}
+
+.payBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.cancelBtn:hover {
+  background: #fbc6c6;
+}

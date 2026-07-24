@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { useAuth } from '../context/AuthContext'
 import { BASE_URL } from '../api'
-
-const getToken = () => localStorage.getItem('token')
+import SEO from '../components/SEO'
+import styles from './Admin.module.css'
 
 export default function Admin() {
   const navigate = useNavigate()
@@ -28,20 +28,20 @@ export default function Admin() {
     telefonoCliente: '',
     esBloqueo: false
   })
-  
+  const { token, esAdmin, logout } = useAuth()
+
   const [msg, setMsg] = useState('')
   const [modalMsg, setModalMsg] = useState('')
 
   const headers = { 
-    'Authorization': `Bearer ${getToken()}`, 
+    'Authorization': `Bearer ${token}`, 
     'Content-Type': 'application/json' 
   }
 
   useEffect(() => {
-    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null')
-    if (!usuario || usuario.rol !== 'admin') { navigate('/login'); return }
+    if (!esAdmin) { navigate('/login'); return }
     cargarDatos()
-  }, [])
+  }, [esAdmin])
 
   const cargarDatos = async () => {
     try {
@@ -53,8 +53,7 @@ export default function Admin() {
 
       if (resRes.status === 401 || resCab.status === 401 || resUsu.status === 401) {
         console.warn('Sesión expirada o token inválido. Redirigiendo al login...');
-        localStorage.removeItem('token')
-        localStorage.removeItem('usuario')
+        await logout()
         navigate('/login')
         return
       }
@@ -238,62 +237,57 @@ export default function Admin() {
   const reservasHoy = reservas.filter(r => {
     const hoy = new Date().toDateString()
     return new Date(r.createdAt).toDateString() === hoy
-  }).length
+  }  const getBadgeStyle = (estado) => ({
+    background: estado === 'confirmada' ? '#D1FAE5' : estado === 'mantenimiento' ? '#E5E7EB' : estado === 'cancelada' ? '#FEE2E2' : '#FEF3C7',
+    color: estado === 'confirmada' ? '#065F46' : estado === 'mantenimiento' ? '#374151' : estado === 'cancelada' ? '#991B1B' : '#92400E'
+  })
 
-  const s = {
-    page: { maxWidth: '1200px', margin: '2rem auto', padding: '0 1rem' },
-    tabs: { display: 'flex', gap: '8px', marginBottom: '2rem' },
-    tab: (active) => ({ background: active ? '#2C4A2E' : '#fff', color: active ? '#fff' : '#2C4A2E', border: '1.5px solid #2C4A2E', padding: '8px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s' }),
-    card: { background: '#fff', borderRadius: '12px', padding: '1.5rem', border: '1px solid #ECE8E0', marginBottom: '1rem' },
-    badge: (estado) => ({ background: estado === 'confirmada' ? '#D1FAE5' : estado === 'mantenimiento' ? '#E5E7EB' : estado === 'cancelada' ? '#FEE2E2' : '#FEF3C7', color: estado === 'confirmada' ? '#065F46' : estado === 'mantenimiento' ? '#374151' : estado === 'cancelada' ? '#991B1B' : '#92400E', padding: '3px 10px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: '500' }),
-    
-    // Calendar Timeline styles
-    calendarWrapper: { overflowX: 'auto', background: '#fff', border: '1px solid #ECE8E0', borderRadius: '12px', marginBottom: '1rem', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' },
-    table: { width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', minWidth: '900px' },
-    thSticky: { position: 'sticky', left: 0, background: '#F5ECD7', borderRight: '2px solid #E8E4DC', borderBottom: '2px solid #E8E4DC', zIndex: 10, padding: '10px 12px', fontWeight: '600', color: '#1A2E1B', textAlign: 'left', minWidth: '110px', boxShadow: '2px 0 5px rgba(0,0,0,0.03)' },
-    tdSticky: { position: 'sticky', left: 0, background: '#fff', borderRight: '2px solid #E8E4DC', borderBottom: '1px solid #ECE8E0', zIndex: 9, padding: '10px 12px', fontWeight: '600', color: '#1A2E1B', textAlign: 'left', boxShadow: '2px 0 5px rgba(0,0,0,0.02)' },
-    thDay: (isWeekend) => ({ background: isWeekend ? '#E8E4DC' : '#FAF8F5', borderBottom: '2px solid #E8E4DC', borderRight: '1px solid #ECE8E0', padding: '6px 4px', textAlign: 'center', minWidth: '30px', color: '#1A2E1B' }),
-    tdDay: (isWeekend) => ({ background: isWeekend ? '#FCFAF7' : '#fff', borderBottom: '1px solid #ECE8E0', borderRight: '1px solid #ECE8E0', width: '32px', height: '38px', padding: '0', textAlign: 'center', cursor: 'pointer', transition: 'background 0.1s' }),
-    
-    // Modal Overlay
-    overlay: { position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 },
-    modal: { background: '#fff', padding: '2rem', borderRadius: '16px', width: '90%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto', border: '1px solid #ECE8E0', boxShadow: '0 10px 25px rgba(0,0,0,0.1)' }
+  const getThDayStyle = (isWeekend) => ({
+    background: isWeekend ? '#E8E4DC' : '#FAF8F5'
+  })
+
+  const getTdDayStyle = (isWeekend, cellStyle) => ({
+    background: cellStyle.background || (isWeekend ? '#FCFAF7' : '#fff'),
+    ...(cellStyle.opacity ? { opacity: cellStyle.opacity } : {}),
+    ...(cellStyle.cursor ? { cursor: cellStyle.cursor } : {})
+  })0.1)' }
   }
 
   return (
-    <div style={s.page}>
-      <h1 style={{ fontFamily: 'Georgia,serif', color: '#1A2E1B', marginBottom: '0.5rem' }}>Panel de Administrador</h1>
-      <p style={{ color: '#7A8E7B', marginBottom: '2rem' }}>Gestiona reservas, cabañas y bloqueos de fechas</p>
+    <div className={styles.page}>
+      <SEO titulo="Panel de Administración" descripcion="Panel de administración de Cabañas La Higuera Rapel." />
+      <h1 className={styles.pageTitle}>Panel de Administrador</h1>
+      <p className={styles.pageSubtitle}>Gestiona reservas, cabañas y bloqueos de fechas</p>
 
       {/* Tarjetas de Estadísticas */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1rem', marginBottom: '2rem' }}>
-        <div style={{ background: '#2C4A2E', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
-          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Total reservas</div>
-          <div style={{ fontSize: '2rem', fontWeight: '600' }}>{reservas.length}</div>
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard} style={{ background: '#2C4A2E' }}>
+          <div className={styles.statLabel}>Total reservas</div>
+          <div className={styles.statValue}>{reservas.length}</div>
         </div>
-        <div style={{ background: '#C8860A', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
-          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Ingresos totales</div>
-          <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>${ingresoTotal.toLocaleString('es-CL')}</div>
+        <div className={styles.statCard} style={{ background: '#C8860A' }}>
+          <div className={styles.statLabel}>Ingresos totales</div>
+          <div className={styles.statValue}>${ingresoTotal.toLocaleString('es-CL')}</div>
         </div>
-        <div style={{ background: '#1A6B8A', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
-          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Cabañas activas</div>
-          <div style={{ fontSize: '2rem', fontWeight: '600' }}>{cabanas.filter(c => c.disponible).length}</div>
+        <div className={styles.statCard} style={{ background: '#1A6B8A' }}>
+          <div className={styles.statLabel}>Cabañas activas</div>
+          <div className={styles.statValue}>{cabanas.filter(c => c.disponible).length}</div>
         </div>
-        <div style={{ background: '#5A3E28', borderRadius: '12px', padding: '1.25rem', color: '#fff' }}>
-          <div style={{ fontSize: '0.8rem', opacity: .7, marginBottom: '8px' }}>Reservas hoy</div>
-          <div style={{ fontSize: '2rem', fontWeight: '600' }}>{reservasHoy}</div>
+        <div className={styles.statCard} style={{ background: '#5A3E28' }}>
+          <div className={styles.statLabel}>Reservas hoy</div>
+          <div className={styles.statValue}>{reservasHoy}</div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div style={s.tabs}>
+      <div className={styles.tabs}>
         {[
           { key: 'calendario', label: '📅 Calendario de Ocupación', count: null },
           { key: 'reservas', label: '📋 Lista de Reservas', count: reservas.length },
           { key: 'cabanas', label: '🏕️ Cabañas', count: cabanas.length },
           { key: 'usuarios', label: '👥 Usuarios', count: usuarios.length }
         ].map(t => (
-          <button key={t.key} style={s.tab(tab === t.key)} onClick={() => setTab(t.key)}>
+          <button key={t.key} className={tab === t.key ? styles.tabActive : styles.tab} onClick={() => setTab(t.key)}>
             {t.label} {t.count !== null ? `(${t.count})` : ''}
           </button>
         ))}
@@ -303,30 +297,30 @@ export default function Admin() {
       {tab === 'calendario' && (
         <div>
           {/* Controles de fecha y mes */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <button onClick={() => cambiarMes(-1)} style={{ background: '#fff', border: '1px solid #2C4A2E', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer', color: '#2C4A2E', fontWeight: '600' }}>◀ Ant</button>
-              <h2 style={{ fontSize: '1.25rem', margin: 0, fontFamily: 'Georgia,serif', color: '#1A2E1B', minWidth: '150px', textAlign: 'center' }}>
+          <div className={styles.monthControls}>
+            <div className={styles.monthNav}>
+              <button onClick={() => cambiarMes(-1)} className={styles.monthBtn}>◀ Ant</button>
+              <h2 className={styles.monthName}>
                 {mesesNombres[month]} {year}
               </h2>
-              <button onClick={() => cambiarMes(1)} style={{ background: '#fff', border: '1px solid #2C4A2E', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer', color: '#2C4A2E', fontWeight: '600' }}>Sig ▶</button>
+              <button onClick={() => cambiarMes(1)} className={styles.monthBtn}>Sig ▶</button>
             </div>
             <button 
               onClick={() => openModalParaCrear()} 
-              style={{ background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}
+              className={styles.actionBtn}
             >
               ➕ Crear Reserva / Bloquear Fechas
             </button>
           </div>
 
           {/* Contenedor del Timeline del Calendario */}
-          <div style={s.calendarWrapper}>
-            <table style={s.table}>
+          <div className={styles.calendarWrapper}>
+            <table className={styles.table}>
               <thead>
                 <tr>
-                  <th style={s.thSticky}>Cabaña</th>
+                  <th className={styles.thSticky}>Cabaña</th>
                   {diasArray.map(d => (
-                    <th key={d} style={s.thDay(esFinDeSemana(d))}>
+                    <th key={d} className={styles.thDay} style={getThDayStyle(esFinDeSemana(d))}>
                       <div>{d}</div>
                       <div style={{ fontSize: '0.65rem', opacity: 0.6, marginTop: '2px' }}>{getNombreDiaSemana(d)}</div>
                     </th>
@@ -336,7 +330,7 @@ export default function Admin() {
               <tbody>
                 {cabanas.map(c => (
                   <tr key={c.id}>
-                    <td style={s.tdSticky}>{c.nombre}</td>
+                    <td className={styles.tdSticky}>{c.nombre}</td>
                     {diasArray.map(d => {
                       const res = getReservaDelDia(c.id, d)
                       
@@ -372,7 +366,8 @@ export default function Admin() {
                               openModalParaCrear(c.id, d)
                             }
                           }}
-                          style={{ ...s.tdDay(esFinDeSemana(d)), ...cellStyle }}
+                          className={styles.tdDay}
+                          style={getTdDayStyle(esFinDeSemana(d), cellStyle)}
                         />
                       )
                     })}
@@ -383,47 +378,47 @@ export default function Admin() {
           </div>
 
           {/* Leyenda de Colores */}
-          <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '2rem', fontSize: '0.85rem', color: '#7A8E7B', justifyContent: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '14px', height: '14px', background: '#10B981', borderRadius: '3px' }}></div>
+          <div className={styles.legend}>
+            <div className={styles.legendItem}>
+              <div className={styles.legendBox} style={{ background: '#10B981' }}></div>
               <span>Confirmada / Pago Aprobado</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '14px', height: '14px', background: '#FCD34D', borderRadius: '3px' }}></div>
+            <div className={styles.legendItem}>
+              <div className={styles.legendBox} style={{ background: '#FCD34D' }}></div>
               <span>Pendiente de Pago (Mercado Pago)</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '14px', height: '14px', background: '#9CA3AF', borderRadius: '3px' }}></div>
+            <div className={styles.legendItem}>
+              <div className={styles.legendBox} style={{ background: '#9CA3AF' }}></div>
               <span>Bloqueado por Mantenimiento</span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '14px', height: '14px', background: '#fff', border: '1px solid #ECE8E0', borderRadius: '3px' }}></div>
+            <div className={styles.legendItem}>
+              <div className={styles.legendBox} style={{ background: '#fff', border: '1px solid #ECE8E0' }}></div>
               <span>Disponible</span>
             </div>
           </div>
 
           {/* MODAL: DETALLE DE RESERVA */}
           {selectedReserva && (
-            <div style={s.overlay}>
-              <div style={s.modal}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                  <h3 style={{ margin: 0, fontFamily: 'Georgia,serif', color: '#1A2E1B', fontSize: '1.25rem' }}>
+            <div className={styles.overlay}>
+              <div className={styles.modal}>
+                <div className={styles.modalHeader}>
+                  <h3 className={styles.modalTitle}>
                     {selectedReserva.estado === 'mantenimiento' ? '🔧 Bloqueo por Mantenimiento' : '📋 Detalle de Reserva'}
                   </h3>
                   <button 
                     onClick={() => setSelectedReserva(null)}
-                    style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#7A8E7B' }}
+                    className={styles.closeBtn}
                   >
                     ✕
                   </button>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', color: '#374151', marginBottom: '1.5rem' }}>
+                <div className={styles.modalContent}>
                   <div><strong>ID Reserva:</strong> #{selectedReserva.id}</div>
                   <div><strong>Cabaña:</strong> {selectedReserva.cabana?.nombre}</div>
                   <div>
                     <strong>Estado:</strong>{' '}
-                    <span style={s.badge(selectedReserva.estado)}>
+                    <span className={styles.badge} style={getBadgeStyle(selectedReserva.estado)}>
                       {selectedReserva.estado === 'confirmada' ? 'Confirmada / Aprobada' : selectedReserva.estado === 'mantenimiento' ? 'Mantenimiento' : 'Pendiente de Pago'}
                     </span>
                   </div>
@@ -432,7 +427,7 @@ export default function Admin() {
                   {selectedReserva.estado !== 'mantenimiento' && (
                     <>
                       <div><strong>Total Tarifa:</strong> ${selectedReserva.total?.toLocaleString('es-CL')}</div>
-                      <hr style={{ border: 'none', borderTop: '1px solid #ECE8E0', margin: '0.5rem 0' }} />
+                      <hr className={styles.divider} />
                       <div><strong>Huésped:</strong> {selectedReserva.usuario?.nombre}</div>
                       <div><strong>Email:</strong> {selectedReserva.usuario?.email}</div>
                       <div><strong>Teléfono:</strong> {selectedReserva.usuario?.telefono || 'N/A'}</div>
@@ -440,18 +435,18 @@ export default function Admin() {
                   )}
                 </div>
 
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+                <div className={styles.modalActions}>
                   {selectedReserva.estado !== 'cancelada' && (
                     <button 
                       onClick={() => cancelarReserva(selectedReserva.id)} 
-                      style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem' }}
+                      className={styles.dangerBtn}
                     >
                       🚫 Liberar Fechas / Cancelar
                     </button>
                   )}
                   <button 
                     onClick={() => setSelectedReserva(null)}
-                    style={{ background: '#E5E7EB', color: '#374151', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem' }}
+                    className={styles.secondaryBtn}
                   >
                     Cerrar
                   </button>
@@ -465,40 +460,40 @@ export default function Admin() {
       {/* CONTENIDO TAB: RESERVAS */}
       {tab === 'reservas' && (
         <div>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1.25rem' }}>
+          <div className={styles.exportWrapper}>
             <button 
               onClick={exportarExcel} 
               disabled={reservas.length === 0}
-              style={{ background: reservas.length === 0 ? '#ccc' : '#C8860A', color: '#fff', border: 'none', padding: '8px 18px', borderRadius: '8px', cursor: reservas.length === 0 ? 'not-allowed' : 'pointer', fontWeight: '500', fontSize: '0.9rem' }}
+              className={styles.exportBtn}
             >
               📥 Exportar a Excel (.csv)
             </button>
           </div>
 
-          {reservas.length === 0 && <p style={{ color: '#7A8E7B' }}>No hay reservas aún.</p>}
+          {reservas.length === 0 && <p className={styles.emptyText}>No hay reservas aún.</p>}
           {reservas.map(r => (
-            <div key={r.id} style={s.card}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div key={r.id} className={styles.card}>
+              <div className={styles.flexBetween}>
                 <div>
                   <strong>{r.cabana?.nombre}</strong> — {r.usuario?.nombre} ({r.usuario?.email})
-                  <div style={{ fontSize: '0.85rem', color: '#7A8E7B', marginTop: '4px' }}>
+                  <div className={styles.subText}>
                     Llegada: {new Date(r.llegada).toLocaleDateString('es-CL')} → Salida: {new Date(r.salida).toLocaleDateString('es-CL')}
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#7A8E7B' }}>
+                  <div className={styles.subText2}>
                     Reservado el: {new Date(r.createdAt).toLocaleDateString('es-CL')}
                   </div>
                   {r.usuario?.telefono && (
-                    <div style={{ fontSize: '0.8rem', color: '#7A8E7B' }}>
+                    <div className={styles.subText2}>
                       Teléfono: {r.usuario.telefono}
                     </div>
                   )}
-                  <div style={{ marginTop: '6px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <span style={s.badge(r.estado)}>{r.estado}</span>
-                    <span style={{ fontWeight: '500', color: '#2C4A2E' }}>${r.total?.toLocaleString('es-CL')}</span>
+                  <div className={styles.badgeRow}>
+                    <span className={styles.badge} style={getBadgeStyle(r.estado)}>{r.estado}</span>
+                    <span className={styles.priceValue}>${r.total?.toLocaleString('es-CL')}</span>
                   </div>
                 </div>
                 {r.estado !== 'cancelada' && (
-                  <button onClick={() => cancelarReserva(r.id)} style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer' }}>
+                  <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
                     Cancelar
                   </button>
                 )}
@@ -511,29 +506,29 @@ export default function Admin() {
       {/* CONTENIDO TAB: CABAÑAS */}
       {tab === 'cabanas' && (
         <div>
-          <div style={{ ...s.card, background: '#F5ECD7' }}>
-            <h3 style={{ margin: '0 0 1rem', color: '#1A2E1B' }}>Agregar nueva cabaña</h3>
-            {msg && <p style={{ color: '#2C4A2E', marginBottom: '1rem' }}>{msg}</p>}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-              <input placeholder="Nombre" value={nuevaCabana.nombre} onChange={e => setNuevaCabana({ ...nuevaCabana, nombre: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
-              <input placeholder="Descripción" value={nuevaCabana.descripcion} onChange={e => setNuevaCabana({ ...nuevaCabana, descripcion: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
-              <input placeholder="Precio por noche" type="number" value={nuevaCabana.precio} onChange={e => setNuevaCabana({ ...nuevaCabana, precio: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
-              <input placeholder="Capacidad" type="number" value={nuevaCabana.capacidad} onChange={e => setNuevaCabana({ ...nuevaCabana, capacidad: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} />
-              <input placeholder="Ruta de imagen (Ej: /images/cabana1.jpg)" value={nuevaCabana.imagen} onChange={e => setNuevaCabana({ ...nuevaCabana, imagen: e.target.value })} style={{ padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px', gridColumn: 'span 2' }} />
+          <div className={styles.cabanaFormCard}>
+            <h3 className={styles.formTitle}>Agregar nueva cabaña</h3>
+            {msg && <p className={styles.successMsg}>{msg}</p>}
+            <div className={styles.formGrid}>
+              <input placeholder="Nombre" value={nuevaCabana.nombre} onChange={e => setNuevaCabana({ ...nuevaCabana, nombre: e.target.value })} className={styles.inputField} />
+              <input placeholder="Descripción" value={nuevaCabana.descripcion} onChange={e => setNuevaCabana({ ...nuevaCabana, descripcion: e.target.value })} className={styles.inputField} />
+              <input placeholder="Precio por noche" type="number" value={nuevaCabana.precio} onChange={e => setNuevaCabana({ ...nuevaCabana, precio: e.target.value })} className={styles.inputField} />
+              <input placeholder="Capacidad" type="number" value={nuevaCabana.capacidad} onChange={e => setNuevaCabana({ ...nuevaCabana, capacidad: e.target.value })} className={styles.inputField} />
+              <input placeholder="Ruta de imagen (Ej: /images/cabana1.jpg)" value={nuevaCabana.imagen} onChange={e => setNuevaCabana({ ...nuevaCabana, imagen: e.target.value })} className={styles.inputFieldWide} />
             </div>
-            <button onClick={crearCabana} style={{ marginTop: '1rem', background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 24px', borderRadius: '8px', cursor: 'pointer' }}>
+            <button onClick={crearCabana} className={styles.submitBtn}>
               Agregar cabaña
             </button>
           </div>
           {cabanas.map(c => (
-            <div key={c.id} style={s.card}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div key={c.id} className={styles.card}>
+              <div className={styles.flexBetween} style={{ alignItems: 'center' }}>
                 <div>
                   <strong>{c.nombre}</strong> — ${c.precio?.toLocaleString('es-CL')}/noche — {c.capacidad} personas
-                  <div style={{ fontSize: '0.85rem', color: '#7A8E7B' }}>{c.descripcion}</div>
-                  <span style={s.badge(c.disponible ? 'confirmada' : 'cancelada')}>{c.disponible ? 'Disponible' : 'No disponible'}</span>
+                  <div className={styles.subText2}>{c.descripcion}</div>
+                  <span className={styles.badge} style={getBadgeStyle(c.disponible ? 'confirmada' : 'cancelada')}>{c.disponible ? 'Disponible' : 'No disponible'}</span>
                 </div>
-                <button onClick={() => eliminarCabana(c.id)} style={{ background: '#FEE2E2', color: '#991B1B', border: 'none', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer' }}>
+                <button onClick={() => eliminarCabana(c.id)} className={styles.smallDangerBtn}>
                   Eliminar
                 </button>
               </div>
@@ -546,13 +541,13 @@ export default function Admin() {
       {tab === 'usuarios' && (
         <div>
           {usuarios.map(u => (
-            <div key={u.id} style={s.card}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div key={u.id} className={styles.card}>
+              <div className={styles.flexBetween}>
                 <div>
                   <strong>{u.nombre}</strong> — {u.email}
-                  <div style={{ fontSize: '0.85rem', color: '#7A8E7B' }}>Registrado: {new Date(u.createdAt).toLocaleDateString('es-CL')}</div>
+                  <div className={styles.subText}>Registrado: {new Date(u.createdAt).toLocaleDateString('es-CL')}</div>
                 </div>
-                <span style={s.badge(u.rol === 'admin' ? 'confirmada' : 'pendiente')}>{u.rol}</span>
+                <span className={styles.badge} style={getBadgeStyle(u.rol === 'admin' ? 'confirmada' : 'pendiente')}>{u.rol}</span>
               </div>
             </div>
           ))}
@@ -561,26 +556,26 @@ export default function Admin() {
 
       {/* MODAL: REGISTRO MANUAL / BLOQUEO POR MANTENIMIENTO */}
       {showModal && (
-        <div style={s.overlay}>
-          <div style={s.modal}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <h3 style={{ margin: 0, fontFamily: 'Georgia,serif', color: '#1A2E1B', fontSize: '1.25rem' }}>
+        <div className={styles.overlay}>
+          <div className={styles.modal}>
+            <div className={styles.modalHeader}>
+              <h3 className={styles.modalTitle}>
                 {modalData.esBloqueo ? '🔧 Bloquear por Mantenimiento' : '📅 Crear Reserva Manual'}
               </h3>
               <button 
                 onClick={() => setShowModal(false)}
-                style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: '#7A8E7B' }}
+                className={styles.closeBtn}
               >
                 ✕
               </button>
             </div>
             
-            {modalMsg && <div style={{ background: '#FEE2E2', color: '#991B1B', padding: '10px', borderRadius: '8px', marginBottom: '1rem', fontSize: '0.85rem' }}>{modalMsg}</div>}
+            {modalMsg && <div className={styles.errorMsg}>{modalMsg}</div>}
             
             <form onSubmit={handleCrearReservaManual}>
               {/* Tipo de Bloqueo */}
-              <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem', color: '#1A2E1B', cursor: 'pointer' }}>
+              <div className={styles.radioGroup}>
+                <label className={styles.radioLabel}>
                   <input 
                     type="radio" 
                     name="esBloqueo" 
@@ -589,7 +584,7 @@ export default function Admin() {
                   />
                   Reserva de Cliente
                 </label>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem', color: '#1A2E1B', cursor: 'pointer' }}>
+                <label className={styles.radioLabel}>
                   <input 
                     type="radio" 
                     name="esBloqueo" 
@@ -601,13 +596,13 @@ export default function Admin() {
               </div>
 
               {/* Selección Cabaña */}
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#1A2E1B', marginBottom: '4px' }}>Cabaña *</label>
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Cabaña *</label>
                 <select 
                   value={modalData.cabanaId} 
                   required
                   onChange={e => setModalData({ ...modalData, cabanaId: e.target.value })} 
-                  style={{ width: '100%', padding: '10px', border: '1.5px solid #E8E4DC', borderRadius: '8px', background: '#fff' }}
+                  className={styles.selectField}
                 >
                   <option value="">Selecciona una cabaña...</option>
                   {cabanas.map(c => (
@@ -617,63 +612,63 @@ export default function Admin() {
               </div>
 
               {/* Fechas Entrada / Salida */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+              <div className={styles.dateGrid}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#1A2E1B', marginBottom: '4px' }}>Llegada *</label>
+                  <label className={styles.formLabel}>Llegada *</label>
                   <input 
                     type="date" 
                     required
                     value={modalData.llegada} 
                     onChange={e => setModalData({ ...modalData, llegada: e.target.value })} 
-                    style={{ width: '100%', padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} 
+                    className={styles.inputField} 
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#1A2E1B', marginBottom: '4px' }}>Salida *</label>
+                  <label className={styles.formLabel}>Salida *</label>
                   <input 
                     type="date" 
                     required
                     value={modalData.salida} 
                     onChange={e => setModalData({ ...modalData, salida: e.target.value })} 
-                    style={{ width: '100%', padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} 
+                    className={styles.inputField} 
                   />
                 </div>
               </div>
 
               {/* Campos Cliente (Ocultos si es bloqueo por mantenimiento) */}
               {!modalData.esBloqueo && (
-                <div style={{ borderTop: '1px solid #ECE8E0', paddingTop: '1rem', marginTop: '1rem' }}>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#1A2E1B', marginBottom: '4px' }}>Nombre Cliente *</label>
+                <div className={styles.clientSection}>
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Nombre Cliente *</label>
                     <input 
                       type="text" 
                       required={!modalData.esBloqueo}
                       placeholder="Nombre completo" 
                       value={modalData.nombreCliente} 
                       onChange={e => setModalData({ ...modalData, nombreCliente: e.target.value })} 
-                      style={{ width: '100%', padding: '10px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} 
+                      className={styles.inputField} 
                     />
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                  <div className={styles.dateGrid}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#1A2E1B', marginBottom: '4px' }}>Correo Cliente *</label>
+                      <label className={styles.formLabel}>Correo Cliente *</label>
                       <input 
                         type="email" 
                         required={!modalData.esBloqueo}
                         placeholder="email@correo.com" 
                         value={modalData.emailCliente} 
                         onChange={e => setModalData({ ...modalData, emailCliente: e.target.value })} 
-                        style={{ width: '100%', padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} 
+                        className={styles.inputField} 
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#1A2E1B', marginBottom: '4px' }}>Teléfono Cliente</label>
+                      <label className={styles.formLabel}>Teléfono Cliente</label>
                       <input 
                         type="tel" 
                         placeholder="+569..." 
                         value={modalData.telefonoCliente} 
                         onChange={e => setModalData({ ...modalData, telefonoCliente: e.target.value })} 
-                        style={{ width: '100%', padding: '8px', border: '1.5px solid #E8E4DC', borderRadius: '8px' }} 
+                        className={styles.inputField} 
                       />
                     </div>
                   </div>
@@ -681,17 +676,17 @@ export default function Admin() {
               )}
 
               {/* Botones */}
-              <div style={{ display: 'flex', gap: '10px', marginTop: '2rem', justifyContent: 'flex-end' }}>
+              <div className={styles.modalFormActions}>
                 <button 
                   type="button"
                   onClick={() => setShowModal(false)}
-                  style={{ background: '#E5E7EB', color: '#374151', border: 'none', padding: '10px 22px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                  className={styles.secondaryBtn}
                 >
                   Cancelar
                 </button>
                 <button 
                   type="submit"
-                  style={{ background: '#2C4A2E', color: '#fff', border: 'none', padding: '10px 22px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                  className={styles.modalSubmitBtn}
                 >
                   {modalData.esBloqueo ? '🔧 Bloquear Fechas' : '💾 Crear Reserva'}
                 </button>

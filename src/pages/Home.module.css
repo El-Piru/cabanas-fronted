@@ -1,0 +1,521 @@
+.container {
+  background: #FAF8F5;
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(to bottom, rgba(24, 43, 62, 0.5) 0%, rgba(24, 43, 62, 0.8) 100%), url("/images/entorno.png") center/cover no-repeat;
+  padding: 7rem 1.5rem 10rem;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 80%);
+  pointer-events: none;
+}
+
+.title {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 0.85em;
+  font-weight: 500;
+  opacity: 0.95;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.description {
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+  opacity: .9;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  margin-bottom: 2.5rem;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+  font-family: "Outfit", "Inter", sans-serif;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.15);
+  color: #ffffff;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  font-weight: 500;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.featureButton {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.featureButton:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.directionsButton {
+  background: #C01C1C;
+  color: #fff;
+  padding: 11px 26px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(192, 28, 28, 0.3);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.directionsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(192, 28, 28, 0.4);
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 18, 26, 0.85);
+  backdrop-filter: blur(16px);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalHeader {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.modalTitle {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.modalClose {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.modalClose:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 850px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+  background: #0d1520;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.modalImageContainer {
+  position: relative;
+  width: 100%;
+  max-height: 58vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060a0f;
+}
+
+.modalImage {
+  max-width: 100%;
+  max-height: 58vh;
+  object-fit: contain;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+.navButtonLeft {
+  left: 15px;
+}
+.navButtonRight {
+  right: 15px;
+}
+
+.modalCaption {
+  width: 100%;
+  padding: 1.25rem 1.75rem;
+  background: #121d2b;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.captionText {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.captionTitle {
+  margin: 0;
+  font-size: 1.15rem;
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.captionDesc {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.captionCounter {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(255,255,255,0.08);
+  padding: 4px 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.modalEmpty {
+  padding: 3.5rem 2rem;
+  text-align: center;
+  color: #ffffff;
+  font-family: "Outfit", sans-serif;
+}
+.modalEmptyIcon {
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+}
+.modalEmptyTitle {
+  color: #ffffff;
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.modalEmptyDesc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 300;
+}
+
+/* Main Section */
+.mainContainer {
+  max-width: 1100px;
+  margin: -4.5rem auto 0;
+  position: relative;
+  z-index: 10;
+  padding: 0 1rem 4rem;
+}
+
+.contentBox {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(26, 46, 27, 0.06), 0 5px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(236, 232, 224, 0.7);
+  padding: 3.5rem 2rem 3rem;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  color: #182535;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sectionDivider {
+  width: 50px;
+  height: 2px;
+  background: #C01C1C;
+  margin: 0.75rem auto 1rem;
+  border-radius: 2px;
+}
+
+.sectionDesc {
+  color: #7A8E7B;
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.loadingState {
+  text-align: center;
+  padding: 4rem;
+  color: #7A8E7B;
+}
+
+.spinner {
+  border: 3px solid rgba(192, 28, 28, 0.1);
+  border-top: 3px solid #C01C1C;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem;
+  color: #7A8E7B;
+}
+
+.cabanaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 2rem;
+}
+
+.infoSection {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  align-items: center;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(236, 232, 224, 0.7);
+}
+.infoSectionAlt {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+  align-items: center;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(236, 232, 224, 0.7);
+}
+
+.infoTitle {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.8rem;
+  color: #182535;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.infoDesc {
+  color: #5C6E5E;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.infoDescAlt {
+  color: #5C6E5E;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.infoImageContainer {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(236, 232, 224, 0.7);
+}
+.infoImageContainerAlt {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid rgba(236, 232, 224, 0.7);
+  order: 2;
+}
+
+.infoImage {
+  width: 100%;
+  display: block;
+  height: auto;
+  object-fit: cover;
+}
+
+.infoContentAlt {
+  order: 1;
+}
+
+.infoList {
+  padding-left: 20px;
+  color: #5C6E5E;
+  line-height: 2;
+}
+
+.ctaBox {
+  margin-top: 4rem;
+  background: linear-gradient(135deg, #407DAF 0%, #204C72 100%);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(32, 76, 114, 0.15);
+}
+
+.ctaOverlay {
+  position: absolute;
+  top: -50%; left: -20%;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaTitle {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.ctaDesc {
+  opacity: .85;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.ctaActions {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.whatsappButton {
+  background: #25D366;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+}
+
+.whatsappButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.emailButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.emailButton:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.18);
+}

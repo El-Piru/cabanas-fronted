@@ -1,0 +1,363 @@
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(236, 232, 224, 0.7);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(26, 46, 27, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.svgContainer {
+  height: 190px;
+  background: #FAF8F5;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid rgba(236, 232, 224, 0.4);
+}
+
+.cabinWin {
+  transition: fill 0.3s ease;
+  fill: #2D3748;
+}
+
+.windowOn {
+  fill: #FBBF24 !important;
+}
+
+.card:hover .cabinWin {
+  fill: #FBBF24;
+}
+
+.cardContent {
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  margin: 0 0 6px;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #182535;
+}
+
+.cardDescription {
+  font-size: 0.85rem;
+  color: #5A6A5C;
+  margin: 0 0 1.25rem;
+  line-height: 1.45;
+}
+
+.capacityContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.capacityText {
+  font-size: 0.82rem;
+  color: #3D4C5E;
+  font-weight: 500;
+}
+
+.detailsLink {
+  font-size: 0.8rem;
+  color: #C01C1C;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #FAF6F0;
+  padding-top: 1rem;
+}
+
+.priceText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #204C72;
+  font-family: "Outfit", sans-serif;
+}
+
+.priceSmall {
+  font-size: 0.8rem;
+  color: #7A8E7B;
+  font-weight: 400;
+}
+
+.bookBtn {
+  background: #C01C1C;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 2px 8px rgba(192,28,28,0.1);
+  transition: all 0.2s ease;
+}
+
+.bookBtn:hover {
+  background: #9A1313;
+  transform: scale(1.03);
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(24, 37, 53, 0.65);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modalContainer {
+  background: #ffffff;
+  border-radius: 24px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(24,37,53,0.15);
+  position: relative;
+  border: 1px solid rgba(236, 232, 224, 0.7);
+}
+
+.modalSvgContainer {
+  height: 240px;
+  position: relative;
+  background: #FAF8F5;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(236,232,224,0.4);
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1A2E1B;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.modalCloseBtn:hover {
+  background: #ffffff;
+  transform: scale(1.05);
+}
+
+.modalContent {
+  padding: 2rem;
+  text-align: left;
+}
+
+.modalBadge {
+  background: #FAF6F0;
+  color: #C01C1C;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(192,28,28,0.1);
+}
+
+.modalTitle {
+  font-family: "Outfit", sans-serif;
+  color: #182535;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 16px 0 8px;
+}
+
+.modalDescription {
+  font-size: 0.95rem;
+  color: #5A6A5C;
+  line-height: 1.55;
+  margin: 0 0 2rem;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: 1px solid #ECE8E0;
+  padding-top: 1.5rem;
+}
+
+.featureItem {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.featureIcon {
+  background: #FAF6F0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #ECE8E0;
+}
+
+.featureTitle {
+  margin: 0 0 4px;
+  color: #182535;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+}
+
+.featureText {
+  margin: 2px 0;
+  font-size: 0.85rem;
+  color: #5A6A5C;
+  line-height: 1.45;
+}
+
+.featureTextSingle {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5A6A5C;
+  line-height: 1.45;
+}
+
+.noteContainer {
+  display: flex;
+  flex-direction: column;
+  background: #FFF5F5;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(192, 28, 28, 0.15);
+  margin-top: 0.5rem;
+}
+
+.noteTitle {
+  margin: 0 0 2px;
+  color: #991B1B;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+}
+
+.noteText {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #991B1B;
+  line-height: 1.4;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #ECE8E0;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+
+.modalPriceLabel {
+  font-size: 0.8rem;
+  color: #7A8E7B;
+  display: block;
+  font-weight: 500;
+}
+
+.modalPriceValue {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #204C72;
+  font-family: "Outfit", sans-serif;
+}
+
+.modalButtons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.modalCloseActionBtn {
+  background: #FAF6F0;
+  color: #4A5E4C;
+  border: 1px solid rgba(192,28,28,0.1);
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.modalCloseActionBtn:hover {
+  background: #FAF2E6;
+}
+
+.modalBookBtn {
+  background: #C01C1C;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(192,28,28,0.15);
+  transition: all 0.2s ease;
+}
+
+.modalBookBtn:hover {
+  background: #9A1313;
+  transform: scale(1.02);
+}
+
+.cabinSvg {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+@keyframes floatSmoke1 {
+  0% { transform: translateY(0) scale(0.8); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0; }
+  100% { transform: translateY(-35px) scale(1.5); opacity: 0; }
+}
+@keyframes floatSmoke2 {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0; }
+  100% { transform: translateY(-45px) scale(1.8); opacity: 0; }
+}
+.smokeP1 { animation: floatSmoke1 3s infinite linear; }
+.smokeP2 { animation: floatSmoke2 3s infinite linear 1.5s; }

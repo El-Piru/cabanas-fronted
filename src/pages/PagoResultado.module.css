@@ -1,0 +1,130 @@
+.container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAF7F2;
+  padding: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 550px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  border: 1px solid #ECE8E0;
+}
+
+.contentWrapper {
+  text-align: center;
+  padding: 2rem;
+}
+
+.icon {
+  font-size: 4.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.titleSuccess {
+  color: #1A2E1B;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+.titlePending {
+  color: #C8860A;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+.titleFailure {
+  color: #991B1B;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.primaryText {
+  color: #4A5E4C;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.secondaryText {
+  color: #7A8E7B;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.transactionBox {
+  background: #FAF7F2;
+  border: 1px solid #ECE8E0;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  display: inline-block;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.transactionLabel {
+  font-size: 0.85rem;
+  color: #7A8E7B;
+  margin-bottom: 4px;
+}
+
+.transactionCode {
+  font-weight: 600;
+  color: #2C4A2E;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.btnPrimary {
+  background: #2C4A2E;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.btnPending {
+  background: #C8860A;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.actionGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btnOutline {
+  background: #fff;
+  color: #2C4A2E;
+  border: 1.5px solid #2C4A2E;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.btnRetry {
+  background: #2C4A2E;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+}

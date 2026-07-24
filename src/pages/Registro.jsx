@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { api } from '../api'
+import SEO from '../components/SEO'
+import styles from './Registro.module.css'
 
 export default function Registro() {
   const navigate = useNavigate()
@@ -28,24 +30,25 @@ export default function Registro() {
   }
 
   return (
-    <div style={{minHeight:'80vh',display:'flex',alignItems:'center',justifyContent:'center',background:'#FAF7F2'}}>
-      <div style={{background:'#fff',borderRadius:'16px',padding:'2.5rem',width:'100%',maxWidth:'400px',boxShadow:'0 8px 40px rgba(0,0,0,0.08)'}}>
-        <h2 style={{fontFamily:'Georgia,serif',fontSize:'1.8rem',color:'#1A2E1B',marginBottom:'0.5rem',textAlign:'center'}}>
+    <div className={styles.container}>
+      <SEO titulo="Crear Cuenta" descripcion="Regístrate en Cabañas La Higuera Rapel para reservar tu estadía a orillas del Lago Rapel." />
+      <div className={styles.card}>
+        <h2 className={styles.title}>
           Crear cuenta
         </h2>
-        <p style={{color:'#7A8E7B',textAlign:'center',marginBottom:'2rem',fontSize:'0.9rem'}}>
+        <p className={styles.subtitle}>
           Unete a Cabañas La Higuera
         </p>
 
         {error && (
-          <div style={{background:'#FEE2E2',color:'#991B1B',padding:'10px 14px',borderRadius:'8px',marginBottom:'1rem',fontSize:'0.9rem'}}>
+          <div className={styles.error}>
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
-          <div style={{marginBottom:'1rem'}}>
-            <label style={{display:'block',fontSize:'0.8rem',fontWeight:'500',color:'#4A5E4C',marginBottom:'6px',textTransform:'uppercase',letterSpacing:'.04em'}}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>
               Nombre completo
             </label>
             <input
@@ -54,11 +57,11 @@ export default function Registro() {
               onChange={e => setForm({...form, nombre: e.target.value})}
               placeholder="Tu nombre"
               required
-              style={{width:'100%',border:'1.5px solid #E8E4DC',borderRadius:'8px',padding:'10px 12px',fontSize:'0.9rem',outline:'none',boxSizing:'border-box'}}
+              className={styles.input}
             />
           </div>
-          <div style={{marginBottom:'1rem'}}>
-            <label style={{display:'block',fontSize:'0.8rem',fontWeight:'500',color:'#4A5E4C',marginBottom:'6px',textTransform:'uppercase',letterSpacing:'.04em'}}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>
               Correo electronico
             </label>
             <input
@@ -67,11 +70,11 @@ export default function Registro() {
               onChange={e => setForm({...form, email: e.target.value})}
               placeholder="tu@correo.cl"
               required
-              style={{width:'100%',border:'1.5px solid #E8E4DC',borderRadius:'8px',padding:'10px 12px',fontSize:'0.9rem',outline:'none',boxSizing:'border-box'}}
+              className={styles.input}
             />
           </div>
-          <div style={{marginBottom:'1rem'}}>
-            <label style={{display:'block',fontSize:'0.8rem',fontWeight:'500',color:'#4A5E4C',marginBottom:'6px',textTransform:'uppercase',letterSpacing:'.04em'}}>
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>
               Teléfono de contacto
             </label>
             <input
@@ -79,11 +82,11 @@ export default function Registro() {
               value={form.telefono}
               onChange={e => setForm({...form, telefono: e.target.value})}
               placeholder="Ej: +56986698970"
-              style={{width:'100%',border:'1.5px solid #E8E4DC',borderRadius:'8px',padding:'10px 12px',fontSize:'0.9rem',outline:'none',boxSizing:'border-box'}}
+              className={styles.input}
             />
           </div>
-          <div style={{marginBottom:'1.5rem'}}>
-            <label style={{display:'block',fontSize:'0.8rem',fontWeight:'500',color:'#4A5E4C',marginBottom:'6px',textTransform:'uppercase',letterSpacing:'.04em'}}>
+          <div className={styles.inputGroupLast}>
+            <label className={styles.label}>
               Contrasena
             </label>
             <input
@@ -92,21 +95,21 @@ export default function Registro() {
               onChange={e => setForm({...form, password: e.target.value})}
               placeholder="Minimo 6 caracteres"
               required
-              style={{width:'100%',border:'1.5px solid #E8E4DC',borderRadius:'8px',padding:'10px 12px',fontSize:'0.9rem',outline:'none',boxSizing:'border-box'}}
+              className={styles.input}
             />
           </div>
           <button
             type="submit"
             disabled={cargando}
-            style={{width:'100%',background:'#2C4A2E',color:'#fff',border:'none',padding:'12px',borderRadius:'8px',fontSize:'1rem',fontWeight:'500',cursor:'pointer'}}
+            className={styles.submitBtn}
           >
             {cargando ? 'Creando cuenta...' : 'Crear cuenta'}
           </button>
         </form>
 
-        <p style={{textAlign:'center',marginTop:'1.5rem',fontSize:'0.9rem',color:'#7A8E7B'}}>
+        <p className={styles.footer}>
           Ya tienes cuenta?{' '}
-          <Link to="/login" style={{color:'#2C4A2E',fontWeight:'500'}}>Inicia sesion</Link>
+          <Link to="/login" className={styles.loginLink}>Inicia sesion</Link>
         </p>
       </div>
     </div>

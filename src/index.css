@@ -17,6 +17,17 @@
   --heading: 'Outfit', system-ui, -apple-system, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  /* Colores adicionales del sistema */
+  --blue: #407DAF;
+  --blue-dark: #204C72;
+  --blue-medium: #2B5880;
+  --green-whatsapp: #25D366;
+  --yellow: #F5C842;
+  --error-bg: #FEE2E2;
+  --error-text: #991B1B;
+  --success-bg: #D1FAE5;
+  --success-text: #065F46;
+
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light;
@@ -32,9 +43,17 @@
   }
 }
 
+/* === Global Reset & Base === */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  background-color: #FAF8F5;
+  background-color: var(--bg);
 }
 
 #root {
@@ -43,8 +62,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  background-color: #FAF8F5;
+  background-color: var(--bg);
 }
 
 h1,
@@ -63,6 +81,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -72,33 +91,26 @@ h2 {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
-}
+/* === Animations === */
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .spinner {
   border: 3px solid rgba(192, 28, 28, 0.15);
-  border-top: 3px solid #C01C1C;
+  border-top: 3px solid var(--accent);
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -106,3 +118,45 @@ code {
   display: inline-block;
 }
 
+/* === Accessibility === */
+
+/* Screen reader only — visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus visible for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 0 0 8px 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 100001;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}

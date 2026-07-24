@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /mis-reservas
+Disallow: /pago/
+
+Sitemap: https://cabanas-fronted-production.up.railway.app/sitemap.xml

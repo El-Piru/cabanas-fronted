@@ -1,0 +1,257 @@
+.errorContainer {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+.errorIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.errorTitle {
+  color: #991B1B;
+  margin-bottom: 0.5rem;
+}
+.errorText {
+  color: #7A8E7B;
+  margin-bottom: 2rem;
+}
+.errorButton {
+  background: #C01C1C;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.errorButton:hover {
+  background: #9b1515;
+}
+.loadingContainer {
+  text-align: center;
+  padding: 3rem;
+}
+.successContainer {
+  max-width: 500px;
+  margin: 4rem auto;
+  text-align: center;
+  padding: 2rem;
+}
+.successIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+.successTitle {
+  color: #1A2E1B;
+  margin-bottom: 0.5rem;
+}
+.successText {
+  color: #7A8E7B;
+  margin-bottom: 0.5rem;
+}
+.successPhone {
+  color: #7A8E7B;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+.detailsCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: left;
+  border: 1px solid #E8E4DC;
+  border-left: 4px solid #C01C1C;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.detailsTitle {
+  margin: 0 0 8px;
+}
+.detailsItem {
+  margin: 0 0 8px;
+  color: #3D4C5E;
+}
+.detailsTotalRow {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  border-top: 1px solid #ECE8E0;
+  padding-top: 10px;
+  margin-top: 12px;
+}
+.detailsTotalLabel {
+  color: #182535;
+}
+.detailsTotalValue {
+  color: #C01C1C;
+  font-size: 1.15rem;
+}
+.successButton {
+  background: #C01C1C;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.successButton:hover {
+  background: #9b1515;
+}
+.mainContainer {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+.mainTitle {
+  font-family: 'Outfit', sans-serif;
+  color: #182535;
+  margin-bottom: 0.5rem;
+}
+.subtitle {
+  color: #5A6A5C;
+  margin-bottom: 2rem;
+}
+.errorMessage {
+  background: #FEE2E2;
+  color: #991B1B;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.formCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.formGroup {
+  margin-bottom: 1rem;
+}
+.formGroupExtra {
+  margin-bottom: 1.5rem;
+}
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+.clearButton {
+  background: none;
+  border: none;
+  color: #C01C1C;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}
+.helpText {
+  color: #7A8E7B;
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+}
+.summaryCard {
+  background: #FAF7F2;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #E8E4DC;
+}
+.summaryTitle {
+  margin: 0 0 10px;
+  color: #1A2E1B;
+  font-family: Georgia, serif;
+}
+.summaryItem {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  color: #4A5E4C;
+}
+.summaryNights {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  color: #4A5E4C;
+}
+.summaryCalcRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #7A8E7B;
+}
+.summaryTotalRow {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  border-top: 1px solid #E8E4DC;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+.summaryTotalValue {
+  color: #C01C1C;
+}
+.termsRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  text-align: left;
+}
+.termsCheckbox {
+  margin-top: 4px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+.termsLabel {
+  font-size: 0.85rem;
+  color: #5A6A5C;
+  cursor: pointer;
+  line-height: 1.4;
+}
+.termsLink {
+  color: #C01C1C;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.submitButton {
+  width: 100%;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.submitButtonEnabled {
+  background: #C01C1C;
+  color: #fff;
+  cursor: pointer;
+}
+.submitButtonEnabled:hover {
+  background: #9b1515;
+}
+.submitButtonDisabled {
+  background: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+:global(.react-datepicker-wrapper) {
+  display: block !important;
+  width: 100% !important;
+}
+.datePickerInput {
+  width: 100% !important;
+  padding: 10px !important;
+  border: 1.5px solid #E8E4DC !important;
+  border-radius: 8px !important;
+  box-sizing: border-box !important;
+  font-size: 1rem !important;
+  background: #fff !important;
+  color: #182535 !important;
+  outline: none !important;
+}
