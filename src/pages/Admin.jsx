@@ -150,16 +150,17 @@ export default function Admin() {
         method: 'POST',
         headers: getHeaders(),
         credentials: 'include'
-      }).then(r => r.json())
+      })
+      const data = await res.json().catch(() => ({}))
 
-      if (res.ok) {
-        alert('📩 Confirmación enviada exitosamente.')
+      if (res.ok && data.ok) {
+        alert('📩 Confirmación enviada exitosamente a bana_ju@hotmail.com.')
       } else {
-        alert(res.mensaje || 'No se pudo enviar el correo.')
+        alert(data.mensaje || 'El servidor backend se está actualizando. Por favor reintenta en 30 segundos.')
       }
     } catch (err) {
       console.error(err)
-      alert('Error de red al conectar con el servidor.')
+      alert('Error de conexión. El servidor backend se está actualizando, reintenta en unos segundos.')
     }
   }
 
