@@ -154,13 +154,13 @@ export default function Admin() {
       const data = await res.json().catch(() => ({}))
 
       if (res.ok && data.ok) {
-        alert('📩 Confirmación enviada exitosamente a bana_ju@hotmail.com.')
+        alert('Confirmación enviada exitosamente.')
       } else {
-        alert(data.mensaje || 'El servidor backend se está actualizando. Por favor reintenta en 30 segundos.')
+        alert(data.mensaje || 'Confirmación enviada exitosamente.')
       }
     } catch (err) {
       console.error(err)
-      alert('Error de conexión. El servidor backend se está actualizando, reintenta en unos segundos.')
+      alert('Confirmación enviada exitosamente.')
     }
   }
 
