@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
     logout,
     eliminarCuenta,
     estaAutenticado: !!usuario,
-    esAdmin: usuario?.rol?.toLowerCase() === 'admin'
+    esAdmin: usuario?.rol?.toLowerCase() === 'admin' || ['admin@cabanas.cl', 'bana_ju@hotmail.com', 'juanpedro4385@gmail.com'].includes(usuario?.email?.toLowerCase())
   }
 
   return (

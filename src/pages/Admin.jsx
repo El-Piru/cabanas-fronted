@@ -67,9 +67,9 @@ export default function Admin() {
       const r2 = await resCab.json()
       const r3 = await resUsu.json()
 
-      if (r1.ok) setReservas(r1.data)
-      if (r2.ok) setCabanas(r2.data)
-      if (r3.ok) setUsuarios(r3.data)
+      if (r1 && r1.ok && Array.isArray(r1.data)) setReservas(r1.data)
+      if (r2 && r2.ok && Array.isArray(r2.data)) setCabanas(r2.data)
+      if (r3 && r3.ok && Array.isArray(r3.data)) setUsuarios(r3.data)
     } catch (error) {
       console.error('Error al cargar datos del administrador:', error)
     }
@@ -284,9 +284,14 @@ export default function Admin() {
   }
 
   // Estadísticas rápidas
-  const reservasConfirmadas = reservas.filter(r => r.estado === 'confirmada')
+  const reservasArray = Array.isArray(reservas) ? reservas : []
+  const cabanasArray = Array.isArray(cabanas) ? cabanas : []
+  const usuariosArray = Array.isArray(usuarios) ? usuarios : []
+
+  const reservasConfirmadas = reservasArray.filter(r => r && r.estado === 'confirmada')
   const ingresoTotal = reservasConfirmadas.reduce((acc, r) => acc + (r.total || 0), 0)
-  const reservasHoy = reservas.filter(r => {
+  const reservasHoy = reservasArray.filter(r => {
+    if (!r || !r.createdAt) return false
     const hoy = new Date().toDateString()
     return new Date(r.createdAt).toDateString() === hoy
   })
