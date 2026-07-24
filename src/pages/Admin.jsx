@@ -144,6 +144,25 @@ export default function Admin() {
     }
   }
 
+  const reenviarComprobanteAdmin = async (id) => {
+    try {
+      const res = await fetch(`${BASE_URL}/admin/reservas/${id}/reenviar-email`, {
+        method: 'POST',
+        headers: getHeaders(),
+        credentials: 'include'
+      }).then(r => r.json())
+
+      if (res.ok) {
+        alert('📩 Comprobante enviado exitosamente a bana_ju@hotmail.com')
+      } else {
+        alert(res.mensaje || 'No se pudo enviar el correo.')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error de red al conectar con el servidor.')
+    }
+  }
+
   const crearCabana = async () => {
     const res = await fetch(`${BASE_URL}/admin/cabanas`, { method: 'POST', headers: getHeaders(), credentials: 'include', body: JSON.stringify(nuevaCabana) }).then(r => r.json())
     if (res.ok) { setMsg('Cabaña creada'); cargarDatos(); setNuevaCabana({ nombre: '', descripcion: '', precio: '', capacidad: '', imagen: '' }) }
@@ -612,6 +631,14 @@ const parseLocalDate = (dateVal) => {
                       ✅ Marcar como Pagada / Confirmar
                     </button>
                   )}
+                  {selectedReserva.estado !== 'mantenimiento' && (
+                    <button 
+                      onClick={() => reenviarComprobanteAdmin(selectedReserva.id)} 
+                      style={{ background: '#1A6B8A', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                    >
+                      📩 Enviar Comprobante a bana_ju@hotmail.com
+                    </button>
+                  )}
                   {selectedReserva.estado !== 'cancelada' && (
                     <button 
                       onClick={() => cancelarReserva(selectedReserva.id)} 
@@ -694,6 +721,12 @@ const parseLocalDate = (dateVal) => {
                         ✅ Aprobar / Confirmar Pago
                       </button>
                     )}
+                    <button 
+                      onClick={() => reenviarComprobanteAdmin(r.id)} 
+                      style={{ background: '#1A6B8A', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
+                    >
+                      📩 Enviar a bana_ju@hotmail.com
+                    </button>
                     {r.estado !== 'cancelada' && (
                       <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
                         Cancelar
