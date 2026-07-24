@@ -14,8 +14,17 @@ export default function Registro() {
     e.preventDefault()
     setCargando(true)
     setError('')
+    
+    // Formatear número de teléfono con +56 si no lo tiene
+    let telefonoFormateado = form.telefono.trim()
+    if (telefonoFormateado) {
+      // Remover +56 si el usuario lo escribió manualmente para no duplicarlo
+      telefonoFormateado = telefonoFormateado.replace(/^\+?56\s?/, '')
+      telefonoFormateado = `+56 ${telefonoFormateado}`
+    }
+
     try {
-      const res = await api.registro(form)
+      const res = await api.registro({ ...form, telefono: telefonoFormateado })
       if (res.ok) {
         navigate('/login')
       } else {
@@ -77,13 +86,16 @@ export default function Registro() {
             <label className={styles.label}>
               Teléfono de contacto
             </label>
-            <input
-              type="tel"
-              value={form.telefono}
-              onChange={e => setForm({...form, telefono: e.target.value})}
-              placeholder="Ej: +56986698970"
-              className={styles.input}
-            />
+            <div className={styles.phoneWrapper}>
+              <span className={styles.phonePrefix}>🇨🇱 +56</span>
+              <input
+                type="tel"
+                value={form.telefono}
+                onChange={e => setForm({...form, telefono: e.target.value})}
+                placeholder="9 8669 8970"
+                className={styles.phoneInput}
+              />
+            </div>
           </div>
           <div className={styles.inputGroupLast}>
             <label className={styles.label}>

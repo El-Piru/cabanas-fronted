@@ -90,3 +90,41 @@
   color: #2C4A2E;
   font-weight: 500;
 }
+
+.phoneWrapper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #E8E4DC;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.phoneWrapper:focus-within {
+  border-color: #2C4A2E;
+}
+
+.phonePrefix {
+  background: #FAF6F0;
+  color: #1A2E1B;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  border-right: 1.5px solid #E8E4DC;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.phoneInput {
+  flex: 1;
+  border: none;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  outline: none;
+  font-family: inherit;
+}
+
