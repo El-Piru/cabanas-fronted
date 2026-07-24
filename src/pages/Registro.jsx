@@ -18,8 +18,8 @@ export default function Registro() {
     // Formatear número de teléfono con +56 si no lo tiene
     let telefonoFormateado = form.telefono.trim()
     if (telefonoFormateado) {
-      // Remover +56 si el usuario lo escribió manualmente para no duplicarlo
-      telefonoFormateado = telefonoFormateado.replace(/^\+?56\s?/, '')
+      // Remover cualquier variación de +56, 56 o espacios al inicio
+      telefonoFormateado = telefonoFormateado.replace(/^(\+?56)?\s?/, '')
       telefonoFormateado = `+56 ${telefonoFormateado}`
     }
 
@@ -87,7 +87,7 @@ export default function Registro() {
               Teléfono de contacto
             </label>
             <div className={styles.phoneWrapper}>
-              <span className={styles.phonePrefix}>🇨🇱 +56</span>
+              <span className={styles.phonePrefix}>+56</span>
               <input
                 type="tel"
                 value={form.telefono}
