@@ -339,7 +339,7 @@ const parseLocalDate = (dateVal) => {
 
   const reservasConfirmadas = reservasArray.filter(r => r && r.estado === 'confirmada')
   const ingresoTotal = reservasConfirmadas.reduce((acc, r) => acc + (r.total || 0), 0)
-  const reservasHoy = reservasArray.filter(r => {
+  const reservasHoy = reservasConfirmadas.filter(r => {
     if (!r || !r.createdAt) return false
     const hoy = new Date().toDateString()
     return new Date(r.createdAt).toDateString() === hoy
@@ -378,7 +378,7 @@ const parseLocalDate = (dateVal) => {
       <div className={styles.statsGrid}>
         <div className={styles.statCard} style={{ background: '#2C4A2E' }}>
           <div className={styles.statLabel}>Total reservas</div>
-          <div className={styles.statValue}>{reservasArray.length}</div>
+          <div className={styles.statValue}>{reservasConfirmadas.length}</div>
         </div>
         <div className={styles.statCard} style={{ background: '#C8860A' }}>
           <div className={styles.statLabel}>Ingresos totales</div>
