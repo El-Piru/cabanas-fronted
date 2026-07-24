@@ -144,6 +144,7 @@ export default function Admin() {
       const d1 = new Date(r.llegada)
       const d2 = new Date(r.salida)
       const noches = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24))
+      const estadoFormateado = r.estado === 'confirmada' ? 'Pagada / Confirmada' : r.estado === 'pendiente' ? 'Pendiente de Pago' : r.estado === 'cancelada' ? 'Cancelada' : 'Mantenimiento'
       return [
         r.id,
         r.cabana?.nombre || 'N/A',
@@ -153,7 +154,7 @@ export default function Admin() {
         d2.toLocaleDateString('es-CL'),
         noches,
         r.total,
-        r.estado,
+        estadoFormateado,
         new Date(r.createdAt).toLocaleDateString('es-CL')
       ]
     })
@@ -437,6 +438,15 @@ export default function Admin() {
                 </div>
 
                 <div className={styles.modalActions}>
+                  {selectedReserva.estado === 'pendiente' && (
+                    <button 
+                      onClick={() => confirmarReservaManual(selectedReserva.id)} 
+                      className={styles.successBtn || styles.secondaryBtn}
+                      style={{ background: '#065F46', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                    >
+                      ✅ Marcar como Pagada / Confirmar
+                    </button>
+                  )}
                   {selectedReserva.estado !== 'cancelada' && (
                     <button 
                       onClick={() => cancelarReserva(selectedReserva.id)} 
@@ -493,11 +503,21 @@ export default function Admin() {
                     <span className={styles.priceValue}>${r.total?.toLocaleString('es-CL')}</span>
                   </div>
                 </div>
-                {r.estado !== 'cancelada' && (
-                  <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
-                    Cancelar
-                  </button>
-                )}
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {r.estado === 'pendiente' && (
+                    <button 
+                      onClick={() => confirmarReservaManual(r.id)} 
+                      style={{ background: '#065F46', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
+                    >
+                      ✅ Confirmar Pago
+                    </button>
+                  )}
+                  {r.estado !== 'cancelada' && (
+                    <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
+                      Cancelar
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
