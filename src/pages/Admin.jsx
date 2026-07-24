@@ -156,11 +156,11 @@ export default function Admin() {
       if (res.ok && data.ok) {
         alert('Confirmación enviada exitosamente.')
       } else {
-        alert(data.mensaje || 'Confirmación enviada exitosamente.')
+        alert(data.mensaje || 'No se pudo enviar la confirmación. Por favor reintenta en unos segundos.')
       }
     } catch (err) {
       console.error(err)
-      alert('Confirmación enviada exitosamente.')
+      alert('Error de red al conectar con el servidor.')
     }
   }
 
