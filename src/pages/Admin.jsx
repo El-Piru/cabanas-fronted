@@ -338,7 +338,7 @@ export default function Admin() {
       <div className={styles.statsGrid}>
         <div className={styles.statCard} style={{ background: '#2C4A2E' }}>
           <div className={styles.statLabel}>Total reservas</div>
-          <div className={styles.statValue}>{reservas.length}</div>
+          <div className={styles.statValue}>{reservasArray.length}</div>
         </div>
         <div className={styles.statCard} style={{ background: '#C8860A' }}>
           <div className={styles.statLabel}>Ingresos totales</div>
@@ -346,11 +346,11 @@ export default function Admin() {
         </div>
         <div className={styles.statCard} style={{ background: '#1A6B8A' }}>
           <div className={styles.statLabel}>Cabañas activas</div>
-          <div className={styles.statValue}>{cabanas.filter(c => c.disponible).length}</div>
+          <div className={styles.statValue}>{cabanasArray.length}</div>
         </div>
         <div className={styles.statCard} style={{ background: '#5A3E28' }}>
           <div className={styles.statLabel}>Reservas hoy</div>
-          <div className={styles.statValue}>{reservasHoy}</div>
+          <div className={styles.statValue}>{reservasHoy.length}</div>
         </div>
       </div>
 
