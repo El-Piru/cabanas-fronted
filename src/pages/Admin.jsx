@@ -643,45 +643,46 @@ const parseLocalDate = (dateVal) => {
 
             {reservasFiltradas.length === 0 && <p className={styles.emptyText}>No hay reservas pendientes ni pagadas activas.</p>}
             {reservasFiltradas.map(r => (
-            <div key={r.id} className={styles.card}>
-              <div className={styles.flexBetween}>
-                <div>
-                  <strong>{r.cabana?.nombre}</strong> — {r.usuario?.nombre} ({r.usuario?.email})
-                  <div className={styles.subText}>
-                    Llegada: {formatDateSafe(r.llegada)} → Salida: {formatDateSafe(r.salida)}
-                  </div>
-                  <div className={styles.subText2}>
-                    Reservado el: {formatDateSafe(r.createdAt)}
-                  </div>
-                  {r.usuario?.telefono && (
-                    <div className={styles.subText2}>
-                      Teléfono: {r.usuario?.telefono}
+              <div key={r.id} className={styles.card}>
+                <div className={styles.flexBetween}>
+                  <div>
+                    <strong>{r.cabana?.nombre}</strong> — {r.usuario?.nombre} ({r.usuario?.email})
+                    <div className={styles.subText}>
+                      Llegada: {formatDateSafe(r.llegada)} → Salida: {formatDateSafe(r.salida)}
                     </div>
-                  )}
-                  <div className={styles.badgeRow}>
-                    <span className={styles.badge} style={getBadgeStyle(r.estado)}>
-                      {r.estado === 'confirmada' ? 'Pagada / Confirmada' : r.estado === 'pendiente' ? 'Pendiente de Pago' : r.estado === 'cancelada' ? 'Cancelada' : 'Mantenimiento'}
-                    </span>
-                    <span className={styles.priceValue}>${r.total?.toLocaleString('es-CL')}</span>
+                    <div className={styles.subText2}>
+                      Reservado el: {formatDateSafe(r.createdAt)}
+                    </div>
+                    {r.usuario?.telefono && (
+                      <div className={styles.subText2}>
+                        Teléfono: {r.usuario?.telefono}
+                      </div>
+                    )}
+                    <div className={styles.badgeRow}>
+                      <span className={styles.badge} style={getBadgeStyle(r.estado)}>
+                        {r.estado === 'confirmada' ? 'Pagada / Confirmada' : r.estado === 'pendiente' ? 'Pendiente de Pago' : r.estado === 'cancelada' ? 'Cancelada' : 'Mantenimiento'}
+                      </span>
+                      <span className={styles.priceValue}>${r.total?.toLocaleString('es-CL')}</span>
+                    </div>
                   </div>
-                </div>
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                  {r.estado !== 'confirmada' && r.estado !== 'mantenimiento' && (
-                    <button 
-                      onClick={() => confirmarReservaManual(r.id)} 
-                      style={{ background: '#065F46', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
-                    >
-                      ✅ Aprobar / Confirmar Pago
-                    </button>
-                  )}
-                  {r.estado !== 'cancelada' && (
-                    <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
-                      Cancelar
-                    </button>
-                  )}
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    {r.estado !== 'confirmada' && r.estado !== 'mantenimiento' && (
+                      <button 
+                        onClick={() => confirmarReservaManual(r.id)} 
+                        style={{ background: '#065F46', color: '#fff', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: '600' }}
+                      >
+                        ✅ Aprobar / Confirmar Pago
+                      </button>
+                    )}
+                    {r.estado !== 'cancelada' && (
+                      <button onClick={() => cancelarReserva(r.id)} className={styles.smallDangerBtn}>
+                        Cancelar
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         )
       })()}
