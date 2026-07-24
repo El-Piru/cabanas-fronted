@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../api'
 import SEO from '../components/SEO'
 import styles from './PagoResultado.module.css'
 
@@ -12,11 +13,19 @@ export default function PagoResultado() {
   const externalReference = searchParams.get('external_reference')
 
   useEffect(() => {
-    // Si no hay status, volvemos a la vista principal
     if (!status) {
       navigate('/')
+      return
     }
-  }, [status, navigate])
+
+    if (status === 'success' && externalReference) {
+      fetch(`${BASE_URL}/pagos/confirmar-retorno`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ externalReference, status })
+      }).catch(console.error)
+    }
+  }, [status, externalReference, navigate])
 
   const renderContenido = () => {
     switch (status) {
