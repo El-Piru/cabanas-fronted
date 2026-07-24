@@ -69,6 +69,8 @@ export default function Admin() {
       console.error('Error al cargar datos del administrador:', error)
     }
   }
+  const [editandoFechas, setEditandoFechas] = useState(false)
+  const [nuevasFechas, setNuevasFechas] = useState({ llegada: '', salida: '' })
 
   const cancelarReserva = async (id) => {
     if (!confirm('¿Estás seguro de que deseas cancelar esta reserva?')) return
@@ -76,6 +78,50 @@ export default function Admin() {
     if (res.ok) {
       setSelectedReserva(null)
       cargarDatos()
+    }
+  }
+
+  const confirmarReservaManual = async (id) => {
+    if (!confirm('¿Deseas confirmar manualmente esta reserva y marcarla como PAGADA?')) return
+    try {
+      const res = await fetch(`${BASE_URL}/admin/reservas/${id}/confirmar`, { method: 'PUT', headers, credentials: 'include' }).then(r => r.json())
+      if (res.ok) {
+        alert('Reserva confirmada con éxito. Se envió el correo de confirmación al cliente.')
+        setSelectedReserva(null)
+        cargarDatos()
+      } else {
+        alert(res.mensaje || 'Error al confirmar la reserva.')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error de conexión al confirmar la reserva.')
+    }
+  }
+
+  const handleGuardarNuevasFechas = async () => {
+    if (!nuevasFechas.llegada || !nuevasFechas.salida) {
+      alert('Por favor selecciona ambas fechas (Entrada y Salida).')
+      return
+    }
+    try {
+      const res = await fetch(`${BASE_URL}/admin/reservas/${selectedReserva.id}/cambiar-fechas`, {
+        method: 'PUT',
+        headers,
+        credentials: 'include',
+        body: JSON.stringify(nuevasFechas)
+      }).then(r => r.json())
+
+      if (res.ok) {
+        alert('Fechas de reserva actualizadas exitosamente.')
+        setEditandoFechas(false)
+        setSelectedReserva(null)
+        cargarDatos()
+      } else {
+        alert(res.mensaje || 'Error al actualizar las fechas.')
+      }
+    } catch (err) {
+      console.error(err)
+      alert('Error de conexión al servidor.')
     }
   }
 
@@ -426,6 +472,45 @@ export default function Admin() {
                   </div>
                   <div><strong>Fecha Entrada:</strong> {new Date(selectedReserva.llegada).toLocaleDateString('es-CL')}</div>
                   <div><strong>Fecha Salida:</strong> {new Date(selectedReserva.salida).toLocaleDateString('es-CL')}</div>
+                  {editandoFechas && (
+                    <div style={{ background: '#FAF8F5', padding: '14px', borderRadius: '10px', border: '1.5px solid #204C72', margin: '12px 0' }}>
+                      <div style={{ fontWeight: '600', marginBottom: '8px', color: '#1A2E1B', fontSize: '0.9rem' }}>Selecciona el nuevo rango de fechas:</div>
+                      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '600', color: '#4A5E4C', marginBottom: '4px' }}>Nueva Entrada</label>
+                          <input 
+                            type="date" 
+                            value={nuevasFechas.llegada} 
+                            onChange={e => setNuevasFechas({ ...nuevasFechas, llegada: e.target.value })} 
+                            style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #ccc', fontFamily: 'inherit' }}
+                          />
+                        </div>
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '600', color: '#4A5E4C', marginBottom: '4px' }}>Nueva Salida</label>
+                          <input 
+                            type="date" 
+                            value={nuevasFechas.salida} 
+                            onChange={e => setNuevasFechas({ ...nuevasFechas, salida: e.target.value })} 
+                            style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #ccc', fontFamily: 'inherit' }}
+                          />
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <button 
+                          onClick={handleGuardarNuevasFechas} 
+                          style={{ background: '#2C4A2E', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem' }}
+                        >
+                          💾 Guardar Nuevas Fechas
+                        </button>
+                        <button 
+                          onClick={() => setEditandoFechas(false)} 
+                          style={{ background: '#E5E7EB', color: '#374151', border: 'none', padding: '8px 14px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.85rem' }}
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   {selectedReserva.estado !== 'mantenimiento' && (
                     <>
                       <div><strong>Total Tarifa:</strong> ${selectedReserva.total?.toLocaleString('es-CL')}</div>
@@ -438,6 +523,19 @@ export default function Admin() {
                 </div>
 
                 <div className={styles.modalActions}>
+                  {selectedReserva.estado !== 'cancelada' && !editandoFechas && (
+                    <button 
+                      onClick={() => {
+                        const lleg = new Date(selectedReserva.llegada).toISOString().split('T')[0]
+                        const sal = new Date(selectedReserva.salida).toISOString().split('T')[0]
+                        setNuevasFechas({ llegada: lleg, salida: sal })
+                        setEditandoFechas(true)
+                      }} 
+                      style={{ background: '#204C72', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
+                    >
+                      ✏️ Cambiar Fechas
+                    </button>
+                  )}
                   {selectedReserva.estado === 'pendiente' && (
                     <button 
                       onClick={() => confirmarReservaManual(selectedReserva.id)} 
