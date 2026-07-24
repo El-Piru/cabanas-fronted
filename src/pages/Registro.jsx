@@ -92,7 +92,7 @@ export default function Registro() {
                 type="tel"
                 value={form.telefono}
                 onChange={e => setForm({...form, telefono: e.target.value})}
-                placeholder="9 8669 8970"
+                placeholder="9 1234 5678"
                 className={styles.phoneInput}
               />
             </div>
