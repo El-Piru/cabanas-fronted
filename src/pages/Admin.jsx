@@ -267,7 +267,10 @@ const parseLocalDate = (dateVal) => {
     const checkDate = new Date(year, month, dia, 0, 0, 0, 0)
     
     return (reservas || []).find(r => {
-      if (!r || String(r.cabanaId) !== String(cabanaId) || r.estado?.toLowerCase() === 'cancelada') return false
+      if (!r || r.estado?.toLowerCase() === 'cancelada') return false
+      
+      const rCabId = r.cabanaId || r.cabana?.id
+      if (String(rCabId) !== String(cabanaId)) return false
       
       const llegada = parseLocalDate(r.llegada)
       const salida = parseLocalDate(r.salida)
