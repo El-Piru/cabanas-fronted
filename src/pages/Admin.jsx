@@ -250,19 +250,28 @@ export default function Admin() {
     return ["D", "L", "M", "M", "J", "V", "S"][dayOfWeek]
   }
 
+const parseLocalDate = (dateVal) => {
+  if (!dateVal) return null
+  if (typeof dateVal === 'string' && dateVal.includes('T')) {
+    const parts = dateVal.split('T')[0].split('-')
+    if (parts.length === 3) {
+      return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]), 0, 0, 0, 0)
+    }
+  }
+  const d = new Date(dateVal)
+  if (isNaN(d.getTime())) return null
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0)
+}
+
   const getReservaDelDia = (cabanaId, dia) => {
-    const checkDate = new Date(year, month, dia)
-    checkDate.setHours(0,0,0,0)
+    const checkDate = new Date(year, month, dia, 0, 0, 0, 0)
     
     return (reservas || []).find(r => {
-      if (!r || r.cabanaId !== cabanaId || r.estado === 'cancelada') return false
-      if (!r.llegada || !r.salida) return false
-      const llegada = new Date(r.llegada)
-      if (isNaN(llegada.getTime())) return false
-      llegada.setHours(0,0,0,0)
-      const salida = new Date(r.salida)
-      if (isNaN(salida.getTime())) return false
-      salida.setHours(0,0,0,0)
+      if (!r || String(r.cabanaId) !== String(cabanaId) || r.estado?.toLowerCase() === 'cancelada') return false
+      
+      const llegada = parseLocalDate(r.llegada)
+      const salida = parseLocalDate(r.salida)
+      if (!llegada || !salida) return false
       
       return checkDate >= llegada && checkDate < salida
     })
