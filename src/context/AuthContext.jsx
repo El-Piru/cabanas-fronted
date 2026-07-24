@@ -67,7 +67,7 @@ export function AuthProvider({ children }) {
     logout,
     eliminarCuenta,
     estaAutenticado: !!usuario,
-    esAdmin: usuario?.rol === 'admin'
+    esAdmin: usuario?.rol?.toLowerCase() === 'admin'
   }
 
   return (

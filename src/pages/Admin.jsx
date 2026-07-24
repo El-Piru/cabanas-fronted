@@ -606,7 +606,7 @@ export default function Admin() {
                   </div>
                   {r.usuario?.telefono && (
                     <div className={styles.subText2}>
-                      Teléfono: {r.usuario.telefono}
+                      Teléfono: {r.usuario?.telefono}
                     </div>
                   )}
                   <div className={styles.badgeRow}>
