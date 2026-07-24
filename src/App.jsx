@@ -5,40 +5,33 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 
-// Lazy load de páginas pesadas para code splitting
-const Home = lazy(() => import('./pages/Home'))
-const Login = lazy(() => import('./pages/Login'))
-const Registro = lazy(() => import('./pages/Registro'))
-const Reservas = lazy(() => import('./pages/Reservas'))
-const Reservar = lazy(() => import('./pages/Reservar'))
-const Admin = lazy(() => import('./pages/Admin'))
-const PagoResultado = lazy(() => import('./pages/PagoResultado'))
-const Terminos = lazy(() => import('./pages/Terminos'))
-const Privacidad = lazy(() => import('./pages/Privacidad'))
-const RecuperarPassword = lazy(() => import('./pages/RecuperarPassword'))
-const RestablecerPassword = lazy(() => import('./pages/RestablecerPassword'))
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Registro from './pages/Registro'
+import Reservas from './pages/Reservas'
+import Reservar from './pages/Reservar'
+import Admin from './pages/Admin'
+import PagoResultado from './pages/PagoResultado'
+import Terminos from './pages/Terminos'
+import Privacidad from './pages/Privacidad'
+import RecuperarPassword from './pages/RecuperarPassword'
+import RestablecerPassword from './pages/RestablecerPassword'
 
 function AppRoutes() {
   return (
-    <Suspense fallback={
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <div className="spinner" />
-      </div>
-    }>
-      <Routes>
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/reservar/:id" element={<Reservar />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
-        <Route path="/mis-reservas" element={<Reservas />} />
-        <Route path="/pago/resultado" element={<PagoResultado />} />
-        <Route path="/terminos-y-condiciones" element={<Terminos />} />
-        <Route path="/politica-de-privacidad" element={<Privacidad />} />
-        <Route path="/recuperar-password" element={<RecuperarPassword />} />
-        <Route path="/restablecer-password" element={<RestablecerPassword />} />
-      </Routes>
-    </Suspense>
+    <Routes>
+      <Route path="/admin" element={<Admin />} />
+      <Route path="/reservar/:id" element={<Reservar />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/registro" element={<Registro />} />
+      <Route path="/mis-reservas" element={<Reservas />} />
+      <Route path="/pago/resultado" element={<PagoResultado />} />
+      <Route path="/terminos-y-condiciones" element={<Terminos />} />
+      <Route path="/politica-de-privacidad" element={<Privacidad />} />
+      <Route path="/recuperar-password" element={<RecuperarPassword />} />
+      <Route path="/restablecer-password" element={<RestablecerPassword />} />
+    </Routes>
   )
 }
 
