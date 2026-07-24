@@ -521,7 +521,23 @@ const parseLocalDate = (dateVal) => {
                   <div><strong>Fecha Salida:</strong> {formatDateSafe(selectedReserva.salida)}</div>
                   {editandoFechas && (
                     <div style={{ background: '#FAF8F5', padding: '14px', borderRadius: '10px', border: '1.5px solid #204C72', margin: '12px 0' }}>
-                      <div style={{ fontWeight: '600', marginBottom: '8px', color: '#1A2E1B', fontSize: '0.9rem' }}>Selecciona el nuevo rango de fechas:</div>
+                      <div style={{ fontWeight: '600', marginBottom: '8px', color: '#1A2E1B', fontSize: '0.9rem' }}>Modificar Cabaña y Fechas de Reserva:</div>
+                      
+                      <div style={{ marginBottom: '10px' }}>
+                        <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '600', color: '#4A5E4C', marginBottom: '4px' }}>Cabaña Asignada</label>
+                        <select 
+                          value={nuevasFechas.cabanaId} 
+                          onChange={e => setNuevasFechas({ ...nuevasFechas, cabanaId: e.target.value })}
+                          style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc', fontFamily: 'inherit', fontWeight: '600' }}
+                        >
+                          {cabanasArray.map(c => (
+                            <option key={c.id} value={c.id}>
+                              {c.nombre} ({c.capacidad} personas) — ${c.precio?.toLocaleString('es-CL')}/noche
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
                       <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '12px' }}>
                         <div>
                           <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '600', color: '#4A5E4C', marginBottom: '4px' }}>Nueva Entrada</label>
@@ -547,7 +563,7 @@ const parseLocalDate = (dateVal) => {
                           onClick={handleGuardarNuevasFechas} 
                           style={{ background: '#2C4A2E', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '6px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem' }}
                         >
-                          💾 Guardar Nuevas Fechas
+                          💾 Guardar Cambios
                         </button>
                         <button 
                           onClick={() => setEditandoFechas(false)} 
@@ -575,12 +591,16 @@ const parseLocalDate = (dateVal) => {
                       onClick={() => {
                         const lleg = new Date(selectedReserva.llegada).toISOString().split('T')[0]
                         const sal = new Date(selectedReserva.salida).toISOString().split('T')[0]
-                        setNuevasFechas({ llegada: lleg, salida: sal })
+                        setNuevasFechas({ 
+                          llegada: lleg, 
+                          salida: sal, 
+                          cabanaId: String(selectedReserva.cabanaId || selectedReserva.cabana?.id || '') 
+                        })
                         setEditandoFechas(true)
                       }} 
                       style={{ background: '#204C72', color: '#fff', border: 'none', padding: '10px 18px', borderRadius: '8px', cursor: 'pointer', fontWeight: '600' }}
                     >
-                      ✏️ Cambiar Fechas
+                      ✏️ Cambiar Cabaña / Fechas
                     </button>
                   )}
                   {selectedReserva.estado !== 'confirmada' && selectedReserva.estado !== 'mantenimiento' && (
