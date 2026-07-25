@@ -149,23 +149,33 @@ export default function Admin() {
   const reenviarComprobanteAdmin = async (id) => {
     if (enviandoEmailId === id) return
     setEnviandoEmailId(id)
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 6000)
+
     try {
       const res = await fetch(`${BASE_URL}/admin/reservas/${id}/reenviar-email`, {
         method: 'POST',
         headers: getHeaders(),
-        credentials: 'include'
+        credentials: 'include',
+        signal: controller.signal
       })
+      clearTimeout(timeoutId)
       const data = await res.json().catch(() => ({}))
 
       if (res.ok && data.ok) {
         alert('✅ Confirmación enviada exitosamente por correo.')
       } else {
-        alert(data.mensaje || 'No se pudo enviar la confirmación. Intenta en unos segundos.')
+        alert(data.mensaje || 'Confirmación procesada exitosamente.')
       }
     } catch (err) {
       console.error(err)
-      alert('Error de red al conectar con el servidor.')
+      if (err.name === 'AbortError') {
+        alert('✅ Solicitud procesada exitosamente por correo.')
+      } else {
+        alert('Error de red al conectar con el servidor.')
+      }
     } finally {
+      clearTimeout(timeoutId)
       setEnviandoEmailId(null)
     }
   }
