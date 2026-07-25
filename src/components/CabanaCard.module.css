@@ -117,8 +117,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(24, 37, 53, 0.65);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 33, 0.85); /* Un poco más oscuro para suplir el blur */
   display: flex;
   align-items: center;
   justify-content: center;
