@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import DisponibilidadCalendario from './DisponibilidadCalendario'
 import styles from './CabanaCard.module.css'
 
 const DETALLES_POR_CAPACIDAD = {
@@ -273,6 +274,7 @@ const renderAnimatedCabin = (capacidad, forceWindowOn = false) => {
 export default function CabanaCard({ cabana }) {
   const navigate = useNavigate()
   const [mostrarModal, setMostrarModal] = useState(false)
+  const [mostrarCalendario, setMostrarCalendario] = useState(false)
 
   // Cerrar modal con Escape
   useEffect(() => {
@@ -434,16 +436,17 @@ export default function CabanaCard({ cabana }) {
 
               {/* Footer info & CTA */}
               <div className={styles.modalFooter}>
-                <div>
+                <div className={styles.modalPriceContainer}>
                   <span className={styles.modalPriceLabel}>Precio por Noche</span>
                   <span className={styles.modalPriceValue}>${cabana.precio.toLocaleString('es-CL')}</span>
                 </div>
+
                 <div className={styles.modalButtons}>
                   <button
-                    onClick={() => setMostrarModal(false)}
-                    className={styles.modalCloseActionBtn}
+                    onClick={() => setMostrarCalendario(!mostrarCalendario)}
+                    className={styles.modalCalendarBtn}
                   >
-                    Cerrar
+                    {mostrarCalendario ? 'Ocultar Disponibilidad' : '📅 Ver Disponibilidad'}
                   </button>
                   <button
                     onClick={() => {
@@ -454,8 +457,23 @@ export default function CabanaCard({ cabana }) {
                   >
                     Reservar Ahora
                   </button>
+                  <button
+                    onClick={() => {
+                      setMostrarModal(false)
+                      setMostrarCalendario(false)
+                    }}
+                    className={styles.modalCloseActionBtn}
+                  >
+                    Cerrar
+                  </button>
                 </div>
               </div>
+
+              {mostrarCalendario && (
+                <div className={styles.calendarioExpandible}>
+                  <DisponibilidadCalendario capacidad={cabana.capacidad} />
+                </div>
+              )}
             </div>
           </div>
         </div>

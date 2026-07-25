@@ -1,0 +1,122 @@
+.calendarContainer {
+  margin-top: 20px;
+  background: #FAF8F5;
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid #ECE8E0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+  overflow-x: auto;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #5A6A5C;
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(44, 74, 46, 0.2);
+  border-top-color: #2C4A2E;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.calendarWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Sobrescribir react-datepicker para que encaje con el diseño */
+.calendarWrapper :global(.react-datepicker) {
+  border: none;
+  font-family: inherit;
+  background: transparent;
+}
+
+.calendarWrapper :global(.react-datepicker__header) {
+  background: #2C4A2E;
+  border-bottom: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding-top: 10px;
+}
+
+.calendarWrapper :global(.react-datepicker__current-month),
+.calendarWrapper :global(.react-datepicker-time__header),
+.calendarWrapper :global(.react-datepicker-year-header) {
+  color: #FAF8F5;
+  font-weight: 600;
+}
+
+.calendarWrapper :global(.react-datepicker__day-name) {
+  color: rgba(250, 248, 245, 0.8);
+}
+
+.calendarWrapper :global(.react-datepicker__day) {
+  border-radius: 50%;
+  width: 2rem;
+  line-height: 2rem;
+  margin: 0.166rem;
+}
+
+.diaLibre {
+  background-color: transparent !important;
+  color: #1A2E1B !important;
+}
+
+.diaLibre:hover {
+  background-color: #E2EAE3 !important;
+}
+
+.diaOcupado {
+  background-color: #FEE2E2 !important;
+  color: #991B1B !important;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.leyenda {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #5A6A5C;
+}
+
+.leyendaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.leyendaBox {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.leyendaLibre {
+  background-color: #E2EAE3;
+  border: 1px solid #C8D8C9;
+}
+
+.leyendaOcupada {
+  background-color: #FEE2E2;
+  border: 1px solid #FCA5A5;
+}
