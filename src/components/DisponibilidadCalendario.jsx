@@ -47,6 +47,16 @@ export default function DisponibilidadCalendario({ capacidad }) {
         </div>
       ) : (
         <div className={styles.calendarWrapper}>
+          <div className={styles.leyenda}>
+            <div className={styles.leyendaItem}>
+              <div className={`${styles.leyendaBox} ${styles.leyendaLibre}`}></div>
+              <span>Disponible</span>
+            </div>
+            <div className={styles.leyendaItem}>
+              <div className={`${styles.leyendaBox} ${styles.leyendaOcupada}`}></div>
+              <span>Agotado</span>
+            </div>
+          </div>
           <DatePicker
             locale="es"
             inline
@@ -58,16 +68,6 @@ export default function DisponibilidadCalendario({ capacidad }) {
               verificarOcupada(date) ? styles.diaOcupado : styles.diaLibre
             }
           />
-          <div className={styles.leyenda}>
-            <div className={styles.leyendaItem}>
-              <div className={`${styles.leyendaBox} ${styles.leyendaLibre}`}></div>
-              <span>Disponible</span>
-            </div>
-            <div className={styles.leyendaItem}>
-              <div className={`${styles.leyendaBox} ${styles.leyendaOcupada}`}></div>
-              <span>Agotado</span>
-            </div>
-          </div>
         </div>
       )}
     </div>
