@@ -41,11 +41,22 @@
   align-items: center;
 }
 
-/* Sobrescribir react-datepicker para que encaje con el diseño */
 .calendarWrapper :global(.react-datepicker) {
   border: none;
   font-family: inherit;
   background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.calendarWrapper :global(.react-datepicker__month-container) {
+  float: none;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .calendarWrapper :global(.react-datepicker__header) {
@@ -61,6 +72,7 @@
 .calendarWrapper :global(.react-datepicker-year-header) {
   color: #FAF8F5;
   font-weight: 600;
+  padding-bottom: 5px;
 }
 
 .calendarWrapper :global(.react-datepicker__day-name) {
