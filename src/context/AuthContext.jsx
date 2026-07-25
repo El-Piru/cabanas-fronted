@@ -11,8 +11,9 @@ export function AuthProvider({ children }) {
   // Cargar sesión guardada al montar
   useEffect(() => {
     try {
-      const tokenGuardado = localStorage.getItem('token')
-      const usuarioGuardado = JSON.parse(localStorage.getItem('usuario') || 'null')
+      const tokenGuardado = localStorage.getItem('token') || sessionStorage.getItem('token')
+      const usuarioString = localStorage.getItem('usuario') || sessionStorage.getItem('usuario')
+      const usuarioGuardado = JSON.parse(usuarioString || 'null')
       if (tokenGuardado && usuarioGuardado) {
         setToken(tokenGuardado)
         setUsuario(usuarioGuardado)
@@ -21,15 +22,22 @@ export function AuthProvider({ children }) {
       console.error('Error al leer sesión guardada:', e)
       localStorage.removeItem('token')
       localStorage.removeItem('usuario')
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('usuario')
     }
     setCargandoAuth(false)
   }, [])
 
-  const login = useCallback(async (datos) => {
+  const login = useCallback(async (datos, recordar = true) => {
     const res = await api.login(datos)
     if (res.ok) {
-      localStorage.setItem('token', res.token)
-      localStorage.setItem('usuario', JSON.stringify(res.usuario))
+      if (recordar) {
+        localStorage.setItem('token', res.token)
+        localStorage.setItem('usuario', JSON.stringify(res.usuario))
+      } else {
+        sessionStorage.setItem('token', res.token)
+        sessionStorage.setItem('usuario', JSON.stringify(res.usuario))
+      }
       setToken(res.token)
       setUsuario(res.usuario)
     }
@@ -44,6 +52,8 @@ export function AuthProvider({ children }) {
     }
     localStorage.removeItem('token')
     localStorage.removeItem('usuario')
+    sessionStorage.removeItem('token')
+    sessionStorage.removeItem('usuario')
     setToken(null)
     setUsuario(null)
   }, [])
@@ -53,6 +63,8 @@ export function AuthProvider({ children }) {
     if (res.ok) {
       localStorage.removeItem('token')
       localStorage.removeItem('usuario')
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('usuario')
       setToken(null)
       setUsuario(null)
     }

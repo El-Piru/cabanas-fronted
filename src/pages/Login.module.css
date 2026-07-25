@@ -106,6 +106,28 @@
   font-family: inherit;
 }
 
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #2B5880;
+}
+
+.checkboxLabel {
+  font-size: 0.85rem;
+  color: #5A6A5C;
+  cursor: pointer;
+  user-select: none;
+}
+
 .submitBtn {
   width: 100%;
   background: #2B5880;

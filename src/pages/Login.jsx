@@ -11,13 +11,14 @@ export default function Login() {
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
   const [mostrarPassword, setMostrarPassword] = useState(false)
+  const [recordarSesion, setRecordarSesion] = useState(true)
   
   const handleSubmit = async (e) => {
     e.preventDefault()
     setCargando(true)
     setError('')
     try {
-      const res = await login(form)
+      const res = await login(form, recordarSesion)
       if (res.ok) {
         navigate('/')
       } else {
@@ -54,6 +55,18 @@ export default function Login() {
               </button>
             </div>
           </div>
+
+          <div className={styles.checkboxGroup}>
+            <input 
+              type="checkbox" 
+              id="recordar" 
+              checked={recordarSesion} 
+              onChange={(e) => setRecordarSesion(e.target.checked)} 
+              className={styles.checkbox}
+            />
+            <label htmlFor="recordar" className={styles.checkboxLabel}>Mantener mi sesión iniciada en este dispositivo</label>
+          </div>
+
           <button type="submit" disabled={cargando} className={styles.submitBtn}>
             {cargando ? 'Ingresando...' : 'Ingresar'}
           </button>
