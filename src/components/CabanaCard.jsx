@@ -348,133 +348,127 @@ export default function CabanaCard({ cabana }) {
           aria-label={`Equipamiento Cabaña ${cabana.capacidad} personas`}
           onClick={() => setMostrarModal(false)}
         >
-          <div 
-            className={styles.modalContainer}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Cabin Illustration header */}
-            <div className={styles.modalSvgContainer}>
-              {renderAnimatedCabin(cabana.capacidad, true)}
-              
-              {/* Close Button */}
-              <button
-                onClick={() => setMostrarModal(false)}
-                className={styles.modalCloseBtn}
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className={styles.modalContent}>
-              <span className={styles.modalBadge}>
-                Equipamiento Detallado
-              </span>
-              <h2 className={styles.modalTitle}>
-                {cabana.nombre}
-              </h2>
-              <p className={styles.modalDescription}>
-                {cabana.descripcion}
-              </p>
-
-              {/* Detailed features list */}
-              <div className={styles.featuresList}>
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C01C1C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M2 4v16M2 8h20v12M2 17h20M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className={styles.featureTitle}>
-                      {detalles.tituloDormitorios || 'Dormitorios'}
-                    </h4>
-                    {detalles.lineasCamas ? (
-                      <div>
-                        {detalles.lineasCamas.map((linea, idx) => (
-                          <p key={idx} className={styles.featureText}>
-                            {linea}
-                          </p>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className={styles.featureTextSingle}>{detalles.dormitorios}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#204C72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z" />
-                      <path d="M6 12V5a3 3 0 0 1 6 0v1" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className={styles.featureTitle}>Baños</h4>
-                    <p className={styles.featureTextSingle}>{detalles.banos}</p>
-                  </div>
-                </div>
-
-                <div className={styles.featureItem}>
-                  <div className={styles.featureIcon}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#204C72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className={styles.featureTitle}>Servicios Incluidos</h4>
-                    <p className={styles.featureTextSingle}>{detalles.servicios}</p>
-                  </div>
-                </div>
-
-                <div className={styles.noteContainer}>
-                  <h4 className={styles.noteTitle}>NOTA</h4>
-                  <p className={styles.noteText}>No está incluido sábanas y toallas.</p>
-                </div>
+          <div className={styles.modalLayoutWrapper} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalContainer}>
+              {/* Modal Cabin Illustration header */}
+              <div className={styles.modalSvgContainer}>
+                {renderAnimatedCabin(cabana.capacidad, true)}
+                
+                {/* Close Button */}
+                <button
+                  onClick={() => {
+                    setMostrarModal(false)
+                    setMostrarCalendario(false)
+                  }}
+                  className={styles.modalCloseBtn}
+                >
+                  ✕
+                </button>
               </div>
 
-              {/* Footer info & CTA */}
-              <div className={styles.modalFooter}>
-                <div className={styles.modalPriceContainer}>
-                  <span className={styles.modalPriceLabel}>Precio por Noche</span>
-                  <span className={styles.modalPriceValue}>${cabana.precio.toLocaleString('es-CL')}</span>
+              {/* Content */}
+              <div className={styles.modalContent}>
+                <span className={styles.modalBadge}>
+                  Equipamiento Detallado
+                </span>
+                <h2 className={styles.modalTitle}>
+                  {cabana.nombre}
+                </h2>
+                <p className={styles.modalDescription}>
+                  {cabana.descripcion}
+                </p>
+
+                {/* Detailed features list */}
+                <div className={styles.featuresList}>
+                  <div className={styles.featureItem}>
+                    <div className={styles.featureIcon}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C01C1C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 4v16M2 8h20v12M2 17h20M6 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className={styles.featureTitle}>
+                        {detalles.tituloDormitorios || 'Dormitorios'}
+                      </h4>
+                      {detalles.lineasCamas ? (
+                        <div>
+                          {detalles.lineasCamas.map((linea, idx) => (
+                            <p key={idx} className={styles.featureText}>
+                              {linea}
+                            </p>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className={styles.featureTextSingle}>{detalles.dormitorios}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className={styles.featureItem}>
+                    <div className={styles.featureIcon}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#204C72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z" />
+                        <path d="M6 12V5a3 3 0 0 1 6 0v1" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className={styles.featureTitle}>Baños</h4>
+                      <p className={styles.featureTextSingle}>{detalles.banos}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.featureItem}>
+                    <div className={styles.featureIcon}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#204C72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className={styles.featureTitle}>Servicios Incluidos</h4>
+                      <p className={styles.featureTextSingle}>{detalles.servicios}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.noteContainer}>
+                    <h4 className={styles.noteTitle}>NOTA</h4>
+                    <p className={styles.noteText}>No está incluido sábanas y toallas.</p>
+                  </div>
                 </div>
 
-                <div className={styles.modalButtons}>
-                  <button
-                    onClick={() => setMostrarCalendario(!mostrarCalendario)}
-                    className={styles.modalCalendarBtn}
-                  >
-                    {mostrarCalendario ? 'Ocultar Disponibilidad' : '📅 Ver Disponibilidad'}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setMostrarModal(false)
-                      navigate(`/reservar/${cabana.capacidad}`)
-                    }}
-                    className={styles.modalBookBtn}
-                  >
-                    Reservar Ahora
-                  </button>
-                  <button
-                    onClick={() => {
-                      setMostrarModal(false)
-                      setMostrarCalendario(false)
-                    }}
-                    className={styles.modalCloseActionBtn}
-                  >
-                    Cerrar
-                  </button>
+                {/* Footer info & CTA */}
+                <div className={styles.modalFooter}>
+                  <div className={styles.modalPriceContainer}>
+                    <span className={styles.modalPriceLabel}>Precio por Noche</span>
+                    <span className={styles.modalPriceValue}>${cabana.precio.toLocaleString('es-CL')}</span>
+                  </div>
+
+                  <div className={styles.modalButtons}>
+                    <button
+                      onClick={() => setMostrarCalendario(!mostrarCalendario)}
+                      className={styles.modalCalendarBtn}
+                    >
+                      {mostrarCalendario ? 'Ocultar Disponibilidad' : '📅 Ver Disponibilidad'}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setMostrarModal(false)
+                        navigate(`/reservar/${cabana.capacidad}`)
+                      }}
+                      className={styles.modalBookBtn}
+                    >
+                      Reservar Ahora
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              {mostrarCalendario && (
-                <div className={styles.calendarioExpandible}>
-                  <DisponibilidadCalendario capacidad={cabana.capacidad} />
-                </div>
-              )}
             </div>
+
+            {/* Calendar Side Panel */}
+            {mostrarCalendario && (
+              <div className={styles.calendarSidePanel}>
+                <DisponibilidadCalendario capacidad={cabana.capacidad} />
+              </div>
+            )}
           </div>
         </div>
       )}
