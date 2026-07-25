@@ -274,7 +274,6 @@ const renderAnimatedCabin = (capacidad, forceWindowOn = false) => {
 export default function CabanaCard({ cabana }) {
   const navigate = useNavigate()
   const [mostrarModal, setMostrarModal] = useState(false)
-  const [mostrarCalendario, setMostrarCalendario] = useState(false)
 
   // Cerrar modal con Escape
   useEffect(() => {
@@ -348,22 +347,23 @@ export default function CabanaCard({ cabana }) {
           aria-label={`Equipamiento Cabaña ${cabana.capacidad} personas`}
           onClick={() => setMostrarModal(false)}
         >
-          <div className={styles.modalLayoutWrapper} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalContainer}>
+          <div 
+            className={styles.modalContainer}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Botón Cerrar Global (Mobile: top right, Desktop: top right of right pane) */}
+            <button
+              onClick={() => setMostrarModal(false)}
+              className={styles.modalCloseBtn}
+            >
+              ✕
+            </button>
+
+            {/* PANEL IZQUIERDO: Info de Cabaña */}
+            <div className={styles.modalLeftPane}>
               {/* Modal Cabin Illustration header */}
               <div className={styles.modalSvgContainer}>
                 {renderAnimatedCabin(cabana.capacidad, true)}
-                
-                {/* Close Button */}
-                <button
-                  onClick={() => {
-                    setMostrarModal(false)
-                    setMostrarCalendario(false)
-                  }}
-                  className={styles.modalCloseBtn}
-                >
-                  ✕
-                </button>
               </div>
 
               {/* Content */}
@@ -444,12 +444,6 @@ export default function CabanaCard({ cabana }) {
 
                   <div className={styles.modalButtons}>
                     <button
-                      onClick={() => setMostrarCalendario(!mostrarCalendario)}
-                      className={styles.modalCalendarBtn}
-                    >
-                      {mostrarCalendario ? 'Ocultar Disponibilidad' : '📅 Ver Disponibilidad'}
-                    </button>
-                    <button
                       onClick={() => {
                         setMostrarModal(false)
                         navigate(`/reservar/${cabana.capacidad}`)
@@ -463,12 +457,12 @@ export default function CabanaCard({ cabana }) {
               </div>
             </div>
 
-            {/* Calendar Side Panel */}
-            {mostrarCalendario && (
-              <div className={styles.calendarSidePanel}>
-                <DisponibilidadCalendario capacidad={cabana.capacidad} />
-              </div>
-            )}
+            {/* PANEL DERECHO: Calendario */}
+            <div className={styles.modalRightPane}>
+              <h3 className={styles.calendarPaneTitle}>Consulte disponibilidad</h3>
+              <DisponibilidadCalendario capacidad={cabana.capacidad} />
+            </div>
+
           </div>
         </div>
       )}
