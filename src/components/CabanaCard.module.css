@@ -359,8 +359,14 @@
   90% { opacity: 0; }
   100% { transform: translateY(-45px) scale(1.8); opacity: 0; }
 }
-.smokeP1 { animation: floatSmoke1 3s infinite linear; }
-.smokeP2 { animation: floatSmoke2 3s infinite linear 1.5s; }
+.smokeP1 { 
+  animation: floatSmoke1 3s infinite linear; 
+  will-change: transform, opacity; 
+}
+.smokeP2 { 
+  animation: floatSmoke2 3s infinite linear 1.5s; 
+  will-change: transform, opacity; 
+}
 
 .modalCalendarBtn {
   background: #E8F5E9;
